@@ -6,8 +6,7 @@ This Discord bot utilizes OpenAI's GPT models and provides additional functional
 
 Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can provide instant answers to questions, assist with research, and facilitate discussions on various topics. Discord bots integrated with OpenAI's GPT models can enhance collaboration within teams and projects. They can help generate ideas, provide suggestions, and assist with brainstorming sessions.
 
-<iframe src="https://player.vimeo.com/video/845117509?h=3e2fab4158" width="640" height="1138" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-<p><a href="https://vimeo.com/845117509">Ai-Powered Discord Bots</a> from <a href="https://vimeo.com/user202560930">Samuel Cavazos</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot%202023-07-14%205.20.08%20PM.png?raw=True" alt="Image Description">
 
 Discord servers dedicated to programming, technology, or data science can leverage an OpenAI-powered bot for code assistance, troubleshooting, and answering technical queries. Discord servers centered around creative writing, storytelling, or roleplaying can use a bot with OpenAI's GPT models to generate prompts, develop characters, and facilitate interactive storytelling experiences. Gaming communities can incorporate an OpenAI-powered bot into their Discord server to provide in-game tips, strategies, and assist with game-related queries.
 
