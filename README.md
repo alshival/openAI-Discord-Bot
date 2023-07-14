@@ -1,6 +1,7 @@
 
 #  openAI Discord Bot 
 ### [Alshival's Data Service](https://alshival.com)
+Demo: [Vimeo](https://vimeo.com/845117509)
 
 This Discord bot utilizes OpenAI's GPT models and provides additional functionalities like setting reminders and playing music. Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience.
 
