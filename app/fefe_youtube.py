@@ -85,7 +85,11 @@ async def fefe_youtube(bot,ctx,message,model,db_conn):
             part="id,snippet",
             maxResults=1
         ).execute()
-        search_result = [x for x in search_response.get("items",[]) if x["id"]["kind"] == "youtube#video"][0]
+        try:
+            search_result = [x for x in search_response.get("items",[]) if x["id"]["kind"] == "youtube#video"][0]
+        except:
+            await ctx.send("I wasn't able to find any results for that query, perhaps due to copyright issues. Try searching again or searcing for something else.")
+            return
         
         video_url = f"""https://youtu.be/{search_result["id"]["videoId"]}"""
         video_title = f"""### {search_result["snippet"]["title"]}"""
