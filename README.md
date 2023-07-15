@@ -46,9 +46,9 @@ Discord servers dedicated to programming, technology, or data science can levera
    ```
 
 ### Install the required dependencies:
-We suggest installing the bot's python dependencies in a virtual environment:
+We suggest installing the bot's python dependencies in a virtual environment. 
+To install on a linux machine or linux subsystem:
 
-  - Open your command-line interface (e.g., Terminal on macOS/Linux or Command Prompt on Windows).
   - Navigate to the directory where your `requirements.txt` file is located.
      ```
      cd /path/to/your/openAi-Discord-Bot/
