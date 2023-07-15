@@ -105,7 +105,7 @@ For any other cases, use `!label_last other`.
 
 ### Retraining
 
-Once you have labeled a series of prompts, a server administrator can initiate the retraining of the Keras layer by running the command `!retrain_keras`. This process will utilize the labeled data to fine-tune the model and enhance its performance. After retraining, the bot should have an improved understanding of the labeled categories and provide more accurate responses.
+Once you have labeled a series of prompts, a Discord server administrator can initiate the retraining of the Keras layer from within Discord by running the command `!retrain_keras`. This process will utilize the labeled data to fine-tune the model and enhance its performance. After retraining, the bot should have an improved understanding of the labeled categories and provide more accurate responses.
 
 By incorporating this training and retraining workflow, you can actively contribute to refining the bot's capabilities and ensuring a better user experience over time.
 ## Contributing
