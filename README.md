@@ -26,42 +26,43 @@ Discord servers dedicated to programming, technology, or data science can levera
   - `!clear_reminders`: Clear all reminders set by the user.
   - `!retrain_keras`: Retrain the Keras layer. (Only accessible to server administrators)
 
-## Installation
+# Installation
+### Set up bot on Discord
+- Set up your bot on the [Discord Developer Portal](https://discord.com/developers/applications) and invite it to your server.
+- In the bot's settings, you can customize various options such as its username, profile picture, and permissions. Make sure to at least enable the "Presence Intent" and "Server Members Intent" if your bot requires them.
+- Under the "Token" section, click on the "Copy" button to copy your bot token. This token is
 
-1. Set up your bot on the [Discord Developer Portal](https://discord.com/developers/applications) and invite it to your server.
-2. In the bot's settings, you can customize various options such as its username, profile picture, and permissions. Make sure to at least enable the "Presence Intent" and "Server Members Intent" if your bot requires them.
-3. Under the "Token" section, click on the "Copy" button to copy your bot token. This token is
+### Set environmental variables
+- Set the environmental variables referenced in `app/config.py`:
 
-4. Clone the repository:
+   - `DISCORD_BOT_TOKEN`
+   - `OPENAI_API_KEY`
+   - `google_api_key` (Need Youtube Data API enabled for music playback)
+### Clone Repository
+- Clone the repository:
 
    ```shell
    gh repo clone alshival/openAi-Discord-Bot
    ```
 
-5. Install the required dependencies:
+- Install the required dependencies:
      - will complete soon.
 
-6. Set the environmental variables referenced in `app/config.py`:
-
-   - `DISCORD_BOT_TOKEN`
-   - `OPENAI_API_KEY`
-   - `google_api_key` (Need Youtube Data API enabled for music playback)
-
-7. Run the bot:
+### Run the bot:
 
    ```shell
    python3 bot.py
    ```
    
-8. Your bot should now be running and ready to connect to Discord. To invite your bot to a server, go back to the Discord Developer Portal.
-9. Select your application and go to the "OAuth2" section in the left sidebar.
-10. In the "Scopes" section, select the "bot" checkbox.
-11. In the "Bot Permissions" section, choose the necessary permissions your bot requires. These permissions determine what actions your bot can perform in a server.
-12. Once you have selected the desired permissions, a URL will be generated under the "Scopes" section.
-13. Copy the generated URL and open it in a web browser.
-14. Select the server where you want to invite your bot and click "Authorize."
-15. Complete any additional steps or permissions requested by Discord.
-16. If everything goes well, your bot should be added to the selected server and ready to use.
+- Your bot should now be running and ready to connect to Discord. To invite your bot to a server, go back to the Discord Developer Portal.
+- Select your application and go to the "OAuth2" section in the left sidebar.
+- In the "Scopes" section, select the "bot" checkbox.
+- In the "Bot Permissions" section, choose the necessary permissions your bot requires. These permissions determine what actions your bot can perform in a server.
+- Once you have selected the desired permissions, a URL will be generated under the "Scopes" section.
+- Copy the generated URL and open it in a web browser.
+- Select the server where you want to invite your bot and click "Authorize."
+- Complete any additional steps or permissions requested by Discord.
+- If everything goes well, your bot should be added to the selected server and ready to use.
 
 ## Training the Keras Layer
 
