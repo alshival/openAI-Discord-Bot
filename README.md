@@ -49,19 +49,22 @@ Discord servers dedicated to programming, technology, or data science can levera
 We suggest installing the bot's python dependencies in a virtual environment. 
 To install on a linux machine or linux subsystem:
 
-  - Navigate to the directory where your `requirements.txt` file is located.
-     ```
+  - Navigate to the directory where your `requirements.txt` file is located:
+     ```shell
      cd /path/to/your/openAi-Discord-Bot/
+     ```
+     
+  - Create and activate the virtual environment:
+     ```
      python3 -m venv env
-     source env/bin/activate
-     pip3 install -r requirements.txt
+     source env/bin/activate\
      ```
 
-- Run the following command to install the packages:
-   ```shell
-   pip3 install -r requirements.txt
-   deactivate # deactivates the virtual environment
-   ```
+  - Run the following command to install the packages:
+     ```shell
+     pip3 install -r requirements.txt
+     deactivate # deactivates the virtual environment
+     ```
    
 Wait for the installation to complete. Pip will read the `requirements.txt` file and automatically download and install the packages listed within it, along with their dependencies.
 
@@ -78,7 +81,10 @@ First activate the virtual environment:
   python3 bot.py
   ```
 
-- Your bot should now be running and ready to connect to Discord. To invite your bot to a server, go back to the Discord Developer Portal.
+- Your bot should now be running and ready to connect to Discord.
+
+### Inviting the bot to the server
+To invite your bot to a server, go back to the Discord Developer Portal:
 - Select your application and go to the "OAuth2" section in the left sidebar.
 - In the "Scopes" section, select the "bot" checkbox.
 - In the "Bot Permissions" section, choose the necessary permissions your bot requires. These permissions determine what actions your bot can perform in a server.
