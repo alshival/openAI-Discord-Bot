@@ -66,14 +66,14 @@ Discord servers dedicated to programming, technology, or data science can levera
 
 ## Training the Keras Layer
 
-#### Data Collection
+### Data Collection
 Out of the box, the bot may make mistakes or misunderstand certain prompts. However, you can help improve its accuracy by providing feedback on its responses. When the bot misinterprets your request or gives an incorrect response, you can let it know by running the command `!label_last <label>`, where `<label>` represents the appropriate category for the prompt.
 
 If you were asking the bot to play music, use `!label_last youtube`.
 If you were asking the bot to set a reminder, use `!label_last reminder`.
 For any other cases, use `!label_last other`.
 
-#### Retraining
+### Retraining
 
 Once you have labeled a series of prompts, a server administrator can initiate the retraining of the Keras layer by running the command `!retrain_keras`. This process will utilize the labeled data to fine-tune the model and enhance its performance. After retraining, the bot should have an improved understanding of the labeled categories and provide more accurate responses.
 
@@ -82,6 +82,6 @@ By incorporating this training and retraining workflow, you can actively contrib
 
 Contributions are welcome! If you have any ideas, suggestions, or bug reports, please email [support@alshival.com](mailto:support@alshival.com?subject=openAI%20Discord%20Bot), open an issue, or submit a pull request.
 
-## License
+# License
 
-[License](LICENSE)
+[Creative Commons Zero v1.0 Universal](LICENSE)
