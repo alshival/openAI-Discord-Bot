@@ -46,7 +46,7 @@ Discord servers dedicated to programming, technology, or data science can levera
 5. Run the bot:
 
    ```shell
-   python bot.py
+   python3 bot.py
    ```
 
 ## Training the Keras Layer
