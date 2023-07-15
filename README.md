@@ -46,18 +46,22 @@ Discord servers dedicated to programming, technology, or data science can levera
    ```
 
 ### Install the required dependencies:
-- Open your command-line interface (e.g., Terminal on macOS/Linux or Command Prompt on Windows).- Navigate to the directory where your `requirements.txt` file is located. You can use the `cd` command to change directories. For example:
-   ```
-   cd /path/to/your/project
-   ```
+If you wish to use a virtual environment to install these packages, open a linux console:
+
+  - Open your command-line interface (e.g., Terminal on macOS/Linux or Command Prompt on Windows).- Navigate to the directory where your `requirements.txt` file is located. You can use the `cd` command to change directories. For example:
+     ```
+     cd /path/to/your/openAi-Discord-Bot/
+     python3 -m venv env
+     source env/bin/activate
+     pip3 install -r requirements.txt
+     ```
+
 - Once you are in the correct directory, run the following command to install the packages:
-   ```
-   pip install -r requirements.txt
-   ```
-   If you have multiple versions of Python installed, you may need to use `pip3` instead of `pip` to ensure installation for the correct Python version:
-   ```
+   ```shell
    pip3 install -r requirements.txt
+   deactivate # deactivates the virtual environment
    ```
+   
 Wait for the installation to complete. Pip will read the `requirements.txt` file and automatically download and install the packages listed within it, along with their dependencies.
 
 After successful installation, you should have all the required packages available for your Discord bot. You can then proceed with running your bot.
@@ -65,6 +69,7 @@ After successful installation, you should have all the required packages availab
 ### Run the bot:
 
    ```shell
+   source env/bin/activate
    python3 bot.py
    ```
    
