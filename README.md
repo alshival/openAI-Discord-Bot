@@ -3,7 +3,7 @@
 ### [Alshival's Data Service](https://alshival.com)
 Demo: [Vimeo](https://vimeo.com/845117509)
 
-This Discord bot utilizes OpenAI's GPT models and provides additional functionalities like setting reminders and playing music with the help of a sqlite database, a keras layer, and Google's Youtube. Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. For personal use.
+This Discord bot utilizes OpenAI's GPT models and provides additional functionalities like setting reminders and playing music with the help of a sqlite database, a keras layer, and Google's Youtube. Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. For personal use, a group of friends, a study group, or for project management. 
 
 Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can provide instant answers to questions, assist with research, and facilitate discussions on various topics. Discord bots integrated with OpenAI's GPT models can enhance collaboration within teams and projects. They can help generate ideas, provide suggestions, and assist with brainstorming sessions.
 
