@@ -46,9 +46,10 @@ Discord servers dedicated to programming, technology, or data science can levera
    ```
 
 ### Install the required dependencies:
-If you wish to use a virtual environment to install these packages, open a linux console:
+We suggest installing the bot's python dependencies in a virtual environment:
 
-  - Open your command-line interface (e.g., Terminal on macOS/Linux or Command Prompt on Windows).- Navigate to the directory where your `requirements.txt` file is located. You can use the `cd` command to change directories. For example:
+  - Open your command-line interface (e.g., Terminal on macOS/Linux or Command Prompt on Windows).
+  - Navigate to the directory where your `requirements.txt` file is located.
      ```
      cd /path/to/your/openAi-Discord-Bot/
      python3 -m venv env
@@ -56,7 +57,7 @@ If you wish to use a virtual environment to install these packages, open a linux
      pip3 install -r requirements.txt
      ```
 
-- Once you are in the correct directory, run the following command to install the packages:
+- Run the following command to install the packages:
    ```shell
    pip3 install -r requirements.txt
    deactivate # deactivates the virtual environment
@@ -67,12 +68,16 @@ Wait for the installation to complete. Pip will read the `requirements.txt` file
 After successful installation, you should have all the required packages available for your Discord bot. You can then proceed with running your bot.
 
 ### Run the bot:
+First activate the virtual environment:
+ ```shell
+ source env/bin/activate
+ ```
 
-   ```shell
-   source env/bin/activate
-   python3 bot.py
-   ```
-   
+ Then start the bot with the following:
+  ```shell
+  python3 bot.py
+  ```
+
 - Your bot should now be running and ready to connect to Discord. To invite your bot to a server, go back to the Discord Developer Portal.
 - Select your application and go to the "OAuth2" section in the left sidebar.
 - In the "Scopes" section, select the "bot" checkbox.
