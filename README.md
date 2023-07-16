@@ -57,7 +57,7 @@ To install on a linux machine or linux subsystem:
   - Create and activate the virtual environment:
      ```
      python3 -m venv env
-     source env/bin/activate\
+     source env/bin/activate
      ```
 
   - Run the following command to install the packages:
