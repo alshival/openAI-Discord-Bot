@@ -10,7 +10,8 @@ async def create_prompts_table():
     cursor = await conn.cursor()
 
     # Create the 'prompts' table if it doesn't already exist
-    await cursor.execute('''CREATE TABLE IF NOT EXISTS prompts
+    await cursor.execute(
+        '''CREATE TABLE IF NOT EXISTS prompts
                   (id INTEGER PRIMARY KEY AUTOINCREMENT,
                   username TEXT NOT NULL,
                   prompt TEXT NOT NULL,
@@ -19,7 +20,8 @@ async def create_prompts_table():
                   channel_id TEXT,
                   channel_name TEXT,
                   keras_classified_as TEXT,
-                  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
+                  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
+                  ''')
 
     # Commit the changes and close the connection
     await conn.commit()

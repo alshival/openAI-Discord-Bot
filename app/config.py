@@ -1,4 +1,5 @@
 import os
+import pickle
 import discord
 from discord.ext import commands,tasks
 
@@ -34,12 +35,19 @@ import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Embedding, GlobalMaxPooling1D
 from tensorflow.keras.optimizers import Adam
+from keras.layers import Flatten
+from keras.models import load_model
 # Number of training epochs for the keras layer.
 epochs = 25
 
 
 # Define the labels for task assignment in the Keras model
-keras_labels = ['other', 'reminder', 'youtube']
+keras_labels = ['other', 'reminder', 'reminder-lookup','youtube']
+feature_display_text = """
+`!label_last reminder` - If your request was about a reminder.
+`!label_last youtube` - For youtube requests.
+`!label_last other` - For all other requests.
+"""
 
 # Note for developers:
 # When adding new features that require task assignment in the Keras model,

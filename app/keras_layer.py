@@ -18,89 +18,261 @@ async def train_keras():
     # make sure to update the list of labels accordingly in conjunction with the changes made in app/keras_layer.py.
     
     sample_data = {
+    # This first example is code. The purpose is to push `max_sequence_length` to 2000, which is the standard character limit for Discord.
+    # For longer text, Fefe will ask you to retrain to increase `max_sequence_length`.
         """
-        organize this code for me with comments.
-        
-        **`config.py`**
         ```
-        import openai
-        db_name = 'app/data.db' # Where you wish to store the bot data. 
+        import discord
+        from discord.ext import commands,tasks
+        
+        from app.config import *
         
         
-        openai.api_key = os.environ.get("OPENAI_API_KEY") # Set up the OpenAI API. The key is stored as an environment variable for security reasons. 
+        # Set up the bot with '!' as the command prefix. 
+        # It is set to listen and respond to all types of intents in the server. 
+        # You can change the command prefix by replacing '!' with your preferred symbol.
+        bot = commands.Bot(command_prefix="!",intents=discord.Intents.all())
         
-        google_api_key = os.environ.get("google_api_key") # Set up the Google Youtube Data API key. For youtube searching and playback.
+        ########################################################################
+        # Bot Boot Sequence
+        ########################################################################
+        from app.bot_functions import *
+        from app.keras_layer import *
         
-        epochs = 25 # Number of training epochs for the keras layer.
+        # Create the prompts table if needed when the bot starts up
+        asyncio.get_event_loop().run_until_complete(create_prompts_table())
+        # Create the labeled_prompts table if needed when the bot starts up
+        asyncio.get_event_loop().run_until_complete(create_labeled_prompts_table())
+        # Create the reminders table if needed when the bot starts up
+        asyncio.get_event_loop().run_until_complete(create_reminder_table())
+        # train the keras layer
+        asyncio.get_event_loop().run_until_complete(train_keras())
         
-        prompt_table_cache_size = 200 # Number of prompts stored in the local SQLite database. The table is truncated when the bot starts up.
+        ########################################################################
+        # Bot Commands
+        ########################################################################
+        from app.fefe import *
         
-        #############################################
-        # KERAS LAYER - Task Assignment
-        #############################################
+        @bot.command()
+        async def fefe(ctx,*,message):
+            await talk_to_fefe(ctx,message,bot)
+        # Used to label the last prompt you sent. 
+        @bot.command()
+        async def label_last(ctx,label):
+            await label_last_prompt(ctx,label)
         
-        # Define the labels for task assignment in the Keras model
-        keras_labels = ['other', 'reminder', 'youtube']
+        # '!clear_reminders` command 
+        @bot.command()
+        async def clear_reminders(ctx):
+            await clear_user_reminders(ctx)
         
-        # Note for developers:
-        # When adding new features that require task assignment in the Keras model,
-        # make sure to update this list of labels accordingly in conjunction with the changes made in app/keras_layer.py.
+        # '!retrain_keras' command to retrain the model. Must be run by an administrator.
+        @bot.command()
+        async def retrain_keras(ctx):
+            if ctx.message.author.guild_permissions.administrator:
+                await ctx.send('Training. Standby...')
+                await train_keras()
+                await ctx.send('Training complete.')
+            else:
+                await ctx.send('Please contact a server admin to update the keras layer')
+        # Thi
         ```
         """: 'other',
+    # Sample Training Data for Reminders
         'Remind me to pick up the kids in 45 minutes': 'reminder',
         'Remind me to turn in my homework at midnight': 'reminder',
-        "What's your favorite color?": 'other',
-        'Remind me to call mom at 3pm.': 'reminder',
-        'Can you send me the report?': 'other',
-        'Buy tickets for the concert': 'other',
-        'Remind me to pick up some milk later.': 'reminder',
-        'Remind us to study for the final exam next week.': 'reminder',
-        'remind me to fix my essay in an hour.': 'reminder',
-        'remind me to throw my shoes away in three days.': 'reminder',
-        'About how many atoms are there in the universe?': 'other',
-        'Remind me to feed the dog at 6pm.': 'reminder',
-        "Let's play a game.": 'other',
-        'Can you turn on the TV?': 'other',
-        'Remind me to check my email after dinner.': 'reminder',
-        "What's the weather like today?": 'other',
-        'Remind me to take my medicine at 8am.': 'reminder',
-        "Let's order pizza for dinner.": 'other',
-        'Remind me to water the plants tomorrow morning.': 'reminder',
-        'How many planets are there in our solar system?': 'other',
-        "Remind me to book a doctor's appointment next Monday.": 'reminder',
-        'Can you find a good recipe for spaghetti bolognese?': 'other',
-        'Remind me to charge my phone.': 'reminder',
-        'Who won the basketball game last night?': 'other',
-        'Remind me to finish my online course this weekend.': 'reminder',
-        'Can you tell me a joke?': 'other',
-        'Remind me to call the plumber tomorrow.': 'reminder',
-        "What's the capital of Australia?": 'other',
-        "Remind me to renew my driver's license next month.": 'reminder',
-        'Remind me to buy groceries on the way home.': 'reminder',
-        'What time is it?': 'other',
-        'Remind me to pick up my dry cleaning this afternoon.': 'reminder',
-        'Who won the Oscar for Best Picture last year?': 'other',
-        'Remind me to check the oven in 30 minutes.': 'reminder',
-        'Can you recommend a good book?': 'other',
-        'Remind me to schedule a team meeting for next Tuesday.': 'reminder',
-        "What's the score of the baseball game?": 'other',
-        'Remind me to fill up the car with gas tomorrow.': 'reminder',
-        'Can you find the fastest route to the airport?': 'other',
-        'Remind me to pay the electric bill by the end of the week.': 'reminder',
-        'Who is the president of the United States?': 'other',
-        'Remind me to update my resume this weekend.': 'reminder',
-        'Can you play my favorite song?': 'other',
-        'Remind me to check in for my flight 24 hours before departure.': 'reminder',
-        'What are the ingredients in a Caesar salad?': 'other',
-        "Remind me to bring my umbrella if it's going to rain tomorrow.": 'reminder',
-        'How do you make a margarita?': 'other',
-        'In a short answer, tell me how to write pi/2 as an infinite sum.': 'other',
-        'Play Spirit in the Sky.': 'youtube',
-        'I want to listen to Jay-Z': 'youtube',
-        'Can you find a video explaining how quantum computers work?': 'youtube',
-        'Play the phantom of the opera.': 'youtube',
-        'play a song from the guardians of the galaxy soundtrack.': 'youtube',
-        'can you find a video about the mathematics of neural networks?': 'youtube'}
+        'When is my project due?': 'reminder',
+        'Remind me to call my friend in an hour': 'reminder',
+        'When is the deadline for my job application?': 'reminder',
+        'Remind me to take the dog for a walk at 6pm': 'reminder',
+        'When is my meeting with the client?': 'reminder',
+        'Remind me to pay the bills by the end of the day': 'reminder',
+        'When do I need to submit the report?': 'reminder',
+        'Remind me to buy groceries tomorrow': 'reminder',
+        'When is my doctor\'s appointment?': 'reminder',
+        'Remind me to water the plants in the morning': 'reminder',
+        'When is the parent-teacher meeting?': 'reminder',
+        'Remind me to check my email in 30 minutes': 'reminder',
+        'When do I have to return my library books?': 'reminder',
+        'Remind me to pick up my sister from the airport on Friday': 'reminder',
+        'what are my reminders?':'reminder',
+        'When is the deadline for my project proposal?': 'reminder',
+        'Remind me to take out the trash tonight': 'reminder',
+        'When do I have to RSVP for the party?': 'reminder',
+        'Remind me to water the plants every Sunday': 'reminder',
+        'Remind me to submit the assignment by tomorrow': 'reminder',
+        'When is the due date for the rent payment?': 'reminder',
+        'Remind me to call the insurance company tomorrow': 'reminder',
+        'When do I have to pick up the package from the post office?': 'reminder',
+        'Remind me to do laundry this evening': 'reminder',
+        'When is my training session?': 'reminder',
+        'Remind me to submit the project by the end of the week': 'reminder',
+        'When do I need to submit the reimbursement form?': 'reminder',
+        'Remind me to water the plants every Tuesday': 'reminder',
+        'Remind me to pay the bills on the 15th': 'reminder',
+        'When is the due date for my tax filing?': 'reminder',
+        'Remind me to buy a gift for my friend\'s birthday': 'reminder',
+        'Remind me to pick up the kids from school at 3pm': 'reminder',
+        'When is the deadline for my project?': 'reminder',
+        'Remind me to schedule a dentist appointment next week': 'reminder',
+        'When do I need to submit the expense report?': 'reminder',
+        'Remind me to buy a gift for my anniversary': 'reminder',
+        'When is my meeting with the project team?': 'reminder',
+        'Remind me to take my medication at 8am': 'reminder',
+        'When is the due date for my rent payment?': 'reminder',
+        'Remind me to call the client tomorrow morning': 'reminder',
+        'When do I have to pick up the dry cleaning?': 'reminder',
+        'Remind me to water the plants every Monday and Thursday': 'reminder',
+        'When is the parent-teacher conference?': 'reminder',
+        'Remind me to pay the electricity bill by Friday': 'reminder',
+        'When do I need to submit the final report?': 'reminder',
+        'Remind me to feed the dog before leaving the house': 'reminder',
+        'When is the deadline for my scholarship application?': 'reminder',
+        'Remind me to attend the team meeting on Wednesday': 'reminder',
+        'When do I have to pick up the package from the courier?': 'reminder',
+        'Remind me to check my email in the afternoon': 'reminder',
+        'When is my doctor\'s appointment for my annual check-up?': 'reminder',
+        'Remind me to return the borrowed books to the library': 'reminder',
+        'When do I need to submit the project proposal?': 'reminder',
+        'Remind me to call my parents on their anniversary': 'reminder',
+        'When is the due date for my credit card payment?': 'reminder',
+        'Remind me to study for the exam tomorrow': 'reminder',
+        'When do I have to pick up the tickets for the concert?': 'reminder',
+        'Remind me to water the plants every Wednesday': 'reminder',
+        'Remind me to take out the trash every Tuesday and Friday': 'reminder',
+        'When do I need to submit the monthly sales report?': 'reminder',
+        'Remind me to schedule a meeting with the project manager': 'reminder',
+        'Remind me to submit the application before the closing time': 'reminder',
+        'When do I have to pick up my passport from the embassy?': 'reminder',
+        'Remind me to do the laundry on Saturday': 'reminder',
+        'Remind me to submit the assignment before the end of the day': 'reminder',
+        'When do I need to pick up the rental car for my trip?': 'reminder',
+    # Sample training data for youtube requests
+        'Play 1999 by Charli XCX': 'youtube',
+        'Search YouTube for the latest news': 'youtube',
+        'Play Bohemian Rhapsody by Queen': 'youtube',
+        'Find a tutorial on how to knit a scarf on YouTube': 'youtube',
+        'Play Sweet Child o\' Mine by Guns N\' Roses': 'youtube',
+        'Search YouTube for funny cat videos': 'youtube',
+        'Play Shape of You by Ed Sheeran': 'youtube',
+        'Find a video explaining how to make a paper airplane on YouTube': 'youtube',
+        'Play Hotel California by Eagles': 'youtube',
+        'Search YouTube for the trailer of the new Avengers movie': 'youtube',
+        'Play Thriller by Michael Jackson': 'youtube',
+        'Find a video about the benefits of meditation on YouTube': 'youtube',
+        'Play Billie Jean by Michael Jackson': 'youtube',
+        'Search YouTube for a documentary on space exploration': 'youtube',
+        'Play Smells Like Teen Spirit by Nirvana': 'youtube',
+        'Find a video tutorial on how to do makeup on YouTube': 'youtube',
+        'Play Imagine by John Lennon': 'youtube',
+        'Search YouTube for a workout routine for beginners': 'youtube',
+        'Play Stairway to Heaven by Led Zeppelin': 'youtube',
+        'Find a video about the history of Ancient Egypt on YouTube': 'youtube',
+        'Play Uptown Funk by Mark Ronson ft. Bruno Mars': 'youtube',
+        'Search YouTube for a travel vlog about Paris': 'youtube',
+        'Play Hey Jude by The Beatles': 'youtube',
+        'Find a video tutorial on how to cook a vegan lasagna on YouTube': 'youtube',
+        'Play Smokey Robinson - Tracks Of My Tears': 'youtube',
+        'Search YouTube for a documentary on climate change': 'youtube',
+        'Play Thrift Shop by Macklemore & Ryan Lewis': 'youtube',
+        'Find a video tutorial on how to style short hair on YouTube': 'youtube',
+        'Play Hallelujah by Leonard Cohen': 'youtube',
+        'Search YouTube for highlights of the FIFA World Cup': 'youtube',
+        'Play Wonderwall by Oasis': 'youtube',
+        'Find a video about the history of Ancient Greece on YouTube': 'youtube',
+    # Sample training data for other requests
+        "What's the capital of France?": 'other',
+        "How do you make a chocolate cake?": 'other',
+        "What time does the museum open?": 'other',
+        "Who is the author of the Harry Potter series?": 'other',
+        "Can you recommend a good restaurant in this area?": 'other',
+        "What's the latest news on the stock market?": 'other',
+        "Where can I find information about local events?": 'other',
+        "How do I reset my password?": 'other',
+        "Is there a post office nearby?": 'other',
+        "What's the best way to learn a new language?": 'other',
+        "Where can I find the nearest gas station?": 'other',
+        "Can you recommend a good movie to watch?": 'other',
+        "What's the current exchange rate for USD to EUR?": 'other',
+        "Where can I buy tickets for a concert?": 'other',
+        "Can you give me directions to the nearest hospital?": 'other',
+        "Is there a good book club in this area?": 'other',
+        "Where can I find a reliable plumber?": 'other',
+        "Can you suggest some fun activities to do on the weekend?": 'other',
+        "What's the best way to get rid of stains on clothes?": 'other',
+        "Where can I find the best coffee in town?": 'other',
+        "Can you recommend a good hiking trail nearby?": 'other',
+        "What's the average temperature in this city during summer?": 'other',
+        "Where can I find the nearest ATM?": 'other',
+        "Can you tell me more about the history of this place?": 'other',
+        "What's the best way to take care of indoor plants?": 'other',
+        "Where can I find information about local public transportation?": 'other',
+        "Can you recommend a good website for learning programming?": 'other',
+        "What's the best way to stay motivated while studying?": 'other',
+        "Where can I find a reliable mechanic for my car?": 'other',
+        "Can you suggest some interesting podcasts to listen to?": 'other',
+        "What's the best way to save money on groceries?": 'other',
+        "Where can I find a good yoga studio in this area?": 'other',
+        "Can you recommend a good place to go for a weekend getaway?": 'other',
+        "What's the best way to protect my computer from viruses?": 'other',
+        "Where can I find information about local tourist attractions?": 'other',
+        "Can you suggest some tips for improving productivity at work?": 'other',
+        "What's the best way to train for a marathon?": 'other',
+        "Where can I find the best pizza in town?": 'other',
+        "Can you recommend a good online course for learning photography?": 'other',
+        "What's the best way to organize a closet?": 'other',
+        "Where can I find the nearest pharmacy?": 'other',
+        "Can you suggest some good TED Talks to watch?": 'other',
+        "What's the best way to manage stress?": 'other',
+        "Where can I find information about local art galleries?": 'other',
+        "Can you recommend a good workout routine for beginners?": 'other',
+        "When did the battle of the Alamo happen?": 'other',
+        "When was the Declaration of Independence signed?": 'other',
+        "When did World War II end?": 'other',
+        "When was the first moon landing?": 'other',
+        "When is the next full moon?": 'other',
+        "When did the Battle of Waterloo take place?": 'other',
+        "When was the signing of the Magna Carta?": 'other',
+        "When did the French Revolution begin?": 'other',
+        "When was the fall of the Berlin Wall?": 'other',
+        "When did the American Civil War start?": 'other',
+        "When was the Renaissance period?": 'other',
+        "When was the construction of the Great Wall of China completed?": 'other',
+        "When did the Black Death pandemic occur?": 'other',
+        "When was the Boston Tea Party?": 'other',
+        "When did the Industrial Revolution begin?": 'other',
+        """
+        What's wrong with my code?
+        
+        ```
+        def calculate_average(numbers):
+        total = 0
+        for num in numbers:
+        total += num
+        average = total / len(numbers)
+        return average
+        
+        numbers = [1, 2, 3, 4, 5]
+        result = calculate_average(numbers)
+        print(result)
+        ```
+        """:'other',
+        """
+        How can I optimize this code?
+        ```
+        def find_duplicates(nums):
+        duplicates = []
+        for i in range(len(nums)):
+        if nums[i] in nums[i+1:]:
+        duplicates.append(nums[i])
+        return duplicates
+        
+        numbers = [1, 2, 3, 4, 5, 3, 6, 7, 8, 4, 9]
+        duplicates = find_duplicates(numbers)
+        print(duplicates)
+        ```
+        """:'other',
+    }
 
     messages = list(sample_data.keys())
     labels = list(sample_data.values())

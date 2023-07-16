@@ -14,19 +14,26 @@ bot = commands.Bot(command_prefix="!",intents=discord.Intents.all())
 ########################################################################
 from app.bot_functions import *
 from app.keras_layer import *
+from app.fefe import *
 
 # Create the prompts table if needed when the bot starts up
 asyncio.get_event_loop().run_until_complete(create_prompts_table())
 # Create the labeled_prompts table if needed when the bot starts up
 asyncio.get_event_loop().run_until_complete(create_labeled_prompts_table())
+
+# train the main keras layer
+asyncio.get_event_loop().run_until_complete(train_keras())
+
 # Create the reminders table if needed when the bot starts up
 asyncio.get_event_loop().run_until_complete(create_reminder_table())
-# train the keras layer
-asyncio.get_event_loop().run_until_complete(train_keras())
+# Load the reminders layer
+asyncio.get_event_loop().run_until_complete(load_reminder_layer())
+
+
+
 ########################################################################
 # Bot Commands
 ########################################################################
-from app.fefe import *
 
 @bot.command()
 async def fefe(ctx,*,message):
