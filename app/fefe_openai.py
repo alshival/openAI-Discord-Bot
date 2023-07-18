@@ -17,7 +17,7 @@ async def fefe_openai(ctx,message,model,db_conn):
     for prompt, response in past_prompts:
         messages.extend([{'role': 'user', 'content': prompt}, {'role': 'assistant', 'content': response}])
     messages.append({'role': 'user', 'content': message})
-
+    
     # Generate a response using the 'gpt-3.5-turbo' model
     response = openai.ChatCompletion.create(
         model=model,

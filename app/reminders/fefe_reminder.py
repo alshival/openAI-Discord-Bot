@@ -62,6 +62,9 @@ async def train_reminder_layer():
         'Remind me to renew my subscription before it expires': 'reminder',
         'Remind me to set up a meeting with the client': 'reminder',
     # Looking Up Reminders
+        'what are my reminders?':'reminder-lookup',
+        'What reminders have I set?': 'reminder-lookup',
+        'Any reminders?':'reminder-lookup',
         'When is my project due?': 'reminder-lookup',
         'When is the deadline for the job application?': 'reminder-lookup',
         'When is the meeting with the client?': 'reminder-lookup',
