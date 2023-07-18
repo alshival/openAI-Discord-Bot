@@ -20,11 +20,12 @@ Discord servers dedicated to programming, technology, or data science can levera
 ## Usage
 
 - Use the command prefix `!` to interact with the bot.
-- Example commands:
+- Commands:
   - `!fefe <message>`: Chat with the bot using OpenAI's GPT models.
   - `!label_last <label>`: Label the last prompt you sent.
   - `!clear_reminders`: Clear all reminders set by the user.
   - `!retrain_keras`: Retrain the Keras layer. (Only accessible to server administrators)
+  - `!stop_music`: Used to stop music playback in voice channels.
 
 # Installation
 ### Set up bot on Discord
