@@ -260,22 +260,22 @@ async def train_keras():
     ############################################
     #---------------------------------------------
     # Check if `data.db` has labeled_prompts table
-    conn = sqlite3.connect(db_name)
+    conn = await create_connection()
     conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
+    cursor = await conn.cursor()
     # Execute the query to retrieve the table names
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
-    tables = cursor.fetchall()
+    await cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    tables = await cursor.fetchall()
     tables = [table[0] for table in tables]
     if 'labeled_prompts' in tables:
-        cursor.execute("select prompt,label from labeled_prompts")
-        rows = cursor.fetchall()
+        await cursor.execute("select prompt,label from labeled_prompts")
+        rows = await cursor.fetchall()
         if rows is not None:
             dict_rows = [dict(row) for row in rows]
             messages += [row['prompt'] for row in dict_rows]
             labels += [row['label'] for row in dict_rows]
         
-    conn.close()
+    await conn.close()
     
     ############################################
     #  Preprocessing
