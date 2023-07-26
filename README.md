@@ -121,6 +121,8 @@ Out of the box, the bot may make mistakes or misunderstand certain prompts. Howe
 * If you were requesting a financial chart, use `!label_last stock-chart`.
 * For any other cases, use `!label_last other`.
 
+Once you have collected prompts you wish to include in training the keras layer, an administrator can run `!retrain_keras` to retrain the layer. Plans to replace this layer with a small local pretrained language model are in the works. We need a local layer for relaying tasks, as depending on an API may slow down the bot as we must wait for a response. This is why the bot was designed to use openAi's API only once when using `!fefe`.
+
 ### Retraining
 
 Once you have labeled a series of prompts, a Discord server administrator can initiate the retraining of the Keras layer from within Discord by running the command `!retrain_keras`. This process will utilize the labeled data to fine-tune the model and enhance its performance. After retraining, the bot should have an improved understanding of the labeled categories and provide more accurate responses.
