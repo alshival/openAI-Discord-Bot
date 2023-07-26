@@ -1,9 +1,10 @@
-
-#  openAI Discord Bot 
+# openAI Discord Bot with Market Research Analysis
 ### [Alshival's Data Service](https://alshival.com)
 Demo: [Vimeo](https://vimeo.com/845117509)
 
-This Discord bot utilizes OpenAI's GPT models and provides additional functionalities like setting reminders and playing music with the help of a sqlite database, a keras layer, and Google's Youtube. Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. For personal use, a group of friends, a study group, or for project management. 
+This Discord bot utilizes OpenAI's GPT models and provides additional functionalities like setting reminders, playing music with the help of a sqlite database, a keras layer, and Google's Youtube. It now also includes a Market Research Analysis feature, which allows you to create financial charts using yfinance and mix charts with regression lines.
+
+Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered.
 
 Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can provide instant answers to questions, assist with research, and facilitate discussions on various topics. Discord bots integrated with OpenAI's GPT models can enhance collaboration within teams and projects. They can help generate ideas, provide suggestions, and assist with brainstorming sessions.
 
@@ -15,7 +16,8 @@ Discord servers dedicated to programming, technology, or data science can levera
 
 - Chat with the bot using OpenAI's GPT models
 - Ask the bot to set reminders for you.
-- Ask the bot to play music through voice channels
+- Ask the bot to play music through voice channels.
+- Perform Market Research Analysis using yfinance to create financial charts and mix charts with regression lines.
 
 ## Usage
 
@@ -109,6 +111,7 @@ For any other cases, use `!label_last other`.
 Once you have labeled a series of prompts, a Discord server administrator can initiate the retraining of the Keras layer from within Discord by running the command `!retrain_keras`. This process will utilize the labeled data to fine-tune the model and enhance its performance. After retraining, the bot should have an improved understanding of the labeled categories and provide more accurate responses.
 
 By incorporating this training and retraining workflow, you can actively contribute to refining the bot's capabilities and ensuring a better user experience over time.
+
 ## Contributing
 
 Contributions are welcome! If you have any ideas, suggestions, or bug reports, please email [support@alshival.com](mailto:support@alshival.com?subject=openAI%20Discord%20Bot), open an issue, or submit a pull request.
