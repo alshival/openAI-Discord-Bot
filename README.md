@@ -5,7 +5,7 @@ This Discord bot utilizes OpenAI's GPT models and provides additional functional
 
 Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered.
 
-Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can set reminders, play music, and create financial charts using natural language. Since Ai can make mistakes, the python code used to generate the charts is returned as well, so that you can verify their results. 
+Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can set reminders, play music, and create financial charts using natural language. Since Ai can make mistakes, the python code used to generate the charts is returned within a python dictionary suitable for fine-tuning an openAi model for better performance. 
 <!DOCTYPE html>
 <html>
 <body>
