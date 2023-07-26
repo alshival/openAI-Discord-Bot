@@ -8,7 +8,7 @@ Created by [Alshival's Data Service](https://alshival.com) to enhance your Disco
 
 Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can provide instant answers to questions, assist with research, and facilitate discussions on various topics. Discord bots integrated with OpenAI's GPT models can enhance collaboration within teams and projects. They can help generate ideas, provide suggestions, and assist with brainstorming sessions.
 
-<img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot%202023-07-14%205.20.08%20PM.png?raw=True" alt="Image Description">
+<img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-23 10.44.32 PM (1).png?raw=True" alt="Image Description">
 
 Discord servers dedicated to programming, technology, or data science can leverage an OpenAI-powered bot for code assistance, troubleshooting, and answering technical queries. Discord servers centered around creative writing, storytelling, or roleplaying can use a bot with OpenAI's GPT models to generate prompts, develop characters, and facilitate interactive storytelling experiences. Gaming communities can incorporate an OpenAI-powered bot into their Discord server to provide in-game tips, strategies, and assist with game-related queries.
 
@@ -102,9 +102,10 @@ To invite your bot to a server, go back to the Discord Developer Portal:
 ### Data Collection
 Out of the box, the bot may make mistakes or misunderstand certain prompts. However, you can help improve its accuracy by providing feedback on its responses. When the bot misinterprets your request or gives an incorrect response, you can let it know by running the command `!label_last <label>`, where `<label>` represents the appropriate category for the prompt.
 
-If you were asking the bot to play music, use `!label_last youtube`.
-If you were asking the bot to set a reminder, use `!label_last reminder`.
-For any other cases, use `!label_last other`.
+* If you were asking the bot to play music, use `!label_last youtube`.
+* If you were asking the bot to set a reminder, use `!label_last reminder`.
+* If you were requesting a financial chart, use `!label_last stock-chart`.
+* For any other cases, use `!label_last other`.
 
 ### Retraining
 
