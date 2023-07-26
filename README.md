@@ -24,7 +24,7 @@ Discord servers can leverage an OpenAI-powered bot for code assistance, troubles
 - Use the command prefix `!` to interact with the bot.
 - Commands:
   - `!fefe <message>`: Chat with the bot using OpenAI's GPT models.
-  - `!label_last <label>`: Label the last prompt you sent.
+  - `!label_last <label>`: Label the last prompt you sent to train the keras layer.
   - `!clear_reminders`: Clear all reminders set by the user.
   - `!retrain_keras`: Retrain the Keras layer. (Only accessible to server administrators)
   - `!stop_music`: Used to stop music playback in voice channels.
