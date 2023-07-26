@@ -37,7 +37,7 @@ async def store_prompt(db_conn, username, prompt, model, response, channel_name,
 # This function is used to fetch past conversations from the 'prompts' table.
 async def fetch_prompts(db_conn, channel_name, limit):
     async with db_conn.cursor() as cursor:
-        await cursor.execute('SELECT prompt, response FROM prompts WHERE channel_name = ? ORDER BY timestamp DESC LIMIT ?', (channel_name, limit,))
+        await cursor.execute('SELECT prompt, response FROM prompts WHERE channel_name = ?  and keras_classified_as != "stock-chart" ORDER BY timestamp DESC LIMIT ?', (channel_name, limit,))
         return await cursor.fetchall()
         
 #############################################
@@ -83,7 +83,7 @@ async def label_last_db(ctx,db_conn, label):
             await cursor.execute(insert_query,
                                  tuple([last_row[key] for key in last_row.keys()] + [label]))
             await db_conn.commit()
-            await ctx.send(f"Last prompt labeled as: {label} - {last_row['prompt']}")
+            await send_chunks(ctx,f"Last prompt labeled as: {label} - {last_row['prompt']}")
 
 # '!label_last' command to correctly label the last prompt.
 async def label_last_prompt(ctx,label):

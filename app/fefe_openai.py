@@ -1,15 +1,6 @@
 from app.config import *
 from app.bot_functions import *
 
-# Used to abide by Discord's 2000 character limit.
-async def send_chunks(ctx, text):
-    chunk_size = 2000  # Maximum length of each chunk
-
-    chunks = [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
-
-    for chunk in chunks:
-        await ctx.send(chunk)
-
 async def fefe_openai(ctx,message,model,db_conn):
     past_prompts = await fetch_prompts(db_conn, ctx.channel.name, 5)  # Fetch the last 5 prompts and responses
     messages = []

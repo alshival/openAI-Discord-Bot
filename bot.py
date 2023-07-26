@@ -13,7 +13,7 @@ bot = commands.Bot(command_prefix="!",intents=discord.Intents.all())
 # Bot Boot Sequence
 ########################################################################
 from app.bot_functions import *
-from app.keras_layer import *
+from app.keras import tasks_layer
 from app.fefe import *
 
 # Create the prompts table if needed when the bot starts up
@@ -22,7 +22,7 @@ asyncio.get_event_loop().run_until_complete(create_prompts_table())
 asyncio.get_event_loop().run_until_complete(create_labeled_prompts_table())
 
 # train the main keras layer
-asyncio.get_event_loop().run_until_complete(train_keras())
+asyncio.get_event_loop().run_until_complete(tasks_layer.load_tasks_layer())
 
 # Create the reminders table if needed when the bot starts up
 asyncio.get_event_loop().run_until_complete(create_reminder_table())
@@ -53,7 +53,7 @@ async def clear_reminders(ctx):
 async def retrain_keras(ctx):
     if ctx.message.author.guild_permissions.administrator:
         await ctx.send('Training. Standby...')
-        await train_keras()
+        await tasks_layer.train_tasks_layer()
         await ctx.send('Training complete.')
     else:
         await ctx.send('Please contact a server admin to update the keras layer')

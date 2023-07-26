@@ -1,6 +1,6 @@
 from app.config import *
 from app.bot_functions import *
-from app.keras_layer import classify_prompt
+from app.keras import tasks_layer
 
 # For creating reminders
 from app.reminders.fefe_reminder import *
@@ -8,6 +8,7 @@ from app.reminders.fefe_reminder import *
 from app.fefe_openai import *
 # For searching youtube
 from app.fefe_youtube import *
+from app.stocks import fefe_stock
 
 async def talk_to_fefe(ctx, message,bot):
 
@@ -18,11 +19,12 @@ async def talk_to_fefe(ctx, message,bot):
     
     channel_name = ctx.channel.name
     try:
-        message_category = await classify_prompt(message)
+        message_category = await tasks_layer.classify_prompt(message)
         message_classified =True
     except Exception as e:
         # Capture the error message
         error_message = str(e)
+        print(error_message)
         print(type(message))
         print(message)
         await ctx.send(f"""
@@ -42,3 +44,5 @@ async def talk_to_fefe(ctx, message,bot):
     # Bot's youtube capabilities
     elif message_category == 'youtube':
         await fefe_youtube(bot,ctx,message,model,db_conn)
+    elif message_category == 'stock-chart':
+        await fefe_stock.stock(ctx,message,model,db_conn)

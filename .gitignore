@@ -1,3 +1,7 @@
+*.pkl
+*.keras
+*.ipynb
+
 # Byte-compiled / optimized / DLL files
 openAI-Discord-Bot.py
 __pycache__/
