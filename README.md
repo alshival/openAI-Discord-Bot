@@ -114,6 +114,8 @@ To invite your bot to a server, go back to the Discord Developer Portal:
 ### Data Collection
 Out of the box, the bot may make mistakes or misunderstand certain prompts. However, you can help improve its accuracy by providing feedback on its responses. When the bot misinterprets your request or gives an incorrect response, you can let it know by running the command `!label_last <label>`, where `<label>` represents the appropriate category for the prompt.
 
+<img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-26 2.06.22 AM.png?raw=True" alt="Image Description">
+
 * If you were asking the bot to play music, use `!label_last youtube`.
 * If you were asking the bot to set a reminder, use `!label_last reminder`.
 * If you were requesting a financial chart, use `!label_last stock-chart`.
