@@ -46,7 +46,7 @@ async def stock(ctx,message,model,db_conn):
         # Send the code used to generate the chart to the user
         jsonl = f'''
 {{'role':'user','content':"""{message}"""}},
-{{'role':'assistant','content':f"""\n{extracted_code}\n"""}}'''
+{{'role':'assistant','content':"""\n{extracted_code}\n"""}}'''
         # Open the file in write mode and save the list of dictionaries as a JSON Lines file
         with open(py_filename, 'w') as file:
             file.write(jsonl)
