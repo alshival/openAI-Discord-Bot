@@ -10,9 +10,6 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Side-by-Side Images</title>
-</head>
 <body>
     <table style="width: 100%;" cellspacing="0" cellpadding="0">
         <tr>
