@@ -10,9 +10,7 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 
 <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-23 10.44.32 PM (1).png?raw=True" alt="Image Description">
 
-Discord servers can leverage an OpenAI-powered bot for code assistance, troubleshooting, generating financial charts, and answering technical questions. Discord servers centered around creative writing, storytelling, or roleplaying can use a bot with OpenAI's GPT models to generate prompts, develop characters, and facilitate interactive storytelling experiences. Gaming communities can incorporate an OpenAI-powered bot into their Discord server to provide in-game tips, strategies, and assist with game-related queries. Financial industries can... create stock charts.
-
-Yes...
+Discord servers can leverage an OpenAI-powered bot for code assistance, troubleshooting, generating financial charts, and answering technical questions. Discord servers centered around creative writing, storytelling, or roleplaying can use a bot with OpenAI's GPT models to generate prompts, develop characters, and facilitate interactive storytelling experiences. Gaming communities can incorporate an OpenAI-powered bot into their Discord server to provide in-game tips, strategies, and assist with game-related queries.
 
 ## Features
 
