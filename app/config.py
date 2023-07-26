@@ -3,6 +3,7 @@ import pickle
 import discord
 from discord.ext import commands,tasks
 import re
+import traceback
 
 # Set up Discord Bot token here:
 discord_bot_token = os.environ.get("DISCORD_BOT_TOKEN")
@@ -34,8 +35,6 @@ youtube = build("youtube", "v3", developerKey=google_api_key)
 # Stocks config
 ############################################
 import yfinance as yf
-import plotly.graph_objects as go
-import plotly.io as pio
 from datetime import datetime, timedelta
 import numpy as np
 from sklearn.linear_model import LinearRegression

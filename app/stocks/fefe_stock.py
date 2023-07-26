@@ -10,14 +10,14 @@ async def stock(ctx,message,model,db_conn):
     
     await store_prompt(db_conn, ctx.author.name, message, model, '', ctx.channel.name,keras_classified_as='stock-chart')
     
-    messages = sample_prompts.sample_prompts[2:5]
-    messages.append({'role': 'user', 'content': 'Do not change the line `filename=filename`. If you decide to use a dark theme, set it using `plot.style.use(\'dark_background\')`:' + message})
+    messages = sample_prompts.sample_prompts[1:5]
+    messages.append({'role': 'user', 'content': f'Do not change `filename=filename`! If you decide to use a dark theme, set it using `plot.style.use(\'dark_background\')`:' + message})
      
         # Generate a response using the 'gpt-3.5-turbo' model
     response = openai.ChatCompletion.create(
             model=model,
             messages=messages,
-            max_tokens=1024,
+            max_tokens=1450,
             n=1,
             temperature=0.5,
             top_p=1,
@@ -62,10 +62,10 @@ async def stock(ctx,message,model,db_conn):
         # Send the code that gave the error
         with open(py_filename, "w") as file:
             file.write(f'''
-################
+################################################################
 Error:
-'{e}'
-################
+{type(e).__name__} - {str(e)}
+################################################################
 {{'role':'user','content':'{message}'}},
 {{'role':'assistant','content':
 """

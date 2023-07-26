@@ -64,16 +64,13 @@ plt.plot(data.index, data["Close"], label="Microsoft (MSFT)")
 # Plot the linear regression line
 plt.plot(data_two_quarters.index, predicted_prices, color='red', linestyle='--', label='Linear Regression')
 
-# Customize the plot with title
-plt.title("Microsoft Stock Price\n (Last Two Quarters)", fontsize=16, fontweight='bold', color="#333333")
+plt.title("Microsoft Stock Price (Last Two Quarters)", fontsize=16, fontweight='bold', color="#333333")
 plt.xlabel("Date", fontsize=14, color="#FFFFFF")
 plt.ylabel("Stock Price (USD)", fontsize=14, color="#FFFFFF")
 plt.legend()
 
-# Display the plot
 plt.tight_layout()  # Adjust plot layout for better spacing
 
-# Save the plot as a .png file
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 """
     },
@@ -117,24 +114,13 @@ fig, ax = plt.subplots(figsize=(chart_width, chart_height))
 plt.plot(data.index, data[tickers[0]], label="Bumble", color='red')  # Switched to red color
 plt.plot(data.index, data[tickers[1]], label="Match Group", color='purple')  # Switched to pink color
 
-# Customize the plot with title
-plt.title("Bumble and Match Group Stock Prices\n (Last Two Quarters)", fontsize=16, fontweight='bold', color="#000000")  # Change color to black
+plt.title("Bumble and Match Group Stock Prices (Last Two Quarters)", fontsize=16, fontweight='bold', color="#000000")  # Change color to black
 plt.xlabel("Date", fontsize=14, color="#333333")
 plt.ylabel("Stock Price (USD)", fontsize=14, color="#333333")
 plt.legend()
 
-# Add a Unicode heart symbol as a stamp
-def add_heart_stamp(ax):
-    heart_symbol = '\u2764'  # Unicode code for heart symbol
-    ax.text(.75, .9, heart_symbol, fontsize=80, transform=ax.transAxes, color='red', alpha=0.8,rotation=-45)
-    
-# Add the heart stamp
-add_heart_stamp(ax)
-
-# Display the plot
 plt.tight_layout()  # Adjust plot layout for better spacing
 
-# Save the plot as a .png file
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 """
     },
@@ -180,20 +166,17 @@ plt.style.use('dark_background')
 # start figure
 fig, ax = plt.subplots(figsize=(chart_width, chart_height))
 
-# Plot the percent change for Bitcoin and Ethereum for the past two quarters
+# Plot the percent change for Bitcoin and Ethereum for the past two quarters. Must drop na.
 plt.plot(percent_change.index, percent_change["BTC-USD"], label="Bitcoin (BTC)", color='#FFA500')
 plt.plot(percent_change.index, percent_change["ETH-USD"], label="Ethereum (ETH)", color='#5ca6ce')
 
-# Customize the plot with title
-plt.title("Bitcoin and Ethereum Percent Change\n (Last Two Quarters)", fontsize=16, fontweight='bold', color="#FFFFFF")
+plt.title("Bitcoin and Ethereum Percent Change (Last Two Quarters)", fontsize=16, fontweight='bold', color="#FFFFFF")
 plt.xlabel("Date", fontsize=14, color="#FFFFFF")
 plt.ylabel("Percent Change (%)", fontsize=14, color="#FFFFFF")
 plt.legend()
 
-# Display the plot
 plt.tight_layout()  # Adjust plot layout for better spacing
 
-# Save the plot as a .png file
 plt.savefig(filename, dpi=300, bbox_inches='tight')
     """},
 #######################################################
@@ -226,10 +209,7 @@ start_date = end_date - timedelta(days=14)
 # Fetch the historical data for Bitcoin and Ethereum using yfinance
 data = yf.download(symbols, start=start_date, end=end_date)
 
-# Remove na values
-data = data.dropna()
-
-# Calculate the percent change for Bitcoin and Ethereum
+# Calculate the percent change for Bitcoin and Ethereum. Must drop na.
 percent_change = data["Close"].pct_change().dropna() * 100
 
 # Set a custom color palette for Bitcoin (orange) and Ethereum (light blue)
@@ -257,18 +237,14 @@ plt.plot(percent_change.index, percent_change["ETH-USD"], label="Ethereum (ETH)"
 predicted_prices = regressor.predict(X_numeric.reshape(-1,1))
 plt.plot(X,predicted_prices,color='lime',linestyle='--',label='Group Average')
 
-# Customize the plot with title
-plt.title("Bitcoin and Ethereum Percent Change\n(Last Two Weeks)", fontsize=16, fontweight='bold', color="#FFFFFF")
+plt.title("Bitcoin and Ethereum Percent Change (Last Two Weeks)", fontsize=16, fontweight='bold', color="#FFFFFF")
 plt.xlabel("Date", fontsize=14, color="#FFFFFF")
 plt.ylabel("Percent Change (%)", fontsize=14, color="#FFFFFF")
 plt.legend()
 
-# Display the plot
 plt.tight_layout()
 
-# Save the plot as a .png file
 plt.savefig(filename, dpi=300, bbox_inches='tight')
-plt.show()
 """},
 #######################################################
 # Example 6 - Updated Format
@@ -331,18 +307,14 @@ predicted_prices = regressor.predict(X)
 # Plot the linear regression line for the past quarter
 plt.plot(data_one_quarter.index, predicted_prices, color='black', linestyle='--', label='Linear Regression')
 
-# Customize the plot with title
 plt.title("Verizon Stock Price (Past Year)", fontsize=16, fontweight='bold', color="black")
 plt.xlabel("Date", fontsize=14, color="black")
 plt.ylabel("Stock Price (USD)", fontsize=14, color="black")
 plt.legend()
 
-# Display the plot
 plt.tight_layout()
 
-# Save the plot as a .png file
 plt.savefig(filename, dpi=300, bbox_inches='tight')
-plt.show()
         """
     }
 #######################################################
