@@ -13,7 +13,7 @@ async def stock(ctx,message,model,db_conn):
     # messages = finetune_data.finetune[0:4]
     # For random prompts.
     messages = [[finetune_data.finetune[i],finetune_data.finetune[i+1]] for i in [j for j in range(len(finetune_data.finetune)) if j%2==0]]
-    messages = random.sample(messages,4)
+    messages = random.sample(messages,sample_stock_charts)
     messages = [item for sublist in messages for item in sublist]
 
     messages.append({'role': 'user', 'content': f'Do not change `filename=filename`! If you decide to use a dark theme, set it using `plot.style.use(\'dark_background\')`:' + message})

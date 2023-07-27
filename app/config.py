@@ -19,6 +19,7 @@ import json
 import openai
 # Set up the OpenAI API. The key is stored as an environment variable for security reasons.
 openai.api_key = os.environ.get("OPENAI_API_KEY")
+sample_stock_charts = 4
 
 ############################################
 # Youtube Data API config
