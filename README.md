@@ -31,7 +31,7 @@ Discord servers can leverage an OpenAI-powered bot for code assistance, troubles
 - Ask the bot to play music through voice channels.
 - Perform Market Research Analysis using yfinance to create financial charts and mix charts with regression lines.
 
-You might notice squares where Fefe is trying to place emojis on the charts she produces. I am figuring out the best way to let her use emojis. The emoji pack she is trying to use is incompatible with matplotlib. But she can stamp with a .png or .svg. It is possible that we change the plot engine at some point from matplotlib to plotnine or plotly, though the LLM we are using was better at writing matplotlib code than they were plotnine or plotly code. A newer model might be able to write plotly code more accurately.
+You might notice squares where Fefe is trying to place emojis on the charts she produces. I am figuring out the best way to let her use emojis. The emoji pack she is trying to use is incompatible with matplotlib. But she can stamp with a .png or .svg. The LLM we are using was better at writing matplotlib code than they were plotnine or plotly code. A newer LLM, such as GPT4 or Llama2, may be able to write plotly code more accurately.
 
 ## Usage
 
