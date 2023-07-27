@@ -1,7 +1,7 @@
 # openAI Discord Bot with Market Research Analysis
 Demo: [Vimeo](https://vimeo.com/845117509)
 
-This Discord bot utilizes OpenAI's GPT models and provides additional functionalities like setting reminders, playing music with the help of a sqlite database, a keras layer, and Google's Youtube. It now also includes a Market Research Analysis feature, which allows you to create financial charts using yfinance and mix charts with regression lines.
+This Discord bot utilizes OpenAI's `gpt-3.5-turbo` model and provides additional functionalities like setting reminders, playing music with the help of a sqlite database, a keras layer, and Google's Youtube. It now also includes a Market Research Analysis feature, which allows you to create financial charts using yfinance and mix charts with regression lines.
 
 Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered.
 
