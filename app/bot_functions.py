@@ -241,7 +241,7 @@ async def send_reminders(bot):
         if datetime.now() >= reminder_time:
             channel = bot.get_channel(int(channel_id))
             if channel is not None:
-                await channel.send(f"@{username}, you set a reminder: {reminder_text}")
+                await channel.send(reminder_text)
             else:
                 print(f"Channel with ID {channel_id} not found.")
 

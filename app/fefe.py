@@ -3,7 +3,7 @@ from app.bot_functions import *
 from app.keras import tasks_layer
 
 # For creating reminders
-from app.reminders.fefe_reminder import *
+from app.reminders.fefe_reminders_openai import *
 # For general discussion
 from app.fefe_openai import *
 # For searching youtube

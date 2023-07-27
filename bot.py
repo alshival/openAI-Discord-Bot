@@ -27,7 +27,7 @@ asyncio.get_event_loop().run_until_complete(tasks_layer.load_tasks_layer())
 # Create the reminders table if needed when the bot starts up
 asyncio.get_event_loop().run_until_complete(create_reminder_table())
 # Load the reminders layer
-asyncio.get_event_loop().run_until_complete(load_reminder_layer())
+#asyncio.get_event_loop().run_until_complete(load_reminder_layer())
 
 
 
