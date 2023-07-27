@@ -31,7 +31,7 @@ Discord servers can leverage an OpenAI-powered bot for code assistance, troubles
 - Ask the bot to play music through voice channels.
 - Perform Market Research Analysis using yfinance to create financial charts and mix charts with regression lines.
 
-You might notice squares where Fefe is trying to place emoji's on the charts she produces. I am figuring out the best way to let her use emojis. The emoji pack she is trying to use is incompatible with matplotlib. But she can stamp with a .png or .svg.
+You might notice squares where Fefe is trying to place emojis on the charts she produces. I am figuring out the best way to let her use emojis. The emoji pack she is trying to use is incompatible with matplotlib. But she can stamp with a .png or .svg.
 
 ## Usage
 
