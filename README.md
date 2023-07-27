@@ -30,7 +30,7 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 - Ask the bot to play music through voice channels.
 - Perform Market Research Analysis using yfinance to create financial charts and mix charts with regression lines.
 
-You might notice squares where Fefe is trying to place emojis on the charts she produces. I am figuring out the best way to let her use emojis. The emoji pack she is trying to use is incompatible with matplotlib. But she can stamp with a .png or .svg. The LLM we are using was better at writing matplotlib code than they were plotnine or plotly code. A newer LLM, such as GPT4 or Llama2, may be able to write plotly code more accurately
+The LLM we are using was better at writing matplotlib code than they were plotnine or plotly code. A newer LLM, such as GPT4 or Llama2, may be able to write plotly code more accurately
 
 <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-25 10.37.07 PM.png?raw=True" alt="Image Description">
 
