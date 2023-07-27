@@ -5,7 +5,8 @@ This Discord bot utilizes OpenAI's GPT models and provides additional functional
 
 Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered.
 
-Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can set reminders, play music, and create financial charts using natural language. Since Ai can make mistakes, the python code used to generate the charts is returned within a python dictionary suitable for fine-tuning an openAi model for better performance. If you have GPT-4, you can adjust the code to use that model.
+Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can set reminders, play music, and create financial charts using natural language. Since Ai can make mistakes, the python code used to generate the charts is returned within a python dictionary suitable for fine-tuning an openAi model for better performance.  
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -22,8 +23,6 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 </body>
 </html>
 
-Discord servers can leverage an OpenAI-powered bot for code assistance, troubleshooting, generating financial charts, and answering technical questions. Discord servers centered around creative writing, storytelling, or roleplaying can use a bot with OpenAI's GPT models to generate prompts, develop characters, and facilitate interactive storytelling experiences. Gaming communities can incorporate an OpenAI-powered bot into their Discord server to provide in-game tips, strategies, and assist with game-related queries.
-
 ## Features
 
 - Chat with the bot using OpenAI's GPT models
@@ -31,7 +30,20 @@ Discord servers can leverage an OpenAI-powered bot for code assistance, troubles
 - Ask the bot to play music through voice channels.
 - Perform Market Research Analysis using yfinance to create financial charts and mix charts with regression lines.
 
-You might notice squares where Fefe is trying to place emoji's on the charts she produces. I am figuring out the best way to let her use emojis. The emoji pack she is trying to use is incompatible with matplotlib. But she can stamp with a .png or .svg.
+You might notice squares where Fefe is trying to place emojis on the charts she produces. I am figuring out the best way to let her use emojis. The emoji pack she is trying to use is incompatible with matplotlib. But she can stamp with a .png or .svg. The LLM we are using was better at writing matplotlib code than they were plotnine or plotly code. A newer LLM, such as GPT4 or Llama2, may be able to write plotly code more accurately.
+
+If you have GPT-4, you can adjust the code to use GPT4 in `app/fefe_openai.py` and `app/stocks/fefe_stocks.py` to use that model. You can include more sample training data along with your prompt if you use GPT4, as the token limit is higher than GPT3.5's. This should improve results. For stock charts, sample data used for generation is located at `app/stocks/finetune_data.py`. You can include any charts you like that the bot produces in the openAi training data (not to be mistaken with the keras training data, which is kept in `data.db` under the `prompts` table. More on that later.), which at the moment is a manual copy/paste process. You can adjust the number of sample prompt/chart pairs passed to openAi when generating a stock in the config file under the openAi section:
+```
+############################################
+# openai API config 
+############################################
+import openai
+# Set up the OpenAI API. The key is stored as an environment variable for security reasons.
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+sample_stock_charts = 4
+```
+
+Discord servers can leverage an OpenAI-powered bot for code assistance, troubleshooting, generating financial charts, and answering technical questions. Discord servers centered around creative writing, storytelling, or roleplaying can use a bot with OpenAI's GPT models to generate prompts, develop characters, and facilitate interactive storytelling experiences. Gaming communities can incorporate an OpenAI-powered bot into their Discord server to provide in-game tips, strategies, and assist with game-related queries.
 
 ## Usage
 
