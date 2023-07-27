@@ -5,7 +5,8 @@ This Discord bot utilizes OpenAI's GPT models and provides additional functional
 
 Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered.
 
-Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can set reminders, play music, and create financial charts using natural language. Since Ai can make mistakes, the python code used to generate the charts is returned within a python dictionary suitable for fine-tuning an openAi model for better performance. If you have GPT-4, you can adjust the code to use that model.
+Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can set reminders, play music, and create financial charts using natural language. Since Ai can make mistakes, the python code used to generate the charts is returned within a python dictionary suitable for fine-tuning an openAi model for better performance.  
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -21,6 +22,19 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
     </table>
 </body>
 </html>
+
+For stock charts, sample data used for generation is located at `app/stocks/finetune_data.py`. You can include any charts you like that the bot produces in the openAi training data (not to be mistaken with the keras training data. More on that later), which at the moment is a manual process. 
+
+If you have GPT-4, you can adjust the code to use that model and include more sample training data along with your prompt, as the token limit is higher than GPT3.5's. This should improve results. You can adjust the number of sample data passed to openAi in the config file under the openAi section:
+```
+############################################
+# openai API config 
+############################################
+import openai
+# Set up the OpenAI API. The key is stored as an environment variable for security reasons.
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+sample_stock_charts = 4
+```
 
 Discord servers can leverage an OpenAI-powered bot for code assistance, troubleshooting, generating financial charts, and answering technical questions. Discord servers centered around creative writing, storytelling, or roleplaying can use a bot with OpenAI's GPT models to generate prompts, develop characters, and facilitate interactive storytelling experiences. Gaming communities can incorporate an OpenAI-powered bot into their Discord server to provide in-game tips, strategies, and assist with game-related queries.
 
