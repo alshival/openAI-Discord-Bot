@@ -3,6 +3,7 @@ import pickle
 import discord
 from discord.ext import commands,tasks
 import re
+import random
 import traceback
 
 # Set up Discord Bot token here:

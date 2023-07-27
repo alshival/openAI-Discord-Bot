@@ -1,7 +1,7 @@
 from app.config import *
 import matplotlib.pyplot as plt
 import yfinance as yf
-from app.stocks import sample_prompts
+from app.stocks import finetune_data
 from app.bot_functions import *
 
 async def stock(ctx,message,model,db_conn):
@@ -10,7 +10,12 @@ async def stock(ctx,message,model,db_conn):
     
     await store_prompt(db_conn, ctx.author.name, message, model, '', ctx.channel.name,keras_classified_as='stock-chart')
     
-    messages = sample_prompts.sample_prompts[1:5]
+    # messages = finetune_data.finetune[0:4]
+    # For random prompts.
+    messages = [[finetune_data.finetune[i],finetune_data.finetune[i+1]] for i in [j for j in range(len(finetune_data.finetune)) if j%2==0]]
+    messages = random.sample(messages,4)
+    messages = [item for sublist in messages for item in sublist]
+
     messages.append({'role': 'user', 'content': f'Do not change `filename=filename`! If you decide to use a dark theme, set it using `plot.style.use(\'dark_background\')`:' + message})
      
         # Generate a response using the 'gpt-3.5-turbo' model
@@ -37,15 +42,13 @@ async def stock(ctx,message,model,db_conn):
     else:
         extracted_code = response_text
         print("No code found.")
-        
     try:
         response_compiled = compile(extracted_code,"<string>","exec")
         exec(response_compiled)
         # Send the .png file as a message to the user
         await ctx.send(file=discord.File(filename))
         # Send the code used to generate the chart to the user
-        jsonl = f'''
-{{'role':'user','content':"""{message}"""}},
+        jsonl = f'''{{'role':'user','content':"{r'' +message}"}},
 {{'role':'assistant','content':"""\n{extracted_code}\n"""}}'''
         # Open the file in write mode and save the list of dictionaries as a JSON Lines file
         with open(py_filename, 'w') as file:
