@@ -23,9 +23,8 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 </body>
 </html>
 
-For stock charts, sample data used for generation is located at `app/stocks/finetune_data.py`. You can include any charts you like that the bot produces in the openAi training data (not to be mistaken with the keras training data. More on that later), which at the moment is a manual process. 
 
-If you have GPT-4, you can adjust the code to use GPT4 in `app/fefe_openai.py` and `app/stocks/fefe_stocks.py` to use that model. You can include more sample training data along with your prompt, as the token limit is higher than GPT3.5's. This should improve results. You can adjust the number of sample data passed to openAi in the config file under the openAi section:
+If you have GPT-4, you can adjust the code to use GPT4 in `app/fefe_openai.py` and `app/stocks/fefe_stocks.py` to use that model. You can include more sample training data along with your prompt if you use GPT4 as the token limit is higher than GPT3.5's. This should improve results. For stock charts, sample data used for generation is located at `app/stocks/finetune_data.py`. You can include any charts you like that the bot produces in the openAi training data (not to be mistaken with the keras training data. More on that later), which at the moment is a manual copy/paste process. You can adjust the number of sample data passed to openAi when generating a stock in the config file under the openAi section:
 ```
 ############################################
 # openai API config 
