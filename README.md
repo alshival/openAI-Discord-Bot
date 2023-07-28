@@ -1,7 +1,7 @@
 # openAI Discord Bot with Market Research Analysis
 Demo: [Vimeo](https://vimeo.com/845117509)
 
-This Discord bot utilizes OpenAI's GPT models and provides additional functionalities like setting reminders, playing music with the help of a sqlite database, a keras layer, and Google's Youtube. It now also includes a Market Research Analysis feature, which allows you to create financial charts using yfinance and mix charts with regression lines.
+This Discord bot utilizes OpenAI's `gpt-3.5-turbo` model and provides additional functionalities like setting reminders, playing music with the help of a sqlite database, a keras layer, and Google's Youtube. It now also includes a Market Research Analysis feature, which allows you to create financial charts using yfinance and mix charts with regression lines.
 
 Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered.
 
@@ -13,7 +13,7 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
     <table style="width: 100%;" cellspacing="0" cellpadding="0">
         <tr>
             <td style="width: 50%;">
-                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot%202023-07-23%2010.44.32%20PM%20(1).png?raw=True" alt="Image Description">
+                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-27 5.08.04 AM.png?raw=True" alt="Image Description">
             </td>
             <td style="width: 50%;">
                 <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-25 10.19.03 PM.png?raw=True" alt="Image Description">
@@ -30,7 +30,10 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 - Ask the bot to play music through voice channels.
 - Perform Market Research Analysis using yfinance to create financial charts and mix charts with regression lines.
 
-You might notice squares where Fefe is trying to place emojis on the charts she produces. I am figuring out the best way to let her use emojis. The emoji pack she is trying to use is incompatible with matplotlib. But she can stamp with a .png or .svg. The LLM we are using was better at writing matplotlib code than they were plotnine or plotly code. A newer LLM, such as GPT4 or Llama2, may be able to write plotly code more accurately.
+The LLM we are using was better at writing matplotlib code than they were plotnine or plotly code. A newer LLM, such as GPT4 or Llama2, may be able to write plotly code more accurately
+
+<img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-25 10.37.07 PM.png?raw=True" alt="Image Description">
+
 
 If you have GPT-4, you can adjust the code to use GPT4 in `app/fefe_openai.py` and `app/stocks/fefe_stocks.py` to use that model. You can include more sample training data along with your prompt if you use GPT4, as the token limit is higher than GPT3.5's. This should improve results. For stock charts, sample data used for generation is located at `app/stocks/finetune_data.py`. You can include any charts you like that the bot produces in the openAi training data (not to be mistaken with the keras training data, which is kept in `data.db` under the `prompts` table. More on that later.), which at the moment is a manual copy/paste process. You can adjust the number of sample prompt/chart pairs passed to openAi when generating a stock in the config file under the openAi section:
 ```
