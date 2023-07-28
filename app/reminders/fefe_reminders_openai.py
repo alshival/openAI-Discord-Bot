@@ -45,7 +45,6 @@ async def reminder(ctx,message,model,db_conn):
         # Define the dictionary for globals()
         global_vars = globals().copy()
         global_vars['ctx'] = ctx
-        global_vars['db_conn'] = db_conn
         exec(response_compiled,global_vars)
         # Send the response_text variable defined in the compiled code (See training examples):
         if global_vars['reminder_dict']:
@@ -67,8 +66,7 @@ async def reminder(ctx,message,model,db_conn):
         with open(py_filename, "w") as file:
             file.write(f'''
 ################################################################
-Error:
-{type(e).__name__} - {str(e)}
+Error: {type(e).__name__} - {str(e)}
 ################################################################
 {{'role':'user','content':'{message}'}},
 {{'role':'assistant','content':

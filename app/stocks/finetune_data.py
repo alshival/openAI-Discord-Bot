@@ -12,9 +12,7 @@ import mplfinance as mpf
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename  # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbol for Tesla
 ticker = "TSLA"
 
 # Get today's date
@@ -34,6 +32,7 @@ sns.set_palette(sns.color_palette(colors))
 plt.style.use('dark_background')
 
 # Plot the candlestick chart for Tesla stock price for the past six months
+filename = "Tesla_candlestick.png"
 mpf.plot(data, type='candle', style='yahoo', title="Tesla Stock Price (Last Six Months)", ylabel="Stock Price (USD)",
          figsize=(chart_width, chart_height), savefig=dict(fname=filename, dpi=300, bbox_inches='tight'), volume=True)
 plt.close()
@@ -50,9 +49,7 @@ import mplfinance as mpf
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbol for Microsoft
 ticker = "MSFT"
 
 # Get today's date
@@ -72,12 +69,10 @@ sns.set_palette(sns.color_palette(colors))
 plt.style.use('fivethirtyeight')
 
 # Plot the candlestick chart for Microsoft stock price for the past three quarters
+filename = "Microsoft_candlestick.png"
 mpf.plot(data, type='candle', style='yahoo', title="Microsoft Stock Price (Last Three Quarters)", ylabel="Stock Price (USD)",
          figsize=(chart_width, chart_height), savefig=dict(fname=filename, dpi=300, bbox_inches='tight'))
-
-plt.close()  # Close the figure to prevent it from being displayed inline
-
-print(f"Plot saved as {filename}")
+plt.close()
 """},
 {'role':'user','content':"Can you create a candlestick chart for Apple's stock price in the past 128 days? Add bars for volume."},
 {'role':'assistant','content':"""
@@ -92,9 +87,7 @@ import mplfinance as mpf
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename  # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbol for Microsoft
 ticker = "AAPL"
 
 # Get today's date
@@ -113,7 +106,8 @@ sns.set_palette(sns.color_palette(colors))
 # Set fivethirtyeight background theme for the plot using Matplotlib
 plt.style.use('fivethirtyeight')
 
-# Plot the candlestick chart for Microsoft stock price for the past three quarters
+# Plot the candlestick chart for Apple stock price for the past three quarters
+filename = "Apple_candlestick.png"
 mpf.plot(data, type='candle', style='yahoo', title="Apple Stock Price (Last 128 days)", ylabel="Stock Price (USD)",
          figsize=(chart_width, chart_height), savefig=dict(fname=filename, dpi=300, bbox_inches='tight'), volume=True)
 plt.close()
@@ -130,9 +124,7 @@ from datetime import datetime, timedelta
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbols for Bitcoin, Ethereum, and Dogecoin
 tickers = ["BTC-USD", "ETH-USD", "DOGE-USD"]
 
 # Get today's date
@@ -161,9 +153,10 @@ plt.xlabel("Date", fontsize=14, color="#FFFFFF")
 plt.ylabel("Percent Change", fontsize=14, color="#FFFFFF")
 plt.legend()
 
-plt.tight_layout()  # Adjust plot layout for better spacing
-
+plt.tight_layout()
+filename = "bitcoin_ethereum_dogecoin_three_quarters.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
 """},
 {'role':'user','content':"can you plot the price of Microsoft and Apple together? Can you add a line of best fit for the pair?"},
 {'role':'assistant','content':"""
@@ -178,9 +171,7 @@ from sklearn.linear_model import LinearRegression
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbols for Microsoft and Apple
 tickers = ["MSFT", "AAPL"]
 
 # Get today's date
@@ -233,9 +224,10 @@ plt.xlabel("Date", fontsize=14, color="#FFFFFF")
 plt.ylabel("Stock Price (USD)", fontsize=14, color="#FFFFFF")
 plt.legend()
 
-plt.tight_layout()  # Adjust plot layout for better spacing
-
+plt.tight_layout() 
+filename = "Microsoft_Apple_Two_Quarters.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
 """},
 {'role':'user','content':"can you plot Krispy Kreme's stock price for the past six months, as well as a regression line. Do not show volume and do not use candlesticks."},
 {'role':'assistant','content':"""
@@ -250,9 +242,7 @@ import statsmodels.api as sm
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbol for Krispy Kreme
 ticker = "DNUT"
 
 # Get today's date
@@ -292,10 +282,9 @@ plt.title("Krispy Kreme Stock Price (Last Six Months)")
 plt.legend()
 
 # Save the plot as an image file
+filename = "Krispy_Kreme_Six_Months.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
-
-print(f"Plot saved as {filename}")
 """},
 {'role':'user','content':"can you plot the price of Microsoft and Apple together? Can you add a line of best fit for each? Furthermore, can you add information about the lines of best fit?"},
 {'role':'assistant','content':"""
@@ -310,9 +299,7 @@ from sklearn.linear_model import LinearRegression
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbols for Microsoft and Apple
 tickers = ["MSFT", "AAPL"]
 
 # Get today's date
@@ -369,9 +356,11 @@ plt.xlabel("Date", fontsize=14, color="#333333")
 plt.ylabel("Stock Price (USD)", fontsize=14, color="#333333")
 plt.legend()
 
-plt.tight_layout()  # Adjust plot layout for better spacing
+plt.tight_layout()
 
+filename = "Microsoft_Apple_Two_Quarters.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
 """},
 {'role':'user','content':"can you plot Disney's volume for the past two blood moons?"},
 {'role':'assistant','content':"""
@@ -384,9 +373,7 @@ from datetime import datetime, timedelta
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbol for Disney
 ticker = "DIS"
 
 # Get today's date
@@ -409,9 +396,11 @@ plt.title("Disney Stock Volume (Past Two Blood Moons)", fontsize=16, fontweight=
 plt.xlabel("Date", fontsize=14, color="#FFFFFF")
 plt.ylabel("Volume", fontsize=14, color="#FFFFFF")
 
-plt.tight_layout()  # Adjust plot layout for better spacing
+plt.tight_layout() 
 
+filename = "Disney_Two_Blood_Moons.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
 """},
 {'role':'user','content':"can you plot Disney's volume for the past two blood moons? Use bars and a white background."},
 {'role':'assistant','content':"""
@@ -427,7 +416,6 @@ chart_width = 12
 chart_height = 8
 filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbol for Disney
 ticker = "DIS"
 
 # Get today's date
@@ -450,9 +438,10 @@ plt.title("Disney Stock Volume (Past Two Blood Moons)", fontsize=16, fontweight=
 plt.xlabel("Date", fontsize=14, color="#333333")
 plt.ylabel("Volume", fontsize=14, color="#333333")
 
-plt.tight_layout()  # Adjust plot layout for better spacing
-
+plt.tight_layout() 
+filename = "Disney_Two_Blood_Moons_With_Volume.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
 """},
 {'role':'user','content':"can you plot Disney's stock price for the past 28 days? Also include bars for volume."},
 {'role':'assistant','content':"""
@@ -465,9 +454,7 @@ from datetime import datetime, timedelta
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbol for Disney
 ticker = "DIS"
 
 # Get today's date
@@ -502,9 +489,11 @@ plt.ylabel("Stock Price (USD)", fontsize=14, color="#FFFFFF")
 ax2.set_ylabel("Volume", fontsize=14, color="#FFFFFF")
 plt.legend()
 
-plt.tight_layout()  # Adjust plot layout for better spacing
+plt.tight_layout() 
 
+filename = "Disney_28_Days_with_Volume.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
 """},
 {'role':'user','content':"can you plot Microsoft's stock price for the past three quarters using candlesticks?"},
 {'role':'assistant','content':"""
@@ -519,9 +508,7 @@ import mplfinance as mpf
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbol for Microsoft
 ticker = "MSFT"
 
 # Get today's date
@@ -537,6 +524,7 @@ data = yf.download(ticker, start=start_date, end=end_date)
 colors = ['#3C6EB4', '#FFB900', '#B4009E', '#00A300']
 sns.set_palette(sns.color_palette(colors))
 
+filename = "Microsoft_Candlestick_Three_Quarters.png"
 # Plot the candlestick chart for Microsoft for the past three quarters
 mpf.plot(data, type='candle', style='yahoo', title="Microsoft Stock Price (Last Three Quarters)",
          ylabel="Stock Price (USD)", figsize=(chart_width, chart_height), savefig=filename)
@@ -554,9 +542,7 @@ import mplfinance as mpf
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
-# Define the ticker symbol for Krispy Kreme
 ticker = "DNUT"
 
 # Get today's date
@@ -576,10 +562,327 @@ sns.set_palette(sns.color_palette(colors))
 plt.style.use('dark_background')
 
 # Plot the candlestick chart for Krispy Kreme stock price for the past six months
+filename = "Krispy_Kreme_Candlestick_Six_Months.png"
 mpf.plot(data, type='candle', style='yahoo', title="Krispy Kreme Stock Price (Last Six Months)", ylabel="Stock Price (USD)",
          figsize=(chart_width, chart_height), savefig=dict(fname=filename, dpi=300, bbox_inches='tight'), volume=True)
 plt.close()
+"""},
+{'role':'user','content':"plot Google's stock price chart for the past two weeks using 5-minute data. Then show a line of best fit. Use a dark theme, red for the graph, and green for the line of best fit."},
+{'role':'assistant','content':"""
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from datetime import datetime, timedelta
+import seaborn as sns
+import statsmodels.api as sm
 
-print(f"Plot saved as {filename}")
+# DO NOT CHANGE THIS SECTION
+chart_width = 12
+chart_height = 8
+
+ticker = "GOOGL"
+
+# Get today's date and time
+end_date = datetime.today()
+
+# Calculate the start date as two weeks ago from today
+start_date = end_date - timedelta(days=14)
+
+# Fetch the intraday data for Google using yfinance with 5-minute interval
+data = yf.download(ticker, start=start_date, end=end_date, interval='5m')
+
+# Set a custom color palette
+colors = ['#FF0000', '#00FF00']
+sns.set_palette(sns.color_palette(colors))
+
+# Set dark background theme for the plot using Matplotlib
+plt.style.use('dark_background')
+
+# Plot the stock price for Google for the past two weeks
+plt.figure(figsize=(chart_width, chart_height))
+plt.plot(data['Close'], color='red', label="Stock Price")
+
+# Generate regression line
+X = np.arange(len(data)).reshape(-1, 1)
+X = sm.add_constant(X)
+y = data['Close'].values
+model = sm.OLS(y, X).fit()
+regression_line = model.predict(X)
+plt.plot(data.index, regression_line, color='green', linestyle='--', label="Regression Line")
+
+# Set plot labels and title
+plt.xlabel("Date")
+plt.ylabel("Stock Price (USD)")
+plt.title("Google Stock Price (Past Two Weeks)")
+
+# Set legend
+plt.legend()
+
+# Save the plot as an image file
+filename = "Google_Two_Weeks.png"
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
+"""},
+{'role':'user','content':"plot Bumble's stock price chart for the past month using 60-minute interval data. Then add a line of best fit of the form y=mx+b. Add the defining function for the line of best fit to the chart. Use a white theme and yellow for the line graph, green for the line of best fit. Make the lines very thick and stamp a big heart on it."},
+{'role':'assistant','content':"""
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from datetime import datetime, timedelta
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+
+# DO NOT CHANGE THIS SECTION
+chart_width = 12
+chart_height = 8
+
+ticker = "BMBL"
+
+# Get today's date
+end_date = datetime.today()
+
+# Calculate the start date as one month ago from today
+start_date = end_date - timedelta(days=30)
+
+# Fetch the historical data for Bumble using yfinance with 60-minute interval
+data = yf.download(ticker, start=start_date, end=end_date, interval="60m")
+
+# Set a white background theme for the plot using Matplotlib
+plt.style.use('default')
+
+# Plot the stock price for Bumble for the past month
+plt.figure(figsize=(chart_width, chart_height))
+plt.plot(data['Close'], label="Stock Price", color="yellow", linewidth=3)
+
+# Fit a linear regression model
+X = np.arange(len(data)).reshape(-1, 1)
+y = data['Close'].values
+regressor = LinearRegression()
+regressor.fit(X, y)
+m = regressor.coef_[0]
+b = regressor.intercept_
+
+# Generate the line of best fit
+line_of_best_fit = m * X + b
+
+# Plot the line of best fit
+plt.plot(data.index, line_of_best_fit, 'g--', label="Line of Best Fit", linewidth=3)
+
+# Add the defining function for the line of best fit
+defining_function = f"y = {m:.2f}x + {b:.2f}"
+plt.text(data.index[0], data['Close'].iloc[0], defining_function, fontsize=16, color='green', ha='left', va='bottom')
+
+# Set plot labels and title
+plt.xlabel("Date")
+plt.ylabel("Stock Price (USD)")
+plt.title("Bumble Stock Price (Last Month)")
+
+# Add a heart stamp on the chart
+plt.text(data.index[-1], data['Close'].iloc[-1], u'\u2764', fontsize=100, color='red', ha='center', va='center')
+
+# Set legend
+plt.legend()
+
+# Save the plot as an image file
+filename = "Bumble_Stock_Price.png"
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
+"""},
+{'role':'user','content':"plot Bumble's stock price chart for the past 2 months using 60-minute interval data. Then add a linear line of best fit of the form y=mx+b. Add the defining function for the line of best fit to the chart. Use a black theme and yellow for the line graph, green for the line of best fit. Make the title HUGE and bold. Make the lines very thick and stamp a big heart on it."},
+{'role':'assistant','content':"""
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime, timedelta
+import statsmodels.api as sm
+
+# DO NOT CHANGE THIS SECTION
+chart_width = 12
+chart_height = 8
+
+ticker = "BMBL"
+
+# Get today's date
+end_date = datetime.today()
+
+# Calculate the start date as 2 months ago from today
+start_date = end_date - timedelta(days=60)
+
+# Fetch the historical data for Bumble using yfinance
+data = yf.download(ticker, start=start_date, end=end_date, interval='60m')
+
+# Set a custom color palette
+colors = ['#FFD700', '#008000']
+sns.set_palette(sns.color_palette(colors))
+
+# Set dark background theme for the plot using Matplotlib
+plt.style.use('dark_background')
+
+# Plot the stock price for Bumble for the past 2 months
+plt.figure(figsize=(chart_width, chart_height))
+plt.plot(data['Close'], label="Stock Price", linewidth=3)
+plt.title("Bumble Stock Price (Past 2 Months)", fontsize=30, fontweight='bold')
+plt.xlabel("Date")
+plt.ylabel("Stock Price (USD)")
+
+# Generate line of best fit
+X = np.arange(len(data)).reshape(-1, 1)
+X = sm.add_constant(X)
+y = data['Close'].values
+model = sm.OLS(y, X).fit()
+regression_line = model.predict(X)
+plt.plot(data.index, regression_line, 'g--', label="Line of Best Fit", linewidth=3)
+
+# Add equation of line of best fit to the chart
+equation = f"y = {model.params[1]:.2f}x + {model.params[0]:.2f}"
+plt.text(data.index[1], data['Close'].max(), equation, fontsize=14, color='white', va='top')
+
+# Add a big heart stamp on the chart
+plt.text(data.index[-1], data['Close'].min(), '❤', fontsize=100, color='#FFD700', ha='right', va='bottom')
+
+# Set legend
+plt.legend()
+
+# Save the plot as a .png image file
+filename = "Bumble_2_Months.png"
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
+"""},
+{'role':'user','content':"can you plot Match Group, Bumble, and Hello Group (NASDAQ:MOMO) for the past two years? Add a line of best fit and information about the line of best fit. Use a white theme, blue for match group, orange for bumble, and green for hello group."},
+{'role':'assistant','content':"""
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime, timedelta
+from sklearn.linear_model import LinearRegression
+
+# DO NOT CHANGE THIS SECTION
+chart_width = 12
+chart_height = 8
+
+tickers = ["MTCH", "BMBL", "MOMO"]
+
+# Get today's date
+end_date = datetime.today()
+
+# Calculate the start date as two years ago from today
+start_date = end_date - timedelta(days=365*2)
+
+# Fetch the historical data for Match Group, Bumble, and Hello Group using yfinance
+data = yf.download(tickers, start=start_date, end=end_date)["Close"]
+
+# Set a white background theme for the plot using Matplotlib
+plt.style.use('default')
+
+# Plot the stock prices for Match Group, Bumble, and Hello Group for the past two years
+plt.figure(figsize=(chart_width, chart_height))
+plt.plot(data.index, data[tickers[0]], label="Match Group (MTCH)", color="blue")
+plt.plot(data.index, data[tickers[1]], label="Bumble (BMBL)", color="orange")
+plt.plot(data.index, data[tickers[2]], label="Hello Group (MOMO)", color="green")
+
+# Calculate the start date as one year ago from today
+start_date_one_year_ago = end_date - timedelta(days=365)
+
+for ticker in tickers:
+    # Fit a linear regression model for the past year
+    X = np.arange(len(data[ticker])).reshape(-1, 1)
+    y = data[ticker].values
+    regressor = LinearRegression()
+    regressor.fit(X, y)
+
+    # Generate the line of best fit for the past year
+    line_of_best_fit = regressor.predict(X)
+
+    # Plot the line of best fit for the past year
+    plt.plot(data.index, line_of_best_fit, linestyle='--', linewidth=2, label=f"{ticker} Regression Line")
+
+    # Add information about the regression line
+    equation = f"y = {regressor.coef_[0]:.2f}x + {regressor.intercept_:.2f}"
+    plt.text(data.index[-1], data[ticker].iloc[-1], equation, fontsize=10, color='black', ha='right', va='bottom')
+
+# Set plot labels and title
+plt.xlabel("Date")
+plt.ylabel("Stock Price (USD)")
+plt.title("Match Group, Bumble, and Hello Group Stock Prices (Past Two Years)")
+
+# Set legend
+plt.legend()
+
+# Save the plot as a .png image file
+filename = "Stock_Prices_Match_Bumble_Hello.png"
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
+"""},
+{'role':'user','content':"can you plot Match Group, Bumble, and Hello Group (NASDAQ:MOMO) for the past two years? Add a line of regression for the past year for each symbol and information about the regression lines. Use a white theme, blue for match group, orange for bumble, and green for hello group."},
+{'role':'assistant','content':"""
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime, timedelta
+import statsmodels.api as sm
+
+# DO NOT CHANGE THIS SECTION
+chart_width = 12
+chart_height = 8
+
+tickers = ["MTCH", "BMBL", "MOMO"]
+
+# Get today's date
+end_date = datetime.today()
+
+# Calculate the start date as two years ago from today
+start_date = end_date - timedelta(days=365*2)
+
+# Fetch the historical data for Match Group, Bumble, and Hello Group using yfinance
+data = yf.download(tickers, start=start_date, end=end_date)['Adj Close']
+
+# Set a custom color palette for each stock
+colors = ['#007BFF', '#FF8800', '#00C851']
+sns.set_palette(sns.color_palette(colors))
+
+# Set white background theme for the plot using Matplotlib
+plt.style.use('default')
+
+# Plot the stock prices for Match Group, Bumble, and Hello Group for the past two years
+plt.figure(figsize=(chart_width, chart_height))
+for ticker in tickers:
+    plt.plot(data[ticker], label=ticker)
+
+# Generate regression lines for the past year for each stock
+for ticker in tickers:
+    stock_data = data[ticker].iloc[-365:]
+    X = np.arange(len(stock_data)).reshape(-1, 1)
+    X = sm.add_constant(X)
+    y = stock_data.values
+    model = sm.OLS(y, X).fit()
+    regression_line = model.predict(X)
+    plt.plot(stock_data.index, regression_line, '--', linewidth=2)
+
+    # Add information about the regression line
+    m = model.params[1]
+    b = model.params[0]
+    defining_function = f"y = {m:.2f}x + {b:.2f}"
+    plt.text(stock_data.index[0], stock_data.iloc[0], defining_function, fontsize=12, color='black', ha='left', va='bottom')
+
+# Set plot labels and title
+plt.xlabel("Date")
+plt.ylabel("Stock Price (USD)")
+plt.title("Stock Prices for Match Group, Bumble, and Hello Group (Last Two Years)")
+
+# Set legend
+plt.legend()
+
+# Save the plot as an image file
+filename = "Stock_Prices.png"
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
 """}
 ]
