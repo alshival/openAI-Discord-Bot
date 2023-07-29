@@ -44,7 +44,7 @@ async def fefe(ctx,*,message: str):
 help_text = """
 👋 Hi, I'm Fefe! I live on this server. 🎉
 
-🤖 I am an Ai powered Discord bot with Market Research Analysis by [Alshival's Data Service](https://www.alshival.com/ai-discord-bots)! 📈📊
+🤖 I am an Ai powered Discord bot with Market Research Analysis capabilities created by [Alshival's Data Service](https://www.alshival.com/ai-discord-bots)! 📈📊
 
 🎶 Ask me to play music for you over voice channels and set reminders! ⏰🎵
 
