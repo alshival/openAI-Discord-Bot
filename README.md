@@ -29,6 +29,7 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 
   - `!fefe <message>`: Ask the bot questions, set reminders, play music over a voice channel, or generate financial charts.
 - The bot also includes the following slash commands:
+  - `/help`: Provides a quick rundown of how to use the app.
   - `/label_last <label>`: Label the last prompt you sent to retrain the bot, in the event that she misunderstands your request.
   - `/clear_reminders`: Clear all reminders set by the user.
   - `/retrain_keras`: Retrain the Keras layer. (Only accessible to server administrators)
