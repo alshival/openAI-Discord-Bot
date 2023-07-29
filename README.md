@@ -23,6 +23,17 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 </body>
 </html>
 
+## Usage
+
+- Use the command prefix `!` to interact with the bot:
+
+  - `!fefe <message>`: Ask the bot questions, set reminders, play music over a voice channel, or generate financial charts.
+- The bot also includes the following slash commands:
+  - `/label_last <label>`: Label the last prompt you sent to retrain the bot, in the event that she misunderstands your request.
+  - `/clear_reminders`: Clear all reminders set by the user.
+  - `/retrain_keras`: Retrain the Keras layer. (Only accessible to server administrators)
+  - `/stop_music`: Used to stop music playback in voice channels.
+
 ## Features
 
 - Chat with the bot using OpenAI's GPT models
@@ -47,17 +58,6 @@ sample_stock_charts = 4
 ```
 
 Discord servers can leverage an OpenAI-powered bot for code assistance, troubleshooting, generating financial charts, and answering technical questions. Discord servers centered around creative writing, storytelling, or roleplaying can use a bot with OpenAI's GPT models to generate prompts, develop characters, and facilitate interactive storytelling experiences. Gaming communities can incorporate an OpenAI-powered bot into their Discord server to provide in-game tips, strategies, and assist with game-related queries.
-
-## Usage
-
-- Use the command prefix `!` to interact with the bot:
-
-  - `!fefe <message>`: Chat with the bot using OpenAI's GPT models.
-- The bot also includes the following slash commands:
-  - `/label_last <label>`: Label the last prompt you sent to retrain the bot, in the event that she misunderstands your request.
-  - `/clear_reminders`: Clear all reminders set by the user.
-  - `/retrain_keras`: Retrain the Keras layer. (Only accessible to server administrators)
-  - `/stop_music`: Used to stop music playback in voice channels.
 
 # Installation
 ### Set up bot on Discord
