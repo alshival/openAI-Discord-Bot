@@ -29,15 +29,15 @@ async def create_prompts_table():
     
 # This function is used to store a new conversation in the 'prompts' table.
 # It inserts a new row with the username, prompt, model, response, and channel_name into the table.
-async def store_prompt(db_conn, username, prompt, model, response, channel_name,keras_classified_as):
+async def store_prompt(db_conn, username, prompt, model, response, channel_id,channel_name,keras_classified_as):
     async with db_conn.cursor() as cursor:
-        await cursor.execute('INSERT INTO prompts (username, prompt, model, response, channel_name,keras_classified_as) VALUES (?, ?, ?, ?, ?, ?)', (username, prompt, model, response, channel_name,keras_classified_as))
+        await cursor.execute('INSERT INTO prompts (username, prompt, model, response, channel_id, channel_name, keras_classified_as) VALUES (?, ?, ?, ?, ?, ?, ?)', (username, prompt, model, response,channel_id, channel_name,keras_classified_as))
         await db_conn.commit()
 
 # This function is used to fetch past conversations from the 'prompts' table.
-async def fetch_prompts(db_conn, channel_name, limit):
+async def fetch_prompts(db_conn, channel_id, limit):
     async with db_conn.cursor() as cursor:
-        await cursor.execute('SELECT prompt, response FROM prompts WHERE channel_name = ?  and keras_classified_as != "stock-chart" ORDER BY timestamp DESC LIMIT ?', (channel_name, limit,))
+        await cursor.execute('SELECT prompt, response FROM prompts WHERE channel_name = ?  and keras_classified_as != "stock-chart" ORDER BY timestamp DESC LIMIT ?', (channel_id, limit,))
         return await cursor.fetchall()
         
 #############################################
@@ -63,39 +63,47 @@ async def create_labeled_prompts_table():
 
 
 # Used by users to label past prompts. 
-async def label_last_db(ctx,db_conn, label):
+async def label_last_db(interaction,db_conn, label):
     db_conn.row_factory = sqlite3.Row
     async with db_conn.cursor() as cursor:
         
         await cursor.execute(f"""
         SELECT * FROM prompts 
-        where channel_name = '{ctx.channel.name}' 
-            AND username = '{ctx.author.name}'
+        where channel_id = '{interaction.channel_id}' 
+            AND username = '{interaction.user.name}'
         ORDER BY id DESC LIMIT 1
         """)
         last_row = await cursor.fetchone()
+        print(last_row)
        # If last_row is not None, insert its data into 'labeled_prompts'
         if last_row is not None:
-            last_row = dict(last_row)
             insert_query = '''INSERT INTO labeled_prompts (id, username, prompt, model, response, channel_id, channel_name,keras_classified_as,timestamp,label)
                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
             
             await cursor.execute(insert_query,
                                  tuple([last_row[key] for key in last_row.keys()] + [label]))
             await db_conn.commit()
-            await send_chunks(ctx,f"Last prompt labeled as: {label} - {last_row['prompt']}")
+            
+            embed=discord.Embed(
+                #title="Sample Embed", 
+                #url="https://realdrewdata.medium.com/", 
+                description=last_row['prompt'], 
+                color=discord.Color.blue())
+            
+            embed.set_author(name=f"{interaction.user.name}",
+                             icon_url=interaction.user.avatar)
+            await send_chunks_interaction(interaction,f"Last prompt labeled as: {label}",embed = embed)
 
 # '!label_last' command to correctly label the last prompt.
-async def label_last_prompt(ctx,label):
+async def label_last_prompt(interaction,label):
     # Verify the label
     if label not in keras_labels:
-        await ctx.send("Invalid label. Please use `!label_last reminder` if you meant to set a reminder, '!label_last youtube' for youtube, or `!label_last other` for the raw openAi model.")
+        await interaction.response.send_message("Invalid label. Please use `!label_last reminder` if you meant to set a reminder, '!label_last youtube' for youtube, or `!label_last other` for the raw openAi model.")
         return
     db_conn = await create_connection()
-    channel_name = ctx.channel.name
     
     # label_last_prompt
-    await label_last_db(ctx,db_conn,label)
+    await label_last_db(interaction,db_conn,label)
 
 #############################################
 # `Reminders` Table
@@ -150,12 +158,12 @@ async def fetch_due_reminders():
 
     return reminders
 
-async def clear_user_reminders(ctx):
+async def clear_user_reminders(interaction):
     """Clears all reminders of the invoking user"""
-    conn = await aiosqlite.connect(db_name)
+    conn = await create_connection()
     cursor = await conn.cursor()
     # Delete records from the reminders table where username is ctx.author.name
-    await cursor.execute("DELETE FROM reminders WHERE username=?", (str(ctx.author.name),))
+    await cursor.execute("DELETE FROM reminders WHERE username=?", (str(interaction.user.name),))
     await conn.commit()
     await conn.close()
 

@@ -6,7 +6,7 @@ from app.bot_functions import *
 
 async def stock(ctx,message,model,db_conn):
     py_filename = f"app/stocks/{ctx.author.name}.py"
-    await store_prompt(db_conn, ctx.author.name, message, model, '', ctx.channel.name,keras_classified_as='stock-chart')
+    await store_prompt(db_conn, ctx.author.name, message, model, '', ctx.channel.id,ctx.channel.name,keras_classified_as='stock-chart')
     
     # messages = finetune_data.finetune[0:4]
     # For random prompts.
@@ -82,5 +82,5 @@ Error:
         await ctx.send(file=discord.File(py_filename))
         return
     # Store the new prompt and response in the 'prompts' table
-    await store_prompt(db_conn, ctx.author.name, message, model, response_text, ctx.channel.name,keras_classified_as='stock-chart')
+    await store_prompt(db_conn, ctx.author.name, message, model, response_text, ctx.channel.id,ctx.channel.name,keras_classified_as='stock-chart')
     await db_conn.close()

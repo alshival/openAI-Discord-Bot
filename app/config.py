@@ -101,3 +101,17 @@ async def send_chunks(ctx, text):
 
     for chunk in chunks:
         await ctx.send(chunk)
+async def send_chunks_interaction(interaction, text, embed = []):
+    chunk_size = 2000  # Maximum length of each chunk
+
+    chunks = [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
+    if len(chunks) == 1:
+        await interaction.response.send_message(chunks[0],embed=embed)
+    else:
+        for chunk in chunks:
+            if chunk == chunks[0]:
+                await interaction.response.send_message(chunk)
+            elif chunk != chunks[len(chunks)-1]:
+                await interaction.followup.send(chunk)
+            else:
+                await interaction.followup.send(chunk,embed=embed)

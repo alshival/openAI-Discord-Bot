@@ -29,5 +29,5 @@ async def fefe_openai(ctx,message,model,db_conn):
         await ctx.send(response_text)
 
     # Store the new prompt and response in the 'prompts' table
-    await store_prompt(db_conn, ctx.author.name, message, model, response_text, ctx.channel.name,keras_classified_as='other')
+    await store_prompt(db_conn, ctx.author.name, message, model, response_text, ctx.channel.id,ctx.channel.name,keras_classified_as='other')
     await db_conn.close()

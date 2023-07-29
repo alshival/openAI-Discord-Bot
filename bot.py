@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands,tasks
-
+from discord import app_commands
 from app.config import *
 
 
@@ -36,44 +36,47 @@ asyncio.get_event_loop().run_until_complete(create_reminder_table())
 ########################################################################
 
 @bot.command()
-async def fefe(ctx,*,message):
+async def fefe(ctx,*,message: str):
     await talk_to_fefe(ctx,message,bot)
+    
 # Used to label the last prompt you sent. 
-@bot.command()
-async def label_last(ctx,label):
-    await label_last_prompt(ctx,label)
+@bot.tree.command(name = "label_last")
+@app_commands.choices(label=[
+    app_commands.Choice(name = k, value = k) for k in keras_labels
+    ])
+async def label_last(interaction: discord.Interaction,label: app_commands.Choice[str]):
+    await label_last_prompt(interaction,label.value)
 
 # '!clear_reminders` command 
-@bot.command()
-async def clear_reminders(ctx):
-    await clear_user_reminders(ctx)
+@bot.tree.command(name="clear_reminders")
+async def clear_reminders(interaction: discord.Interaction):
+    await clear_user_reminders(interaction)
 
 # '!retrain_keras' command to retrain the model. Must be run by an administrator.
-@bot.command()
-async def retrain_keras(ctx):
-    if ctx.message.author.guild_permissions.administrator:
-        await ctx.send('Training. Standby...')
+@bot.tree.command(name="retrain_keras")
+@app_commands.checks.has_permissions(administrator=True)
+async def retrain_keras(interaction: discord.Interaction):
+        await interaction.response.send_message('Training. Standby...')
         await tasks_layer.train_tasks_layer()
-        await ctx.send('Training complete.')
-    else:
-        await ctx.send('Please contact a server admin to update the keras layer')
-
+        await interaction.followup.send('Training complete.')
+    
 # this command stops the bot from playing music
-@bot.command()
-async def stop_music(ctx):
-    voice_state = ctx.author.voice
+@bot.tree.command(name="stop_music")
+async def stop_music(interaction: discord.Interaction):
+    voice_state = interaction.user.voice
     if voice_state is None or voice_state.channel is None:
-        await ctx.send("You are not connected to a voice channel.")
+        await interaction.response.send_message("You are not connected to a voice channel.")
         return
 
     voice_channel = voice_state.channel
-    voice_client = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    voice_client = interaction.guild.voice_client
+    #voice_client = discord.utils.get(bot.voice_clients, guild=ctx.guild)
 
     if voice_client and voice_client.is_connected() and voice_client.channel == voice_channel:
         await voice_client.disconnect()
-        await ctx.send("Music playback stopped.")
+        await interaction.response.send_message("Music playback stopped.")
     else:
-        await ctx.send("The bot is not currently playing any music.")
+        await interaction.response.send_message("The bot is not currently playing any music.")
 ########################################################################
 # Bot tasks
 ########################################################################
@@ -98,4 +101,9 @@ async def on_ready():
     print(f'We have logged in as {bot.user}')
     reminders.start(bot)
     delete_downloads.start(bot)
+    try:
+        synced = await bot.tree.sync()
+        print(f"Synced {len(synced)} slash command(s)")
+    except Exception as e:
+        print(e)    
 bot.run(discord_bot_token)

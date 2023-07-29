@@ -17,7 +17,8 @@ async def talk_to_fefe(ctx, message,bot):
     db_conn = await create_connection()
     username = ctx.author.name
     
-    channel_name = ctx.channel.name
+    channel_name = ctx.channel.name,
+    channel_id = ctx.channel.id
     try:
         message_category = await tasks_layer.classify_prompt(message)
         message_classified =True
@@ -32,7 +33,7 @@ async def talk_to_fefe(ctx, message,bot):
         {feature_display_text} 
         Then run `!retrain_keras`.
         """)
-        await store_prompt(db_conn, ctx.author.name, message, model,'', channel_name,keras_classified_as = 'ERROR')
+        await store_prompt(db_conn, ctx.author.name, message, model,'', channel_id,channel_name,keras_classified_as = 'ERROR')
         return
 
     # bot's Reminder Capabilities

@@ -54,12 +54,12 @@ async def fefe_youtube(bot,ctx,message,model,db_conn):
     try:
         voice_channel = ctx.author.voice.channel #checking if user is in a voice channel
     except AttributeError:
-        await store_prompt(db_conn, ctx.author.name, message, model, '', ctx.channel.name,keras_classified_as='youtube')
+        await store_prompt(db_conn, ctx.author.name, message, model, '',ctx.channel.id, ctx.channel.name,keras_classified_as='youtube')
         return await ctx.send("Join a voice channel and ask me again.") # member is not in a voice channel
         
     permissions = voice_channel.permissions_for(ctx.me)
     if not permissions.connect or not permissions.speak:
-        await store_prompt(db_conn, username, message, model, '', channel_name,keras_classified_as='youtube')
+        await store_prompt(db_conn, username, message, model, '', ctx.channel.id,channel_name,keras_classified_as='youtube')
         await ctx.send("I don't have permission to join or speak in that voice channel.")
         return
         
@@ -120,4 +120,4 @@ async def fefe_youtube(bot,ctx,message,model,db_conn):
     await ctx.send(f"### Playing: {title}\n{video_url}")
 
         # Store the new prompt and response in the 'prompts' table
-    await store_prompt(db_conn, ctx.author.name, message, model, response_text, ctx.channel.name,keras_classified_as='youtube')
+    await store_prompt(db_conn, ctx.author.name, message, model, response_text, ctx.channel.id,ctx.channel.name,keras_classified_as='youtube')

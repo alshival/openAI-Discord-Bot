@@ -78,5 +78,5 @@ Error: {type(e).__name__} - {str(e)}
         os.remove(py_filename)
         return
 # Store the new prompt and response in the 'prompts' table
-    await store_prompt(db_conn, ctx.author.name, message, model, global_vars['response_text'], ctx.channel.name,keras_classified_as='reminder')
+    await store_prompt(db_conn, ctx.author.name, message, model, global_vars['response_text'], ctx.channel.id,ctx.channel.name,keras_classified_as='reminder')
     await db_conn.close()
