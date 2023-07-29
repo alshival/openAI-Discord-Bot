@@ -61,10 +61,10 @@ Example:
 ```
 
 1️⃣ There are also some slash commands that help:
-   - `/label_last <label>`: Label the last prompt you sent to retrain me if I don't understand you.
-   - `/clear_reminders`: Clear all your reminders.
-   - `/retrain_keras`: Retrain the Keras layer (Admins only).
-   - `/stop_music`: Stop music playback in voice channels.
+    - `/label_last <label>`: Label the last prompt you sent to retrain me if I don't understand you.
+    - `/clear_reminders`: Clear all your reminders.
+    - `/retrain_keras`: Retrain the Keras layer (Admins only).
+    - `/stop_music`: Stop music playback in voice channels.
 
 📚 You can grab the code and instructions needed to install me on your server by visiting our site. We can also customize the app and the Ai for your server.
 
