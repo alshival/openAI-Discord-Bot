@@ -38,6 +38,43 @@ asyncio.get_event_loop().run_until_complete(create_reminder_table())
 @bot.command()
 async def fefe(ctx,*,message: str):
     await talk_to_fefe(ctx,message,bot)
+
+
+# Help Command
+help_text = """
+👋 Hi, I'm Fefe! I live on this server. 🎉
+
+🤖 I am an Ai powered Discord bot with Market Research Analysis by [Alshival's Data Service](https://www.alshival.com/ai-discord-bots)! 📈📊
+
+🎶 Ask me to play music for you over voice channels and set reminders! ⏰🎵
+
+💼 If you're into finance, I can perform Market Research Analysis using yfinance and generate financial charts! 📈📉
+
+📝 Here's a quick rundown on how to use the app:
+
+2️⃣ Talk to Fefe:
+   - `!fefe <message>`: Chat with the bot using OpenAI's GPT models.
+
+Example:
+```
+!fefe Plot Apple, Google, and Microsoft's stock price for the past four quarters. Add a line of best fit for the last two quarters.
+```
+
+1️⃣ There are also some slash commands that help:
+   - `/label_last <label>`: Label the last prompt you sent to retrain me if I don't understand you.
+   - `/clear_reminders`: Clear all your reminders.
+   - `/retrain_keras`: Retrain the Keras layer (Admins only).
+   - `/stop_music`: Stop music playback in voice channels.
+
+📚 You can grab the code and instructions needed to install me on your server by visiting our site. We can also customize the app and the Ai for your server.
+
+🚀 Join the fun and make the most of your Discord experience! If you have any questions or need help, feel free to reach out. 😄
+
+Experience the power of data with Alshival's Data Service.
+"""
+@bot.tree.command(name="help")
+async def help(interaction: discord.Interaction):
+    await interaction.response.send_message(help_text)
     
 # Used to label the last prompt you sent. 
 @bot.tree.command(name = "label_last")
