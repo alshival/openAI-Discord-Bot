@@ -80,7 +80,7 @@ Discord servers can leverage an OpenAI-powered bot for code assistance, troubles
    ```
 
 ### Install the required dependencies:
-We suggest installing the bot's python dependencies in a virtual environment. 
+We suggest installing the bot's python dependencies in a virtual environment. You will need ffmpeg on your system to play music via the voice channel: `sudo apt install ffmpeg`.
 To install on a linux machine or linux subsystem:
 
   - Navigate to the directory where your `requirements.txt` file is located:
