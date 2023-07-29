@@ -31,8 +31,8 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 - The bot also includes the following slash commands:
   - `/help`: Provides a quick rundown of how to use the app.
   - `/label_last <label>`: Label the last prompt you sent to retrain the bot, in the event that she misunderstands your request.
+  - `/retrain_keras`: Retrain the Keras layer after labeling prompts using `/label_last`. (Only accessible to server administrators)
   - `/clear_reminders`: Clear all reminders set by the user.
-  - `/retrain_keras`: Retrain the Keras layer. (Only accessible to server administrators)
   - `/stop_music`: Used to stop music playback in voice channels.
 
 ## Features
