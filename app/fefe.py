@@ -45,5 +45,5 @@ async def talk_to_fefe(ctx, message,bot):
     # Bot's youtube capabilities
     elif message_category == 'youtube':
         await fefe_youtube(bot,ctx,message,model,db_conn)
-    elif message_category == 'stock-chart':
+    elif message_category == 'interpreter':
         await fefe_stock.stock(ctx,message,model,db_conn)

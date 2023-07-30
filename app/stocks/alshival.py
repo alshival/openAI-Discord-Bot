@@ -1,4 +1,4 @@
-{'role':'user','content':"can you plot apples, google's, and Microsoft's stock price for the last four quarters. Add a best fit line for the group for the last two quarters. Use a dark theme, make the lines very thick, white for apple, orange for google, and blue for Microsoft."},
+{'role':'user','content':"plot Tesla's stock price for the last two months. Add a line of best fit for the past month. Use a black background and a thick red line for the stock price. Use a white line for the line of best fit."},
 {'role':'assistant','content':"""
 import yfinance as yf
 import pandas as pd
@@ -6,59 +6,54 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime, timedelta
-from sklearn.linear_model import LinearRegression
+import statsmodels.api as sm
 
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
 
-tickers = ["AAPL", "GOOGL", "MSFT"]
+ticker = "TSLA"
 
 # Get today's date
 end_date = datetime.today()
 
-# Calculate the start date as four quarters (one year) ago
-start_date = end_date - timedelta(days=365)
+# Calculate the start date as two months ago from today
+start_date = end_date - timedelta(days=60)
 
-# Fetch the historical data for Apple, Google, and Microsoft using yfinance
-data = yf.download(tickers, start=start_date, end=end_date)["Close"]
+# Fetch the historical data for Tesla using yfinance
+data = yf.download(ticker, start=start_date, end=end_date)
 
 # Set a dark background theme for the plot using Matplotlib
 plt.style.use('dark_background')
 
-# Plot the stock prices for Apple, Google, and Microsoft for the last four quarters
+# Plot the stock price for Tesla for the past two months
 plt.figure(figsize=(chart_width, chart_height))
-plt.plot(data.index, data[tickers[0]], color='white', linewidth=3, label="Apple (AAPL)")
-plt.plot(data.index, data[tickers[1]], color='orange', linewidth=3, label="Google (GOOGL)")
-plt.plot(data.index, data[tickers[2]], color='blue', linewidth=3, label="Microsoft (MSFT)")
+plt.plot(data['Close'], color='red', linewidth=3, label="Stock Price")
 
-# Calculate the start date as two quarters (six months) ago
-start_date_two_quarters_ago = end_date - timedelta(days=182)
+# Calculate the start date as one month ago from today
+start_date_one_month_ago = end_date - timedelta(days=30)
 
-# Filter the historical data for Apple, Google, and Microsoft for the last two quarters
-data_two_quarters = data[data.index.to_series() > start_date_two_quarters_ago]
+# Filter the historical data for Tesla for the past month
+data_one_month = data[data.index.to_series() > start_date_one_month_ago]
 
-# Take our dates as X. Convert datetime to numerical values.
-X = pd.DataFrame((data_two_quarters.index - start_date_two_quarters_ago).days)
+# Generate regression line
+X = np.arange(len(data_one_month)).reshape(-1, 1)
+X = sm.add_constant(X)
+y = data_one_month['Close'].values
+model = sm.OLS(y, X).fit()
+regression_line = model.predict(X)
+plt.plot(data_one_month.index, regression_line, color='white', linestyle='--', linewidth=2, label="Line of Best Fit")
 
-# Fit a linear regression model for the group
-regressor_group = LinearRegression()
-regressor_group.fit(X, data_two_quarters.mean(axis=1))
+# Set plot labels and title
+plt.xlabel("Date")
+plt.ylabel("Stock Price (USD)")
+plt.title("Tesla Stock Price (Last Two Months)")
 
-# Predict the stock prices using the linear regression model
-predicted_prices_group = regressor_group.predict(X)
-
-# Plot the linear regression line for the group
-plt.plot(data_two_quarters.index, predicted_prices_group, color='green', linestyle='--', linewidth=3, label='Group Linear Regression')
-
-plt.title("Stock Prices for Apple, Google, and Microsoft (Last Four Quarters)", fontsize=16, fontweight='bold', color="#FFFFFF")
-plt.xlabel("Date", fontsize=14, color="#FFFFFF")
-plt.ylabel("Stock Price (USD)", fontsize=14, color="#FFFFFF")
+# Set legend
 plt.legend()
 
-plt.tight_layout()
-
-filename = "Stock_Prices_Last_Four_Quarters.png"
+# Save the plot as a .png image file
+filename = "Tesla_Last_Two_Months.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """}
