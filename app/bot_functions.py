@@ -174,7 +174,7 @@ async def clear_user_reminders(interaction):
             
     embed.set_author(name=f"{interaction.user.name}",
                              icon_url=interaction.user.avatar)
-    await interaction.response.send_message('All your reminders have been cleared.',embed=embed+)
+    await interaction.response.send_message('All your reminders have been cleared.',embed=embed)
 
 #############################################
 # Routine Maintenance Functions
