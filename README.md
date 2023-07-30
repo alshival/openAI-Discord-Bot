@@ -137,7 +137,7 @@ Out of the box, the bot may make mistakes or misunderstand certain prompts. Howe
 
 * If you were asking the bot to play music, use `/label_last youtube`.
 * If you were asking the bot to set a reminder, use `/label_last reminder`.
-* If you were requesting a financial chart, use `/label_last stock-chart`.
+* If you were requesting a financial chart, use `/label_last interpreter`.
 * For any other cases, use `/label_last other`.
   
 ### Retraining
