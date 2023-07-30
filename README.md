@@ -80,7 +80,7 @@ Discord servers can leverage an OpenAI-powered bot for code assistance, troubles
    ```
 
 ### Install the required dependencies:
-We suggest installing the bot's python dependencies in a virtual environment. 
+We suggest installing the bot's python dependencies in a virtual environment. You will need ffmpeg on your system to play music via the voice channel: `sudo apt install ffmpeg`.
 To install on a linux machine or linux subsystem:
 
   - Navigate to the directory where your `requirements.txt` file is located:
@@ -131,17 +131,17 @@ To invite your bot to a server, go back to the Discord Developer Portal:
 ## Training the Keras Layer
 
 ### Data Collection
-Out of the box, the bot may make mistakes or misunderstand certain prompts. However, you can help improve its accuracy by providing feedback on its responses. When the bot misinterprets your request or gives an incorrect response, you can let it know by running the command `!label_last <label>`, where `<label>` represents the appropriate category for the prompt.
+Out of the box, the bot may make mistakes or misunderstand certain prompts. However, you can help improve its accuracy by providing feedback on its responses. When the bot misinterprets your request or gives an incorrect response, you can let it know by running the command `/label_last <label>`, where `<label>` represents the appropriate category for the prompt.
 
 <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-26 2.06.22 AM.png?raw=True" alt="Image Description">
 
-* If you were asking the bot to play music, use `!label_last youtube`.
-* If you were asking the bot to set a reminder, use `!label_last reminder`.
-* If you were requesting a financial chart, use `!label_last stock-chart`.
-* For any other cases, use `!label_last other`.
+* If you were asking the bot to play music, use `/label_last youtube`.
+* If you were asking the bot to set a reminder, use `/label_last reminder`.
+* If you were requesting a financial chart, use `/label_last stock-chart`.
+* For any other cases, use `/label_last other`.
   
 ### Retraining
-Once you have collected prompts you wish to include in training the keras layer, an administrator can run `!retrain_keras` to retrain the layer. This process will utilize the labeled data to fine-tune the model and enhance its performance. After retraining, the bot should have an improved understanding of the labeled categories and provide more accurate responses.
+Once you have collected prompts you wish to include in training the keras layer, an administrator can run `/retrain_keras` to retrain the layer. This process will utilize the labeled data to fine-tune the model and enhance its performance. After retraining, the bot should have an improved understanding of the labeled categories and provide more accurate responses.
 
 By incorporating this training and retraining workflow, you can actively contribute to refining the bot's capabilities and ensuring a better user experience over time.
 
