@@ -166,8 +166,15 @@ async def clear_user_reminders(interaction):
     await cursor.execute("DELETE FROM reminders WHERE username=?", (str(interaction.user.name),))
     await conn.commit()
     await conn.close()
-
-    await ctx.send('All your reminders have been cleared.')
+    embed=discord.Embed(
+                #title="Sample Embed", 
+                #url="https://realdrewdata.medium.com/", 
+                description=f"Clear reminders.", 
+                color=discord.Color.blue())
+            
+    embed.set_author(name=f"{interaction.user.name}",
+                             icon_url=interaction.user.avatar)
+    await interaction.response.send_message('All your reminders have been cleared.',embed=embed+)
 
 #############################################
 # Routine Maintenance Functions
