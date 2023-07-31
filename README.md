@@ -21,8 +21,8 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
         </tr>
         <tr>
             <td style="width: 50%;">
-                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-30 9.26.23 PM.png?raw=True" alt="Image Description">
-                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-30 9.25.32 PM.png?raw=True" alt="Image Description">
+                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-30 9.26.23 PM.png?raw=True" alt="Image Description"></td>
+                <td><img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-30 9.25.32 PM.png?raw=True" alt="Image Description">
             </td>
         </tr>
     </table>
