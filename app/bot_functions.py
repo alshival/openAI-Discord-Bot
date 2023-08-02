@@ -209,11 +209,11 @@ async def delete_music_downloads(bot):
 
 async def update_reminders_table(bot):
     # Connect to the SQLite3 database named 'data.db'
-    conn = await create_connection()
-    cursor = await conn.cursor()
+    db_conn = await create_connection()
+    cursor = await db_conn.cursor()
     # Delete reminders with null value:
-    await cursor.execute("DELETE FROM reminders WHERE reminder_time IS NULL")
-    await conn.commit()
+    await cursor.execute("DELETE FROM reminders WHERE reminder_time IS NULL OR channel_id IS NULL")
+    await db_conn.commit()
     # Remove stale data. Currently, the last 200 record are kept.
     # To change this, edit `prompt_table_cache_size` in `app/config.py`
     await cursor.execute('SELECT COUNT(*) FROM prompts')
@@ -222,13 +222,9 @@ async def update_reminders_table(bot):
     if count >= max_rows:
         delete_count = count - max_rows - 1  # Calculate how many entries to delete
         await cursor.execute(f'DELETE FROM prompts WHERE id IN (SELECT id FROM prompts ORDER BY timestamp ASC LIMIT {delete_count})')
-        await conn.commit()  # Commit the changes
-    # Close the database connection
-    await conn.close()
+        await db_conn.commit()  # Commit the changes
 
     current_channels = await list_channels(bot)
-    async with aiosqlite.connect(db_name) as conn:
-            cursor = await conn.cursor()
     
     # Delete reminders from channels that no longer exist
     current_channels = await list_channels(bot)

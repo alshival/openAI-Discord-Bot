@@ -222,6 +222,13 @@ sample_data = {**sample_data,**youtube_dict}
 # Sample training data for other requests
 ############################################ 
 openAi = {
+    "Hey you":'other',
+    "Hey.":'other',
+    "Hey, what's up.":'other',
+    "Hi, how are you":'other',
+    "Good morning!":'other',
+    "Thank you!":'other',
+    "Thanks.":'other',
     "What's the capital of France?": 'other',
     "How do you make a chocolate cake?": 'other',
     "What time does the museum open?": 'other',

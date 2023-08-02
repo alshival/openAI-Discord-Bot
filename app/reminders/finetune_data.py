@@ -197,7 +197,29 @@ target_time = current_time.replace(hour=12, minute=0, second=0, microsecond=0) +
 # Add reminder
 reminder_dict = (
     ctx.author.name,
-    f"Hey @{ctx.author.name}, remember to turn in your homework by tomorrow noon!",
+    f"Hey @{ctx.author.name}, remember to turn in your homework!",
+    ctx.channel.id,
+    ctx.channel.name,
+    target_time.strftime('%Y-%m-%d %H:%M:%S')
+    )
+response_text = f"Noted. Reminder set: {target_time.strftime('%Y-%m-%d %H:%M:%S')}"
+        
+"""},
+
+{'role':'user','content':"Remind me to call mom tomorrow morning"},
+{'role':'assistant','content':"""
+from datetime import datetime, timedelta
+
+# Get the current date and time
+current_time = datetime.now()
+
+# Set the target time (tomorrow morning) for the next occurrence
+target_time = current_time.replace(hour=9, minute=0, second=0, microsecond=0) + timedelta(days=1)
+
+# Add reminder
+reminder_dict = (
+    ctx.author.name,
+    f"Hey @{ctx.author.name}, remember to turn in your homework!",
     ctx.channel.id,
     ctx.channel.name,
     target_time.strftime('%Y-%m-%d %H:%M:%S')
