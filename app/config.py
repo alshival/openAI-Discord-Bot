@@ -20,6 +20,7 @@ import json
 ############################################
 import openai
 # Set up the OpenAI API. The key is stored as an environment variable for security reasons.
+openai_model = 'gpt-3.5-turbo'
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 sample_stock_charts = 4
 
@@ -101,17 +102,24 @@ async def send_chunks(ctx, text):
 
     for chunk in chunks:
         await ctx.send(chunk)
-async def send_chunks_interaction(interaction, text, embed = []):
+async def send_chunks_interaction(interaction, text, embed =[]):
+    if embed == []:
+        embed = discord.Embed(
+            description = text,
+            color = discord.Color.red()
+        )
+        embed.set_author(name=f"@{interaction.user.name}",icon_url=interaction.user.avatar)
     chunk_size = 2000  # Maximum length of each chunk
 
     chunks = [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
     if len(chunks) == 1:
-        await interaction.response.send_message(chunks[0],embed=embed)
+        await interaction.followup.send(chunks[0],embed=embed)
     else:
         for chunk in chunks:
             if chunk == chunks[0]:
-                await interaction.response.send_message(chunk)
-            elif chunk != chunks[len(chunks)-1]:
+                await interaction.followup.send(chunk)
+                
+            if chunk != chunks[len(chunks)-1]:
                 await interaction.followup.send(chunk)
             else:
                 await interaction.followup.send(chunk,embed=embed)

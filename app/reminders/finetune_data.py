@@ -51,13 +51,16 @@ response_text = f"Done. Reminder set: {target_time.strftime('%Y-%m-%d %H:%M:%S')
 from datetime import datetime, timedelta
 
 # Get the current date
-current_date = datetime.now().date()
+current_date = datetime.now()
 
 # Find the number of days until the next Monday (0: Monday, 1: Tuesday, ..., 6: Sunday)
 days_until_next_monday = (0 - current_date.weekday()) % 7
 
 # Calculate the date for the next Monday
 target_time = current_date + timedelta(days=days_until_next_monday)
+# Set reminder for 8 am to remind them in the morning.
+target_time = target_time.replace(hour=8,minute=0,second=0)
+
 # Add reminder
 reminder_dict = (
     ctx.author.name,
@@ -80,7 +83,7 @@ from datetime import datetime, timedelta
 current_time = datetime.now()
 
 # Set the target time (5 PM) for the next occurrence
-target_time = current_time.replace(hour=17, minute=0, second=0, microsecond=0)
+target_time = current_time.replace(hour=17, minute=0, second=0)
 
 # If the current time is already past 5 PM, increment the target_time by one day
 if current_time >= target_time:
@@ -110,7 +113,7 @@ from datetime import datetime, timedelta
 current_time = datetime.now()
 
 # Set the target time (9 AM) for the next occurrence
-target_time = current_time.replace(hour=9, minute=0, second=0, microsecond=0)
+target_time = current_time.replace(hour=9, minute=0, second=0)
 
 # If the current time is already past 9AM, increment the target_time by one day
 if current_time >= target_time:
@@ -140,10 +143,10 @@ current_time = datetime.now()
 days_until_next_monday = (0 - current_time.weekday()) % 7
 
 # Calculate the date for the next Monday
-target_date = current_time.date() + timedelta(days=days_until_next_monday)
+target_date = current_time + timedelta(days=days_until_next_monday)
 
-# Set the target time (2:25 PM) for next Monday to give them 5 minutes to prepare
-target_time = target_date.replace(hour=14, minute=30, second=0, microsecond=0)
+# Set the target time (2:25 PM) for next Monday
+target_time = target_date.replace(hour=14, minute=30, second=0)
 
 # If the current time is already past 2:30 PM on Monday, increment the target_date by one week
 if current_time >= target_time:
@@ -171,7 +174,7 @@ from datetime import datetime, timedelta
 current_time = datetime.now()
 
 # Set the target time (end of the day) for today
-target_time = current_time.replace(hour=23, minute=59, second=59, microsecond=0)
+target_time = current_time.replace(hour=23, minute=59, second=59)
 
 # Create reminder dict
 reminder_dict = (
@@ -192,7 +195,7 @@ from datetime import datetime, timedelta
 current_time = datetime.now()
 
 # Set the target time (tomorrow noon) for the next occurrence
-target_time = current_time.replace(hour=12, minute=0, second=0, microsecond=0) + timedelta(days=1)
+target_time = current_time.replace(hour=12, minute=0, second=0) + timedelta(days=1)
 
 # Add reminder
 reminder_dict = (
@@ -214,7 +217,7 @@ from datetime import datetime, timedelta
 current_time = datetime.now()
 
 # Set the target time (tomorrow morning) for the next occurrence
-target_time = current_time.replace(hour=9, minute=0, second=0, microsecond=0) + timedelta(days=1)
+target_time = current_time.replace(hour=9, minute=0, second=0) + timedelta(days=1)
 
 # Add reminder
 reminder_dict = (
@@ -226,5 +229,59 @@ reminder_dict = (
     )
 response_text = f"Noted. Reminder set: {target_time.strftime('%Y-%m-%d %H:%M:%S')}"
         
+"""},
+
+{'role':'user','content':"remind the team on Thursday that there will be a meeting at the end of the week."},
+{'role':'assistant','content':"""
+
+from datetime import datetime, timedelta
+
+# Get the current date and time
+current_time = datetime.now()
+
+# Find the number of days until next Thursday (0: Monday, 1: Tuesday, ..., 6: Sunday)
+days_until_next_thursday = (3 - current_time.weekday()) % 7
+
+# Calculate the date for next Thursday
+target_date = current_time + timedelta(days=days_until_next_thursday)
+
+# Set the target time for next Thursday, 9AM
+target_time = target_date.replace(hour=9, minute=0, second=0)
+
+# Add reminder. Use @here since they asked to notify the team.
+reminder_dict = (
+    ctx.author.name,
+    "@here, There will be a meeting at the end of the week.",
+    ctx.channel.id,
+    ctx.channel.name,
+    target_time.strftime('%Y-%m-%d %H:%M:%S')
+    )
+response_text = f"Sure thing. Reminder set: {target_time.strftime('%Y-%m-%d %H:%M:%S')}"      
+"""},
+{'role':'user','content':"remind the union about the charity walk next tuesday at 6 am."},
+{'role':'assistant','content':"""
+from datetime import datetime, timedelta
+
+# Get the current date and time
+current_time = datetime.now()
+
+# Find the number of days until next Tuesday (0: Monday, 1: Tuesday, ..., 6: Sunday)
+days_until_next_tuesday = (1 - current_time.weekday()) % 7
+
+# Calculate the date for next Tuesday
+target_date = current_time + timedelta(days=days_until_next_tuesday)
+
+# Set the target time for next Tuesday, 6 AM
+target_time = target_date.replace(hour=6, minute=0, second=0)
+
+# Add reminder. Use @union to notify the union.
+reminder_dict = (
+    ctx.author.name,
+    "@here, Just a reminder about the charity walk.",
+    ctx.channel.id,
+    ctx.channel.name,
+    target_time.strftime('%Y-%m-%d %H:%M:%S')
+    )
+response_text = f"Sure thing. Reminder set: {target_time.strftime('%Y-%m-%d %H:%M:%S')}"
 """}
     ]

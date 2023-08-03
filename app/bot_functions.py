@@ -84,16 +84,15 @@ async def label_last_db(interaction,db_conn, label):
                                  tuple([last_row[key] for key in last_row.keys()] + [label]))
             await db_conn.commit()
             
-            embed=discord.Embed(
-                #title="Sample Embed", 
+            embed=discord.Embed( 
                 #url="https://realdrewdata.medium.com/", 
                 description=last_row['prompt'], 
                 color=discord.Color.blue())
             
-            embed.set_author(name=f"{interaction.user.name}",
+            embed.set_author(name=f"{interaction.user.name}  used /label_last",
                              icon_url=interaction.user.avatar)
-            await send_chunks_interaction(interaction,f"Last prompt labeled as: {label}",embed = embed)
-
+            await send_chunks_interaction(interaction,f"Last prompt labeled as: {label}",embed=embed)
+            
 # '!label_last' command to correctly label the last prompt.
 async def label_last_prompt(interaction,label):
     # Verify the label

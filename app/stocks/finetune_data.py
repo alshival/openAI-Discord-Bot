@@ -968,5 +968,139 @@ filename = "iris_matrix_plot.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 
+"""},
+{'role':'user','content':"Plot Tesla's stock price for the past 5 years. For each 12 month period in the date range, add a line of best fit. There should be a total of 5 lines of best fit. Use a white background and a thick red line for Tesla's price."},
+{'role':'assistant','content':"""
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime, timedelta
+from sklearn.linear_model import LinearRegression
+
+# DO NOT CHANGE THIS SECTION
+chart_width = 12
+chart_height = 8
+
+ticker = "TSLA"
+
+# Get today's date
+end_date = datetime.today()
+
+# Calculate the start date as 5 years ago from today
+start_date = end_date - timedelta(days=365 * 5)
+
+# Fetch the historical data for Tesla using yfinance
+data = yf.download(ticker, start=start_date, end=end_date)["Close"]
+
+# Set a white background theme for the plot using Matplotlib
+plt.style.use('default')
+
+# Plot the stock price for Tesla for the past 5 years with a thick red line
+plt.figure(figsize=(chart_width, chart_height))
+plt.plot(data.index, data, color='red', linewidth=2)
+
+# Calculate the start and end dates for each 12-month period
+date_ranges = []
+current_date = start_date
+while current_date < end_date:
+    next_date = current_date + timedelta(days=365)
+    date_ranges.append((current_date, next_date))
+    current_date = next_date
+
+for i, (start, end) in enumerate(date_ranges):
+    # Filter the data for the current 12-month period
+    filtered_data = data[(data.index >= start) & (data.index < end)]
+    X = np.arange(len(filtered_data)).reshape(-1, 1)
+    y = filtered_data.values
+
+    # Fit a linear regression model for the current 12-month period
+    regressor = LinearRegression()
+    regressor.fit(X, y)
+
+    # Generate the line of best fit for the current 12-month period
+    line_of_best_fit = regressor.predict(X)
+
+    # Plot the line of best fit for the current 12-month period
+    plt.plot(filtered_data.index, line_of_best_fit, linestyle='--', linewidth=1.5, label=f"Line of Best Fit {i+1}")
+
+# Set plot labels and title
+plt.xlabel("Date")
+plt.ylabel("Stock Price (USD)")
+plt.title("Tesla Stock Price (Past 5 Years)")
+
+# Set legend
+plt.legend()
+
+# Save the plot as a .png image file
+filename = "Tesla_Stock_Price_With_Lines_Of_Best_Fit.png"
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
+"""},
+{'role':'user','content':"Plot Tesla's stock price for the past five years. Then add a line to approximate the price using a polynomial of degree 2, 3, and 4."},
+{'role':'assistant','content':"""
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime, timedelta
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+
+# DO NOT CHANGE THIS SECTION
+chart_width = 12
+chart_height = 8
+
+ticker = "TSLA"
+
+# Get today's date
+end_date = datetime.today()
+
+# Calculate the start date as five years ago from today
+start_date = end_date - timedelta(days=5*365)
+
+# Fetch the historical data for Tesla using yfinance
+data = yf.download(ticker, start=start_date, end=end_date)
+
+# Set a dark background theme for the plot using Matplotlib
+plt.style.use('dark_background')
+
+# Plot the stock price for Tesla for the past five years
+plt.figure(figsize=(chart_width, chart_height))
+plt.plot(data['Close'], label="Stock Price", linewidth=3)
+plt.title("Tesla Stock Price (Past Five Years)", fontsize=16, fontweight='bold')
+plt.xlabel("Date", fontsize=14)
+plt.ylabel("Stock Price (USD)", fontsize=14)
+
+# Generate polynomial features of degrees 2, 3, and 4
+X = np.arange(len(data)).reshape(-1, 1)
+poly_features_2 = PolynomialFeatures(degree=2).fit_transform(X)
+poly_features_3 = PolynomialFeatures(degree=3).fit_transform(X)
+poly_features_4 = PolynomialFeatures(degree=4).fit_transform(X)
+
+# Fit linear regression models for each polynomial degree
+regressor_2 = LinearRegression().fit(poly_features_2, data['Close'])
+regressor_3 = LinearRegression().fit(poly_features_3, data['Close'])
+regressor_4 = LinearRegression().fit(poly_features_4, data['Close'])
+
+# Predict the stock prices using the linear regression models
+predicted_prices_2 = regressor_2.predict(poly_features_2)
+predicted_prices_3 = regressor_3.predict(poly_features_3)
+predicted_prices_4 = regressor_4.predict(poly_features_4)
+
+# Plot the polynomial approximations
+plt.plot(data.index, predicted_prices_2, label="Degree 2", linewidth=2)
+plt.plot(data.index, predicted_prices_3, label="Degree 3", linewidth=2)
+plt.plot(data.index, predicted_prices_4, label="Degree 4", linewidth=2)
+
+plt.legend()
+plt.tight_layout()
+
+# Save the plot as a .png image file
+filename = "Tesla_Stock_Price_Polynomial_Approximation.png"
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
 """}
 ]

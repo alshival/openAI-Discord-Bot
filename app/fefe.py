@@ -37,13 +37,14 @@ async def talk_to_fefe(ctx, message,bot):
         return
 
     # bot's Reminder Capabilities
-    if message_category == 'reminder':
-        await reminder(ctx,message,model,db_conn)
-    # Bot's openAi capabilities
-    elif message_category == 'other':
-        await fefe_openai(ctx,message,model,db_conn)
-    # Bot's youtube capabilities
-    elif message_category == 'youtube':
-        await fefe_youtube(bot,ctx,message,model,db_conn)
-    elif message_category == 'interpreter':
-        await fefe_stock.stock(ctx,message,model,db_conn)
+    # if message_category == 'reminder':
+    #     await reminder(ctx,message,model,db_conn)
+    # # Bot's openAi capabilities
+    # elif message_category == 'other':
+    #     await fefe_openai(ctx,message,model,db_conn)
+    # # Bot's youtube capabilities
+    # elif message_category == 'youtube':
+    #     await fefe_youtube(bot,ctx,message,model,db_conn)
+    # elif message_category == 'interpreter':
+    #     await fefe_stock.stock(ctx,message,model,db_conn)
+    await fefe_stock.stock(ctx,message,model,db_conn)

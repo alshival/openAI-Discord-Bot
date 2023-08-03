@@ -40,6 +40,24 @@ async def fefe(ctx,*,message: str):
     await talk_to_fefe(ctx,message,bot)
 
 
+# V2 command
+from commands.discord_interpreter import discord_interpreter
+from commands.gpt import GPT
+# Used to label the last prompt you sent. 
+@bot.tree.command(name = "gpt")
+@app_commands.choices(
+    plugin=[
+        app_commands.Choice(name = 'Chat', value = 'Chat'),
+        app_commands.Choice(name="Interpreter",value="Interpreter")])
+async def gpt(interaction: discord.Interaction,plugin: app_commands.Choice[str],message:str):
+    await interaction.response.defer(thinking = True)
+    
+    db_conn = await create_connection()
+    if plugin.value == "Interpreter":
+        await discord_interpreter(interaction,message,db_conn)
+    elif plugin.value == "Chat":
+        await GPT(interaction,message,db_conn)
+
 # Help Command
 help_text = """
 👋 Hi, I'm Fefe! I live on this server. 🎉
@@ -82,6 +100,7 @@ async def help(interaction: discord.Interaction):
     app_commands.Choice(name = k, value = k) for k in keras_labels
     ])
 async def label_last(interaction: discord.Interaction,label: app_commands.Choice[str]):
+    await interaction.response.defer(thinking = True)
     await label_last_prompt(interaction,label.value)
 
 # '!clear_reminders` command 
@@ -117,8 +136,11 @@ async def stop_music(interaction: discord.Interaction):
 ########################################################################
 # Bot tasks
 ########################################################################
+reminder_task_loop_running = False
 @tasks.loop(minutes=1)
 async def reminders(bot):
+    global reminder_task_loop_running
+    reminder_task_loop_running = True
     try:
         await update_reminders_table(bot)
         await send_reminders(bot)
@@ -126,8 +148,11 @@ async def reminders(bot):
     except Exception as e:
         print(f"Error in send_reminders: {e}")
 
+delete_downloads_task_loop_running = False
 @tasks.loop(minutes=90)
 async def delete_downloads(bot):
+    global delete_downloads_task_loop_running
+    delete_downloads_task_loop_running = True
     await delete_music_downloads(bot)
     print('Download folder cleared')
     
@@ -136,8 +161,10 @@ async def delete_downloads(bot):
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
-    reminders.start(bot)
-    delete_downloads.start(bot)
+    if not reminder_task_loop_running:
+        reminders.start(bot)
+    if not delete_downloads_task_loop_running:
+        delete_downloads.start(bot)
     try:
         synced = await bot.tree.sync()
         print(f"Synced {len(synced)} slash command(s)")

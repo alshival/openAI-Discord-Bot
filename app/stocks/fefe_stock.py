@@ -25,7 +25,7 @@ async def stock(ctx,message,model,db_conn):
                 temperature=0.5,
                 top_p=1,
                 frequency_penalty=0.0,
-                presence_penalty=0.6,
+                presence_penalty=0.4,
             )
     except Exception as e:
         ctx.send(f"Sorry! Had an issue with the openAi API: \n {type(e).__name__} - {str(e)}")
