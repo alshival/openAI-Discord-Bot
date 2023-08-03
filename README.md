@@ -9,7 +9,7 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 
 This version of the bot utilizes GPT3.5. Feel free to use this code as inspiration for utilizing newer models, such as GPT4, or reach out to us at [support@alshival.com](mailto:support@alshival.com). 
 
-NOTE: These images are outdated. In order to improve functionality, the Discord Interpreter has been moved from `!fefe <Interpreter Request>` to the slash command `/gpt Interpreter <Interpreter Request>`
+NOTE: These images are outdated. In order to improve the user experience, the Discord Interpreter has been moved from `!fefe <Interpreter Request>` to the slash command `/gpt Interpreter <Interpreter Request>`
 <!DOCTYPE html>
 <html>
 <body>
