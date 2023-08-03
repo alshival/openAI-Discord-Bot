@@ -5,7 +5,7 @@ from app.reminders import finetune_data
 
 async def reminder(ctx,message,model,db_conn):
     py_filename = f"app/reminders/{ctx.author.name}.py"
-    return_py_file = True
+    return_py_file = False
     sample_prompts = finetune_data.finetune
     sample_prompts.append({'role':'user','content':f'Write code like before for this request: \n```\n{message}\n```\n If they ask you to notify a group of people, use @here.'})
 
