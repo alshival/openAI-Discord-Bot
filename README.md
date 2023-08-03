@@ -9,6 +9,7 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 
 This version of the bot utilizes GPT3.5. Feel free to use this code as inspiration for utilizing newer models, such as GPT4, or reach out to us at [support@alshival.com](mailto:support@alshival.com). 
 
+NOTE: These images are outdated. In order to improve functionality, the Discord Interpreter has been moved from `!fefe <Interpreter Request>` to the slash command `/gpt Interpreter <Interpreter Request>`
 <!DOCTYPE html>
 <html>
 <body>
@@ -35,8 +36,9 @@ This version of the bot utilizes GPT3.5. Feel free to use this code as inspirati
 
 - Use the command prefix `!` to interact with the bot:
 
-  - `!fefe <message>`: Ask the bot questions, set reminders, play music over a voice channel, or generate financial charts.
+  - `!fefe <message>`: Ask Fefe questions, set reminders, play music over a voice channel, or to write code and search for answers.
 - The bot also includes the following slash commands:
+  - `/gpt <plugin> <message>': Ask Fefe to generate financial charts.
   - `/help`: Provides a quick rundown of how to use the app.
   - `/label_last <label>`: Label the last prompt you sent to retrain the bot, in the event that she misunderstands your request.
   - `/retrain_keras`: Retrain the Keras layer after labeling prompts using `/label_last`. (Only accessible to server administrators)
