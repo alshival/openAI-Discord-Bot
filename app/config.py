@@ -60,12 +60,11 @@ epochs = 20
 GloVe = 'app/glove.6B/glove.6B.100d.txt'
 
 # Define the labels for task assignment in the Keras model
-keras_labels = ['other', 'reminder', 'interpreter','youtube']
+keras_labels = ['other', 'reminder','youtube']
 
 feature_display_text = """
 `!label_last reminder` - If your request was about a reminder.
 `!label_last youtube` - For youtube requests.
-`!label_last interpreter` - If you wanted me to generate a stock market chart or other type of chart.
 `!label_last other` - For all other requests.
 """
 

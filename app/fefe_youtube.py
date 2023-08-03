@@ -41,7 +41,6 @@ ytdlopts = {
     'force-ipv4': True,
     'preferredcodec': 'mp3',
     'cachedir': False
-    
     }
 
 ffmpeg_options = {

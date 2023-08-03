@@ -43,20 +43,28 @@ async def fefe(ctx,*,message: str):
 # V2 command
 from commands.discord_interpreter import discord_interpreter
 from commands.gpt import GPT
+from commands.youtube import *
+
 # Used to label the last prompt you sent. 
 @bot.tree.command(name = "gpt")
 @app_commands.choices(
     plugin=[
         app_commands.Choice(name = 'Chat', value = 'Chat'),
-        app_commands.Choice(name="Interpreter",value="Interpreter")])
+        app_commands.Choice(name="Interpreter",value="Interpreter"),
+        app_commands.Choice(name="Search Youtube",value="search_youtube"),
+        app_commands.Choice(name="Youtube",value="youtube")])
 async def gpt(interaction: discord.Interaction,plugin: app_commands.Choice[str],message:str):
     await interaction.response.defer(thinking = True)
-    
     db_conn = await create_connection()
+    
     if plugin.value == "Interpreter":
         await discord_interpreter(interaction,message,db_conn)
     elif plugin.value == "Chat":
         await GPT(interaction,message,db_conn)
+    elif plugin.value == "search_youtube":
+        await search_youtubev2(interaction,message,db_conn)
+    elif plugin.value == "youtube":
+        await play_youtube(interaction,message,db_conn)
 
 # Help Command
 help_text = """
