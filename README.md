@@ -9,23 +9,20 @@ Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. I
 
 This version of the bot utilizes GPT3.5. Feel free to use this code as inspiration for utilizing newer models, such as GPT4, or reach out to us at [support@alshival.com](mailto:support@alshival.com). 
 
-NOTE: These images are outdated. In order to improve the user experience, the Discord Interpreter has been moved from `!fefe <Interpreter Request>` to the slash command `/gpt Interpreter <Interpreter Request>`
-<!DOCTYPE html>
 <html>
 <body>
     <table style="width: 100%;" cellspacing="0" cellpadding="0">
         <tr>
             <td style="width: 50%;">
-                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-27 5.08.04 AM.png?raw=True" alt="Image Description">
+                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot%202023-08-04%207.43.52%20AM.png?raw=True" alt="Image Description">
             </td>
             <td style="width: 50%;">
-                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-25 10.19.03 PM.png?raw=True" alt="Image Description">
+                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot%202023-08-04%207.43.58%20AM.png?raw=True" alt="Image Description">
             </td>
         </tr>
         <tr>
-            <td style="width: 50%;">
-                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-30 9.26.23 PM.png?raw=True" alt="Image Description"></td>
-                <td><img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-30 9.25.32 PM.png?raw=True" alt="Image Description">
+            <td style="width: 100%;">
+                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Stock_Prices_5_Years.png?raw=True" alt="Image Description">
             </td>
         </tr>
     </table>
@@ -53,9 +50,6 @@ NOTE: These images are outdated. In order to improve the user experience, the Di
 - Perform Market Research Analysis using yfinance to create financial charts and mix charts with regression lines.
 
 The LLM we are using was better at writing matplotlib code than they were plotnine or plotly code. A newer LLM, such as GPT4 or Llama2, may be able to write plotly code more accurately
-
-<img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-25 10.37.07 PM.png?raw=True" alt="Image Description">
-
 
 If you have GPT-4, you can adjust the code to use GPT4 in `app/fefe_openai.py` and `app/stocks/fefe_stocks.py` to use that model. You can include more sample training data along with your prompt if you use GPT4, as the token limit is higher than GPT3.5's. This should improve results. For stock charts, sample data used for generation is located at `app/stocks/finetune_data.py`. You can include any charts you like that the bot produces in the openAi training data (not to be mistaken with the keras training data, which is kept in `data.db` under the `prompts` table. More on that later.), which at the moment is a manual copy/paste process. You can adjust the number of sample prompt/chart pairs passed to openAi when generating a stock in the config file under the openAi section:
 ```
@@ -143,7 +137,7 @@ To invite your bot to a server, go back to the Discord Developer Portal:
 ### Data Collection
 Out of the box, the bot may make mistakes or misunderstand certain prompts. However, you can help improve its accuracy by providing feedback on its responses. When the bot misinterprets your request or gives an incorrect response, you can let it know by running the command `/label_last <label>`, where `<label>` represents the appropriate category for the prompt.
 
-<img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot 2023-07-26 2.06.22 AM.png?raw=True" alt="Image Description">
+<img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot%202023-08-04%207.46.28%20AM.png?raw=True" alt="Image Description">
 
 * If you were asking the bot to play music, use `/label_last youtube`.
 * If you were asking the bot to set a reminder, use `/label_last reminder`.
