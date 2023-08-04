@@ -10,12 +10,14 @@ from app.fefe_openai import *
 from app.fefe_youtube import *
 from app.stocks import fefe_stock
 
-async def GPT(interaction,message,db_conn):
+async def GPT(interaction,message):
     embed1 = discord.Embed(
         description = message,
         color = discord.Color.purple()
     )
     embed1.set_author(name=f"{interaction.user.name} used {openai_model}",icon_url=interaction.user.avatar)
+    
+    db_conn = await create_connection()
     
     past_prompts = await fetch_prompts(db_conn,interaction.channel.name,4)
     messages = []
@@ -53,4 +55,5 @@ async def GPT(interaction,message,db_conn):
                  interaction.channel_id,
                  interaction.channel.name,
                  keras_classified_as = '')
+    await db_conn.close()
     

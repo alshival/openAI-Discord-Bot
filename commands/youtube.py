@@ -1,7 +1,7 @@
 from app.config import *
 from app.bot_functions import *
 
-async def search_youtubev2(interaction, message, db_conn):
+async def search_youtubev2(interaction, message):
     try:
         search_response = youtube.search().list(
             q = message,
@@ -71,7 +71,7 @@ ffmpeg_options = {
 
 ytdl = yt_dlp.YoutubeDL(ytdlopts)
 
-async def play_youtube(interaction,message,db_conn):
+async def play_youtube(interaction,message):
     embed = discord.Embed(
             description = message,
             color = discord.Color.purple()
@@ -116,7 +116,4 @@ async def play_youtube(interaction,message,db_conn):
         await interaction.followup.send(f"Had an issue connecting: {e}",embed=embed)
 
     await interaction.followup.send(f"### Playing: {title}\n{video_url}")
-    await store_prompt(db_conn,interaction.user.name,message,openai_model,'Youtube Playback: ' + video_url,interaction.channel_id,interaction.channel.name,keras_classified_as = '')
-    # if voice_channel is False:
-    #     await store_prompt(db_conn,interaction.user.name,message,openai_model,'',interaction.channel_id,interaction.channel_name,keras_classified_as = '')
-    #     return await interaction.followup.send("Join a voice channel then ask me again.")
+    

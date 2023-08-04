@@ -55,14 +55,13 @@ from commands.youtube import *
     ])
 async def gpt(interaction: discord.Interaction,plugin: app_commands.Choice[str],message:str):
     await interaction.response.defer(thinking = True)
-    db_conn = await create_connection()
     
     if plugin.value == "Interpreter":
-        await discord_interpreter(interaction,message,db_conn)
+        await discord_interpreter(interaction,message)
     elif plugin.value == "Chat":
-        await GPT(interaction,message,db_conn)
+        await GPT(interaction,message)
     elif plugin.value == "search_youtube":
-        await search_youtubev2(interaction,message,db_conn)
+        await search_youtubev2(interaction,message)
 
 # Help Command
 help_text = """

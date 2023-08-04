@@ -17,15 +17,14 @@ def extract_code(response_text):
         print("No code found.")
     return extracted_code
 
-async def discord_interpreter(interaction, message, db_conn):
+async def discord_interpreter(interaction, message):
     embed1 = discord.Embed(
             description = message,
             color = discord.Color.purple()
         )
-    embed1.set_author(name=f"{interaction.user.name} used Discord Interpreter",icon_url=interaction.user.avatar)
+    embed1.set_author(name=f"{interaction.user.name} used the Discord Interpreter",icon_url=interaction.user.avatar)
     
     py_filename = f"app/{interaction.user.name}.py"
-    await store_prompt(db_conn,interaction.user.name,message,openai_model,'',interaction.channel_id,interaction.channel.name, keras_classified_as = '')
 
     messages = [[finetune_data.finetune[i],finetune_data.finetune[i+1]] for i in [j for j in range(len(finetune_data.finetune)) if j%2==0]] 
 
@@ -88,7 +87,6 @@ async def discord_interpreter(interaction, message, db_conn):
         await interaction.followup.send(files=[discord.File(global_vars['filename']),discord.File(py_filename)],embed=embed1)
         # delete locally saved .png file
         os.remove(global_vars['filename'])
-        
     except Exception as e:
         print(message)
         print(e)
@@ -109,8 +107,5 @@ Error:
                       )
             
         await interaction.followup.send(file=discord.File(py_filename),embed=embed1)
-        return
     # Store the new prompt and response in the 'prompts' table
-    await store_prompt(db_conn, interaction.user.name, message, openai_model, response_text, interaction.channel_id,interaction.channel.name,keras_classified_as='')
-    await db_conn.close()
 

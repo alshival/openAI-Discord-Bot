@@ -5,9 +5,9 @@ from app.reminders import finetune_data
 
 async def reminder(ctx,message,model,db_conn):
     py_filename = f"app/reminders/{ctx.author.name}.py"
-    return_py_file = False
+    return_py_file = True
     sample_prompts = finetune_data.finetune
-    sample_prompts.append({'role':'user','content':f'Write code like before for this request: \n```\n{message}\n```\n If they ask you to notify a group of people, use @here.'})
+    sample_prompts.append({'role':'user','content':f'Write code like before for this request: \n```\n{message}\n```\n".'})
 
     response = openai.ChatCompletion.create(
         model = model,
@@ -39,6 +39,7 @@ async def reminder(ctx,message,model,db_conn):
             await ctx.send(file=discord.File(py_filename))
             # Remove the locally saved .png file
             os.remove(py_filename)
+            return
     try:
         response_compiled = compile(extracted_code,"<string>","exec")
         # Define the dictionary for globals()
@@ -78,6 +79,7 @@ Error: {type(e).__name__} - {str(e)}
         await ctx.send(file=discord.File(py_filename))
         # Remove the locally saved .png file
         os.remove(py_filename)
+        
 # Store the new prompt and response in the 'prompts' table
     await store_prompt(db_conn, ctx.author.name, message, model, jsonl, ctx.channel.id,ctx.channel.name,keras_classified_as='reminder')
     await db_conn.close()

@@ -54,12 +54,14 @@ async def fefe_youtube(bot,ctx,message,model,db_conn):
         voice_channel = ctx.author.voice.channel #checking if user is in a voice channel
     except AttributeError:
         await store_prompt(db_conn, ctx.author.name, message, model, '',ctx.channel.id, ctx.channel.name,keras_classified_as='youtube')
-        return await ctx.send("Join a voice channel and ask me again.") # member is not in a voice channel
-        
+        await ctx.send("Join a voice channel and ask me again.") # member is not in a voice channel
+        await db_conn.close()
+        return 
     permissions = voice_channel.permissions_for(ctx.me)
     if not permissions.connect or not permissions.speak:
         await store_prompt(db_conn, username, message, model, '', ctx.channel.id,channel_name,keras_classified_as='youtube')
         await ctx.send("I don't have permission to join or speak in that voice channel.")
+        await db_conn.close()
         return
         
     messages = [{'role':'user','content':'Return a youtube search query based on the following message: Play spirit in the sky'},
@@ -88,6 +90,7 @@ async def fefe_youtube(bot,ctx,message,model,db_conn):
             search_result = [x for x in search_response.get("items",[]) if x["id"]["kind"] == "youtube#video"][0]
         except:
             await ctx.send("I wasn't able to find any results for that query, perhaps due to copyright issues. Try searching again or searcing for something else.")
+            await db_conn.close()
             return
         
         video_url = f"""https://youtu.be/{search_result["id"]["videoId"]}"""
@@ -120,3 +123,4 @@ async def fefe_youtube(bot,ctx,message,model,db_conn):
 
         # Store the new prompt and response in the 'prompts' table
     await store_prompt(db_conn, ctx.author.name, message, model, response_text, ctx.channel.id,ctx.channel.name,keras_classified_as='youtube')
+    await db_conn.close()
