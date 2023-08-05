@@ -7,6 +7,8 @@ Created by [Alshival's Data Service](https://alshival.com) to enhance your Disco
 
 Note that the Discord Interpreter creates a server vulnurability, since it depends on the `exec` function. You can spit the output of `.bashrc`, revealing security keys by creating a prompt. Essentially, the Ai can access all files in a sandbox. This is why Discord Interpreter is aimed for small study groups and small teams. It works very well in a virtual environment or on a dedicated raspberry pi.
 
+<img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot%202023-08-04%204.48.30%20PM.png?raw=True">
+
 Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can set reminders, play music, and create financial charts using natural language. Since Ai can make mistakes, the python code used to generate the charts is returned within a python dictionary suitable for fine-tuning an openAi model for better performance.  
 
 This version of the bot utilizes GPT3.5. Feel free to use this code as inspiration for utilizing newer models, such as GPT4, or reach out to us at [support@alshival.com](mailto:support@alshival.com). 
