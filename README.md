@@ -40,12 +40,12 @@ This version of the bot utilizes GPT3.5. Feel free to use this code as inspirati
 
   - `!fefe <message>`: Ask Fefe questions, set reminders, play music over a voice channel, or to write code and search for answers.
   - `!data_interpreter`: Attach a .CSV file and ask Fefe to generate charts or maps.
-  - `!exeggutor`: Execute raw python code.
+  - `!exeggutor`: (Admin) Execute raw python code.
 - The bot also includes the following slash commands:
   - `/gpt <plugin> <message>': Ask Fefe to generate financial charts.
   - `/help`: Provides a quick rundown of how to use the app.
   - `/label_last <label>`: Label the last prompt you sent to retrain the bot, in the event that she misunderstands your request.
-  - `/retrain_keras`: Retrain the Keras layer after labeling prompts using `/label_last`. (Only accessible to server administrators)
+  - `/retrain_keras`: (Admin) Retrain the Keras layer after labeling prompts using `/label_last`. (Only accessible to server administrators)
   - `/clear_reminders`: Clear all reminders set by the user.
   - `/stop_music`: Used to stop music playback in voice channels.
 
