@@ -23,9 +23,9 @@ async def Exeggutor(ctx,python):
             sys.stdout = original_stdout
         except Exception as e:
             await ctx.send(f"""
-#########################################
+####################
 Error
-#########################################
+####################
 ```
 {type(e).__name__} - {e}
 ```
@@ -45,18 +45,18 @@ Error
         #files_to_send = []
         if len(files_to_send)>0:
             await ctx.send(f'''
-#########################################
+####################
 Output
-#########################################
+####################
 ```
 {output}
 ```
 ''',files = [discord.File(x) for x in files_to_send])  # get the output from the buffer
         else:
             await ctx.send(f'''
-#########################################
+####################
 Output
-#########################################
+####################
 ```
 {output}
 ```
