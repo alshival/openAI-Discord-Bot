@@ -25,12 +25,13 @@ This version of the bot utilizes GPT3.5. Feel free to use this code as inspirati
             </td>
         </tr>
         <tr>
-            <td style="width: 100%;">
-                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Stock_Prices_5_Years.png?raw=True" alt="Image Description">
+            <td colspan="2" style="width: 100%;">
+                <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot%202023-08-04%207.05.46%20PM.png?raw=True" alt="Data Interpreter">
             </td>
         </tr>
     </table>
 </body>
+
 </html>
 
 ## Usage
@@ -38,6 +39,8 @@ This version of the bot utilizes GPT3.5. Feel free to use this code as inspirati
 - Use the command prefix `!` to interact with the bot:
 
   - `!fefe <message>`: Ask Fefe questions, set reminders, play music over a voice channel, or to write code and search for answers.
+  - `!data_interpreter`: Attach a .CSV file and ask Fefe to generate charts or maps.
+  - `!exeggutor`: Execute raw python code.
 - The bot also includes the following slash commands:
   - `/gpt <plugin> <message>': Ask Fefe to generate financial charts.
   - `/help`: Provides a quick rundown of how to use the app.
