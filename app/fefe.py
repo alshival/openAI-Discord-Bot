@@ -8,7 +8,6 @@ from app.reminders.fefe_reminders_openai import *
 from app.fefe_openai import *
 # For searching youtube
 from app.fefe_youtube import *
-from app.stocks import fefe_stock
 
 async def talk_to_fefe(ctx, message,bot):
 

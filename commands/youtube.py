@@ -24,7 +24,7 @@ async def search_youtubev2(interaction, message):
                 {'role':'assistant','content':f"I got you,, {interaction.user.mention}. ❤️💕 I home we aren't as complicated."},
                 {'role':'user','content':'Importing a csv file into python'},
                 {'role':'assistant','content':f'Sure thing, {interaction.user.mention}❤️🍇. Are you a parseltongue if you can speak python?'},
-                {'role':'user','content':f'Generate a short flirty tease reply like the previous ones:'+ message}
+                {'role':'user','content':f'Generate a short reply like the previous ones. Tease them a bit:'+ message}
             ],
             n = 1,
             temperature = 0.25,

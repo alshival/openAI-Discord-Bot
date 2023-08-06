@@ -1,21 +1,7 @@
-from app.stocks import finetune_data
-from app.bot_functions import *
+from commands.discord_interpreter import finetune_data
 import yfinance as yf
 import matplotlib.pyplot as plt
 from app.config import *
-
-# Code used to strip commentary from GPT response.
-def extract_code(response_text):
-    pattern = pattern = r"```(?:[a-z]*\s*)?(.*?)```\s*"
-    match = re.search(pattern, response_text, re.DOTALL)
-    if match:
-        extracted_code = match.group(1) # Get the content between the tags\n",
-    elif 'import' in response_text:
-        extracted_code = response_text
-    else:
-        extracted_code = response_text
-        print("No code found.")
-    return extracted_code
 
 async def discord_interpreter(interaction, message):
     embed1 = discord.Embed(
@@ -42,7 +28,7 @@ async def discord_interpreter(interaction, message):
             messages=messages,
             max_tokens=1450,
             n=1,
-            temperature=0.5,
+            temperature=0.6,
             top_p=1,
             frequency_penalty=0.0,
             presence_penalty=0.6,
@@ -75,18 +61,21 @@ async def discord_interpreter(interaction, message):
         extracted_code = response_text
         print("No code found")
     try:
-        global_vars = globals().copy()
+        vars = {}
         response_compiled = compile(extracted_code,"<string>","exec")
-        exec(response_compiled, global_vars)
+        exec(response_compiled, vars,vars)
+        strings =  [x for x in vars.values() if (type(x) is str)]
+        files_to_send = [x  for x in strings if re.search('\.([^.]+$)',x) is not None]
         # Send the zcode back to the user
         jsonl = f'''{{'role':'user','content':"{r'' +message}"}},
 {{'role':'assistant','content':"""\n{extracted_code}\n"""}}'''
         with open(py_filename, 'w') as file:
             file.write(jsonl)
         # Send the .png file back
-        await interaction.followup.send(files=[discord.File(global_vars['filename']),discord.File(py_filename)],embed=embed1)
+        await interaction.followup.send(files=[discord.File(x) for x in files_to_send] + [discord.File(py_filename)],embed=embed1)
         # delete locally saved .png file
-        os.remove(global_vars['filename'])
+        for file in files_to_send:
+            os.remove(file)
     except Exception as e:
         print(message)
         print(e)
@@ -107,5 +96,3 @@ Error:
                       )
             
         await interaction.followup.send(file=discord.File(py_filename),embed=embed1)
-    # Store the new prompt and response in the 'prompts' table
-

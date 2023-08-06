@@ -93,6 +93,19 @@ async def create_connection():
 ############################################
 # Useful Functions
 ############################################
+# Code used to strip commentary from GPT response.
+def extract_code(response_text):
+    pattern = pattern = r"```(?:[a-z]*\s*)?(.*?)```\s*"
+    match = re.search(pattern, response_text, re.DOTALL)
+    if match:
+        extracted_code = match.group(1) # Get the content between the tags\n",
+    elif 'import' in response_text:
+        extracted_code = response_text
+    else:
+        extracted_code = response_text
+        print("No code found.")
+    return extracted_code
+
 # Used to abide by Discord's 2000 character limit.
 async def send_chunks(ctx, text):
     chunk_size = 2000  # Maximum length of each chunk

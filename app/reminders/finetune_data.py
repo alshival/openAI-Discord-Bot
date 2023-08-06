@@ -168,7 +168,7 @@ days_until_next_monday = (0 - current_time.weekday()) % 7
 # Calculate the date for the next Monday
 target_date = current_time + timedelta(days=days_until_next_monday)
 
-# Set the target time (2:25 PM) for next Monday
+# Set the target time (2:30 PM) for next Monday
 target_time = target_date.replace(hour=14, minute=30, second=0)
 
 # If the current time is already past 2:30 PM on Monday, increment the target_date by one week
@@ -178,7 +178,7 @@ if current_time >= target_time:
 # Add reminder. Use @{ctx.author.name} to notify specific person.
 reminder_dict = (
     ctx.author.name,
-    f"Don't miss the team meeting at 2:30 PM, @{ctx.author.name}!"
+    f"Don't miss the team meeting, @{ctx.author.name}!"
     ctx.channel.id,
     ctx.channel.name,
     target_time.strftime('%Y-%m-%d %H:%M:%S')
@@ -202,7 +202,7 @@ target_time = current_time.replace(hour=23, minute=59, second=59)
 # Add reminder. Use @{ctx.author.name} to notify specific person.
 reminder_dict = (
     ctx.author.name,
-    "Don't forget to pay the utility bills before the end of the day, @{ctx.author.name}!",
+    "Don't forget to pay the utility bills, @{ctx.author.name}!",
     ctx.channel.id,
     ctx.channel.name,
     target_time.strftime('%Y-%m-%d %H:%M:%S')

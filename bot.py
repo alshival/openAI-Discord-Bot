@@ -29,8 +29,6 @@ asyncio.get_event_loop().run_until_complete(create_reminder_table())
 # Load the reminders layer
 #asyncio.get_event_loop().run_until_complete(load_reminder_layer())
 
-
-
 ########################################################################
 # Bot Commands
 ########################################################################
@@ -39,27 +37,36 @@ asyncio.get_event_loop().run_until_complete(create_reminder_table())
 async def fefe(ctx,*,message: str):
     await talk_to_fefe(ctx,message,bot)
 
-
 # V2 command
 from commands.discord_interpreter import discord_interpreter
-from commands.gpt import GPT
-from commands.youtube import *
+from commands.youtube import search_youtubev2
+from commands.Data_Interpreter import Data_Interpreter
+from commands.Exeggutor import Exeggutor
+@bot.command()
+@commands.has_permissions(administrator = True)
+async def data_interpreter(ctx,*,message: str):
+    await Data_Interpreter.data_int(ctx,message,openai_model)
 
+@bot.command()
+@commands.has_permissions(administrator = True)
+async def exeggutor(ctx,*,message: str):
+    print("exegguting")
+    await Exeggutor(ctx,message)
+    
 # Used to label the last prompt you sent. 
 @bot.tree.command(name = "gpt")
+@app_commands.checks.has_permissions(administrator=True)
 @app_commands.choices(
     plugin=[
-        app_commands.Choice(name = 'Chat', value = 'Chat'),
         app_commands.Choice(name="Interpreter",value="Interpreter"),
         app_commands.Choice(name="Search Youtube",value="search_youtube")
     ])
-async def gpt(interaction: discord.Interaction,plugin: app_commands.Choice[str],message:str):
+async def gpt(interaction: discord.Interaction, plugin: app_commands.Choice[str], message: str):
+    
     await interaction.response.defer(thinking = True)
     
     if plugin.value == "Interpreter":
-        await discord_interpreter(interaction,message)
-    elif plugin.value == "Chat":
-        await GPT(interaction,message)
+        await discord_interpreter.discord_interpreter(interaction,message)
     elif plugin.value == "search_youtube":
         await search_youtubev2(interaction,message)
 
@@ -175,4 +182,5 @@ async def on_ready():
         print(f"Synced {len(synced)} slash command(s)")
     except Exception as e:
         print(e)    
+        
 bot.run(discord_bot_token)

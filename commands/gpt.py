@@ -1,15 +1,16 @@
 from app.config import *
 from app.bot_functions import *
 from app.keras import tasks_layer
-
+import requests
+import pandas
 # For creating reminders
 from app.reminders.fefe_reminders_openai import *
 # For general discussion
 from app.fefe_openai import *
 # For searching youtube
 from app.fefe_youtube import *
-from app.stocks import fefe_stock
 
+# Interaction_version
 async def GPT(interaction,message):
     embed1 = discord.Embed(
         description = message,
@@ -56,4 +57,3 @@ async def GPT(interaction,message):
                  interaction.channel.name,
                  keras_classified_as = '')
     await db_conn.close()
-    

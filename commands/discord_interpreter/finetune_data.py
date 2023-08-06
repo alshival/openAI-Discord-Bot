@@ -32,7 +32,7 @@ sns.set_palette(sns.color_palette(colors))
 plt.style.use('dark_background')
 
 # Plot the candlestick chart for Tesla stock price for the past six months
-filename = "Tesla_candlestick.png"
+filename = "app/downloads/Tesla_candlestick.png"
 mpf.plot(data, type='candle', style='yahoo', title="Tesla Stock Price (Last Six Months)", ylabel="Stock Price (USD)",
          figsize=(chart_width, chart_height), savefig=dict(fname=filename, dpi=300, bbox_inches='tight'), volume=True)
 plt.close()
@@ -69,7 +69,7 @@ sns.set_palette(sns.color_palette(colors))
 plt.style.use('fivethirtyeight')
 
 # Plot the candlestick chart for Microsoft stock price for the past three quarters
-filename = "Microsoft_candlestick.png"
+filename = "app/downloads/Microsoft_candlestick.png"
 mpf.plot(data, type='candle', style='yahoo', title="Microsoft Stock Price (Last Three Quarters)", ylabel="Stock Price (USD)",
          figsize=(chart_width, chart_height), savefig=dict(fname=filename, dpi=300, bbox_inches='tight'))
 plt.close()
@@ -107,7 +107,7 @@ sns.set_palette(sns.color_palette(colors))
 plt.style.use('fivethirtyeight')
 
 # Plot the candlestick chart for Apple stock price for the past three quarters
-filename = "Apple_candlestick.png"
+filename = "app/downloads/Apple_candlestick.png"
 mpf.plot(data, type='candle', style='yahoo', title="Apple Stock Price (Last 128 days)", ylabel="Stock Price (USD)",
          figsize=(chart_width, chart_height), savefig=dict(fname=filename, dpi=300, bbox_inches='tight'), volume=True)
 plt.close()
@@ -154,7 +154,7 @@ plt.ylabel("Percent Change", fontsize=14, color="#FFFFFF")
 plt.legend()
 
 plt.tight_layout()
-filename = "bitcoin_ethereum_dogecoin_three_quarters.png"
+filename = "app/downloads/bitcoin_ethereum_dogecoin_three_quarters.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -225,7 +225,7 @@ plt.ylabel("Stock Price (USD)", fontsize=14, color="#FFFFFF")
 plt.legend()
 
 plt.tight_layout() 
-filename = "Microsoft_Apple_Two_Quarters.png"
+filename = "app/downloads/Microsoft_Apple_Two_Quarters.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -282,7 +282,7 @@ plt.title("Krispy Kreme Stock Price (Last Six Months)")
 plt.legend()
 
 # Save the plot as an image file
-filename = "Krispy_Kreme_Six_Months.png"
+filename = "app/downloads/Krispy_Kreme_Six_Months.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -358,7 +358,7 @@ plt.legend()
 
 plt.tight_layout()
 
-filename = "Microsoft_Apple_Two_Quarters.png"
+filename = "app/downloads/Microsoft_Apple_Two_Quarters.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -398,7 +398,7 @@ plt.ylabel("Volume", fontsize=14, color="#FFFFFF")
 
 plt.tight_layout() 
 
-filename = "Disney_Two_Blood_Moons.png"
+filename = "app/downloads/Disney_Two_Blood_Moons.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -414,7 +414,6 @@ from datetime import datetime, timedelta
 # DO NOT CHANGE THIS SECTION
 chart_width = 12
 chart_height = 8
-filename = filename # DO NOT CHANGE. WILL BE COMPILED.
 
 ticker = "DIS"
 
@@ -439,7 +438,7 @@ plt.xlabel("Date", fontsize=14, color="#333333")
 plt.ylabel("Volume", fontsize=14, color="#333333")
 
 plt.tight_layout() 
-filename = "Disney_Two_Blood_Moons_With_Volume.png"
+filename = "app/downloads/Disney_Two_Blood_Moons_With_Volume.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -491,7 +490,7 @@ plt.legend()
 
 plt.tight_layout() 
 
-filename = "Disney_28_Days_with_Volume.png"
+filename = "app/downloads/Disney_28_Days_with_Volume.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -524,7 +523,7 @@ data = yf.download(ticker, start=start_date, end=end_date)
 colors = ['#3C6EB4', '#FFB900', '#B4009E', '#00A300']
 sns.set_palette(sns.color_palette(colors))
 
-filename = "Microsoft_Candlestick_Three_Quarters.png"
+filename = "app/downloads/Microsoft_Candlestick_Three_Quarters.png"
 # Plot the candlestick chart for Microsoft for the past three quarters
 mpf.plot(data, type='candle', style='yahoo', title="Microsoft Stock Price (Last Three Quarters)",
          ylabel="Stock Price (USD)", figsize=(chart_width, chart_height), savefig=filename)
@@ -562,7 +561,7 @@ sns.set_palette(sns.color_palette(colors))
 plt.style.use('dark_background')
 
 # Plot the candlestick chart for Krispy Kreme stock price for the past six months
-filename = "Krispy_Kreme_Candlestick_Six_Months.png"
+filename = "app/downloads/Krispy_Kreme_Candlestick_Six_Months.png"
 mpf.plot(data, type='candle', style='yahoo', title="Krispy Kreme Stock Price (Last Six Months)", ylabel="Stock Price (USD)",
          figsize=(chart_width, chart_height), savefig=dict(fname=filename, dpi=300, bbox_inches='tight'), volume=True)
 plt.close()
@@ -620,7 +619,7 @@ plt.title("Google Stock Price (Past Two Weeks)")
 plt.legend()
 
 # Save the plot as an image file
-filename = "Google_Two_Weeks.png"
+filename = "app/downloads/Google_Two_Weeks.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -686,7 +685,7 @@ plt.text(data.index[-1], data['Close'].iloc[-1], u'\u2764', fontsize=100, color=
 plt.legend()
 
 # Save the plot as an image file
-filename = "Bumble_Stock_Price.png"
+filename = "app/downloads/Bumble_Stock_Price.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -748,7 +747,7 @@ plt.text(data.index[-1], data['Close'].min(), '❤', fontsize=100, color='#FFD70
 plt.legend()
 
 # Save the plot as a .png image file
-filename = "Bumble_2_Months.png"
+filename = "app/downloads/Bumble_2_Months.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -815,7 +814,7 @@ plt.title("Match Group, Bumble, and Hello Group Stock Prices (Past Two Years)")
 plt.legend()
 
 # Save the plot as a .png image file
-filename = "Stock_Prices_Match_Bumble_Hello.png"
+filename = "app/downloads/Stock_Prices_Match_Bumble_Hello.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -881,7 +880,7 @@ plt.title("Stock Prices for Match Group, Bumble, and Hello Group (Last Two Years
 plt.legend()
 
 # Save the plot as an image file
-filename = "Stock_Prices.png"
+filename = "app/downloads/Stock_Prices.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -945,7 +944,7 @@ plt.legend()
 
 plt.tight_layout()
 
-filename = "Stock_Prices_Last_Four_Quarters.png"
+filename = "app/downloads/Stock_Prices_Last_Four_Quarters.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -964,7 +963,7 @@ iris = sns.load_dataset('iris')
 sns.pairplot(iris)
 
 # Save the plot as a .png image
-filename = "iris_matrix_plot.png"
+filename = "app/downloads/iris_matrix_plot.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 
@@ -1034,7 +1033,7 @@ plt.title("Tesla Stock Price (Past 5 Years)")
 plt.legend()
 
 # Save the plot as a .png image file
-filename = "Tesla_Stock_Price_With_Lines_Of_Best_Fit.png"
+filename = "app/downloads/Tesla_Stock_Price_With_Lines_Of_Best_Fit.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """},
@@ -1099,7 +1098,131 @@ plt.legend()
 plt.tight_layout()
 
 # Save the plot as a .png image file
-filename = "Tesla_Stock_Price_Polynomial_Approximation.png"
+filename = "app/downloads/Tesla_Stock_Price_Polynomial_Approximation.png"
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
+"""},
+{'role':'user','content':"Plot Apple, Microsoft, Google, Meta's stock price percent change for the past two years. Use a white theme and playful colors. Stamp a large heart on it using unicode."},
+{'role':'assistant','content':"""
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime, timedelta
+
+# DO NOT CHANGE THIS SECTION
+chart_width = 12
+chart_height = 8
+
+tickers = ["AAPL", "MSFT", "GOOGL", "META"]
+
+# Get today's date
+end_date = datetime.today()
+
+# Calculate the start date as two years ago from today
+start_date = end_date - timedelta(days=365*2)
+
+# Fetch the historical data for Apple, Microsoft, Google, and Meta using yfinance
+data = yf.download(tickers, start=start_date, end=end_date)["Close"]
+
+# Calculate percent change for each stock
+percent_change_data = data.pct_change() * 100
+
+# Set a playful color palette
+colors = ['#FF4081', '#448AFF', '#FFC107', '#4CAF50']
+sns.set_palette(sns.color_palette(colors))
+
+# Set white background theme for the plot using Matplotlib
+plt.style.use('default')
+
+# Plot the percent change for Apple, Microsoft, Google, and Meta for the past two years
+plt.figure(figsize=(chart_width, chart_height))
+for ticker in tickers:
+    plt.plot(percent_change_data.index, percent_change_data[ticker], label=ticker)
+
+# Add a large heart stamp on the chart
+plt.text(percent_change_data.index[-1], percent_change_data.max().max(), '❤', fontsize=200, color='black', ha='right', va='top')
+
+# Set plot labels and title
+plt.xlabel("Date")
+plt.ylabel("Percent Change")
+plt.title("Stock Price Percent Change for Apple, Microsoft, Google, and Meta (Last Two Years)")
+
+# Set legend
+plt.legend()
+
+# Save the plot as an image file
+filename = "app/downloads/Stock_Price_Percent_Change.png"
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+plt.close()
+"""},
+{'role':'user','content':"Plot Apple, Google, Meta, and Microsofit's stock price on a chart. Standardize the results and add a line of best fit for the group. Use playful colors and a large font for the title. Make the font for the axis text larger as well."},
+{'role':'assistant','content':"""
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime, timedelta
+from sklearn.linear_model import LinearRegression
+
+# DO NOT CHANGE THIS SECTION
+chart_width = 12
+chart_height = 8
+
+tickers = ["AAPL", "GOOGL", "FB", "MSFT"]
+
+# Get today's date
+end_date = datetime.today()
+
+# Calculate the start date as one year ago from today
+start_date = end_date - timedelta(days=365)
+
+# Fetch the historical data for Apple, Google, Meta, and Microsoft using yfinance
+data = yf.download(tickers, start=start_date, end=end_date)["Close"]
+
+# Standardize the stock prices
+standardized_data = (data - data.mean()) / data.std()
+
+# Set a playful color palette
+colors = ['#FF0000', '#00FF00', '#0000FF', '#FF00FF']
+sns.set_palette(sns.color_palette(colors))
+
+# Set plot style and size
+plt.style.use('default')
+plt.figure(figsize=(chart_width, chart_height))
+
+# Plot the standardized stock prices for Apple, Google, Meta, and Microsoft
+for ticker in tickers:
+    plt.plot(standardized_data.index, standardized_data[ticker], label=ticker)
+
+# Fit a linear regression model
+X = np.arange(len(standardized_data)).reshape(-1, 1)
+y = standardized_data.mean(axis=1).values
+regressor = LinearRegression()
+regressor.fit(X, y)
+
+# Generate the line of best fit for the group
+line_of_best_fit = regressor.predict(X)
+
+# Plot the line of best fit
+plt.plot(standardized_data.index, line_of_best_fit, 'k--', label='Line of Best Fit')
+
+# Set plot labels and title
+plt.xlabel("Date", fontsize=14)
+plt.ylabel("Standardized Stock Price", fontsize=14)
+plt.title("Standardized Stock Prices of Apple, Google, Meta, and Microsoft", fontsize=24, fontweight='bold')
+
+# Set font size for tick labels
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+
+# Set legend
+plt.legend()
+
+# Save the plot as a .png image file
+filename = "app/downloads/Stock_Prices_Apple_Google_Meta_Microsoft.png"
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 plt.close()
 """}
