@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from app.config import *
 
 async def discord_interpreter(interaction, message):
+
     embed1 = discord.Embed(
             description = message,
             color = discord.Color.purple()

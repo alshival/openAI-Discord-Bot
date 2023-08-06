@@ -7,6 +7,8 @@ import random
 import traceback
 from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
+import io
+import sys
 
 # Set up Discord Bot token here:
 discord_bot_token = os.environ.get("DISCORD_BOT_TOKEN")
@@ -135,3 +137,21 @@ async def send_chunks_interaction(interaction, text, embed =[]):
                 await interaction.followup.send(chunk)
             else:
                 await interaction.followup.send(chunk,embed=embed)
+
+async def send_results(ctx, output, files_to_send=[]):
+    if len(files_to_send) > 0:
+        await ctx.send(f'''
+####################
+Output
+####################
+```
+{output}
+```''', files=[discord.File(x) for x in files_to_send])  # Send output with files
+    else:
+        await ctx.send(f'''
+####################
+Output
+####################
+```
+{output}
+```''')  # Send output without files

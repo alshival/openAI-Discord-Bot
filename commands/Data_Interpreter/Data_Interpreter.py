@@ -75,19 +75,42 @@ request:
     response_compiled = compile(extracted_code, "<string>", "exec")
     
     # Create a copy of the global variables and set the 'data' variable to the provided DataFrame
-    global_vars = globals().copy()
-    global_vars['data'] = data
+    vars = {}
+    vars['data'] = data
+    # Save the original stdout so we can reset it later
+    original_stdout = sys.stdout
+    # Create a StringIO object to capture output
+    captured_output = io.StringIO()
+    # Redirect stdout to the StringIO object
+    sys.stdout = captured_output
     try:
         # Execute the extracted code with the global variables
-        exec(response_compiled, global_vars)
-        jsonl = f'''
+        exec(response_compiled, vars,vars)
+    except Exception as e:
+        await ctx.send(f"""
+####################
+Error
+####################
+```
+{type(e).__name__} - {e}
+```
+""")
+        print(f"Error: {type(e).__name__} - {e}")
+        sys.stdout = original_stdout
+        return
+    
+    sys.stdout = original_stdout
+    # Get the output
+    output = captured_output.getvalue()
+    
+    jsonl = f'''
 {{'role':'user','content':"""\n{prompt_prep}\n"""}},
 {{'role':'assistant','content':"""\n{extracted_code}\n"""}}'''
     
-        with open(py_filename, 'w') as file:
-            file.write(jsonl)
-        
-        await ctx.send(files=[discord.File(global_vars['filename']),discord.File(py_filename)])
-
-    except Exception as e:
-        print(e)
+    with open(py_filename, 'w') as file:
+        file.write(jsonl)
+    # check if there are any files
+    strings =  [x for x in vars.values() if (type(x) is str)]
+    files_to_send = [x  for x in strings if re.search('\.([^.]+$)',x) is not None]
+    
+    await send_results(ctx,output,files_to_send)

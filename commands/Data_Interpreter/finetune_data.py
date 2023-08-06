@@ -25,7 +25,7 @@ Plot orbital_period by mass.
 {'role':'assistant','content':"""
 ```python
 import matplotlib.pyplot as plt
-
+plt.clf()
 # Assuming your data is in a DataFrame called `data`
 plt.scatter(data['mass'], data['orbital_period'])
 plt.xlabel('Mass')
@@ -64,6 +64,7 @@ Create a pair plot.
 ```python
 import seaborn as sns
 import matplotlib.pyplot as plt
+plt.clf()
 
 # Assuming your data is in a DataFrame called `data`
 sns.pairplot(data, hue='species')
@@ -107,6 +108,7 @@ Create a pair plot.
 """},
 {'role':'assistant','content':"""
 import seaborn as sns
+plt.clf()
 
 # Assuming your data is in a DataFrame called `data`
 sns.pairplot(data)
@@ -148,6 +150,7 @@ plot brightness by confidence, and set hue to the satellite type.
 {'role':'assistant','content':"""
 import seaborn as sns
 import matplotlib.pyplot as plt
+plt.clf()
 
 # Assuming your data is in a DataFrame called `data`
 sns.set(style="darkgrid")
