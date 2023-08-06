@@ -52,9 +52,6 @@ Output
 {output}
 ```
 ''',files = [discord.File(x) for x in files_to_send])  # get the output from the buffer
-                        # remove files 
-            for file in files_to_send:
-                os.remove(file)
         else:
             await ctx.send(f'''
 #########################################
