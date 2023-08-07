@@ -72,7 +72,6 @@ request:
     # Extract the response text
     response_text = response['choices'][0]['message']['content']
     extracted_code = extract_code(response_text)
-    response_compiled = compile(extracted_code, "<string>", "exec")
     
     # Create a copy of the global variables and set the 'data' variable to the provided DataFrame
     vars = {}
@@ -84,37 +83,57 @@ request:
     # Redirect stdout to the StringIO object
     sys.stdout = captured_output
     
-    jsonl = f'''
-{{'role':'user','content':"""\n{prompt_prep}\n"""}},
-{{'role':'assistant','content':"""\n{extracted_code}\n"""}}'''
-    
-    with open(py_filename, 'w') as file:
-        file.write(jsonl)
     try:
+        response_compiled = compile(extracted_code, "<string>", "exec")
         # Execute the extracted code with the global variables
         exec(response_compiled, vars,vars)
     except Exception as e:
-        await ctx.send(f"""
-####################
-Error
-####################
-```
-{type(e).__name__} - {e}
-```
-""",files = [discord.File(py_filename)])
-        print(f"Error: {type(e).__name__} - {e}")
+        print(message)
+        print(e)
+        print(extracted_code)
+        with open(py_filename, "w") as file:
+            file.write(f'''
+################################################################
+Error:
+{type(e).__name__} - {str(e)}
+################################################################
+{{'role':'user','content':'{message}'}},
+{{'role':'assistant','content':
+"""
+{extracted_code}
+"""}}'''
+                      )
+        await ctx.send("I ran into an error.",files = [discord.File(py_filename)])
         sys.stdout = original_stdout
         return
     
     sys.stdout = original_stdout
     # Get the output
     output = captured_output.getvalue()
-
+    jsonl = f'''
+################################################################
+Output:
+################################################################
+{output}
+################################################################
+Fine-tuning:
+################################################################
+{{'role':'user','content':"""\n{prompt_prep}\n"""}},
+{{'role':'assistant','content':"""\n{extracted_code}\n"""}}'''
+    with open(py_filename, 'w') as file:
+        file.write(jsonl)
     # check if there are any files
     strings =  [x for x in vars.values() if (type(x) is str)]
     files_to_send = [x  for x in strings if re.search('\.([^.]+$)',x) is not None] + [py_filename]
+
+    embed1 = discord.Embed(
+            description = message,
+            color = discord.Color.teal()
+        )
+    embed1.set_author(name=f"{ctx.author.name} used the Data Interpreter",icon_url=ctx.message.author.avatar)
     
-    await send_results(ctx,output,files_to_send)
+    await ctx.send(files=[discord.File(k) for k in files_to_send],embed=embed1)
+
     db_conn = await create_connection()
     await store_prompt(db_conn, ctx.author.name, prompt_prep, openai_model, extracted_code, ctx.channel.id,ctx.channel.name,'')
     await db_conn.close()

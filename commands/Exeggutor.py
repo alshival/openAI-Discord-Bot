@@ -6,8 +6,6 @@ async def Exeggutor(ctx,python):
     
     extracted_code = extract_code(python) # Extract the code
     
-    code_compiled = compile(extracted_code,"<string>","exec") # Compiling code
-
     vars = {}
     # Save the original stdout so we can reset it later
     original_stdout = sys.stdout
@@ -17,6 +15,8 @@ async def Exeggutor(ctx,python):
     sys.stdout = captured_output
 
     try:
+        code_compiled = compile(extracted_code,"<string>","exec") # Compiling code
+
         exec(code_compiled,vars,vars)  # execute the code    
     except Exception as e:
         await ctx.send(f"""
