@@ -38,7 +38,7 @@ async def data_int(ctx,message,model):
     prompt_prep = f"""
 filename:
 ```
-{filename}
+app/downloads/{filename}
 ```
 
 columns:
@@ -83,6 +83,13 @@ request:
     captured_output = io.StringIO()
     # Redirect stdout to the StringIO object
     sys.stdout = captured_output
+    
+    jsonl = f'''
+{{'role':'user','content':"""\n{prompt_prep}\n"""}},
+{{'role':'assistant','content':"""\n{extracted_code}\n"""}}'''
+    
+    with open(py_filename, 'w') as file:
+        file.write(jsonl)
     try:
         # Execute the extracted code with the global variables
         exec(response_compiled, vars,vars)
@@ -94,7 +101,7 @@ Error
 ```
 {type(e).__name__} - {e}
 ```
-""")
+""",files = [discord.File(py_filename)])
         print(f"Error: {type(e).__name__} - {e}")
         sys.stdout = original_stdout
         return
@@ -102,15 +109,12 @@ Error
     sys.stdout = original_stdout
     # Get the output
     output = captured_output.getvalue()
-    
-    jsonl = f'''
-{{'role':'user','content':"""\n{prompt_prep}\n"""}},
-{{'role':'assistant','content':"""\n{extracted_code}\n"""}}'''
-    
-    with open(py_filename, 'w') as file:
-        file.write(jsonl)
+
     # check if there are any files
     strings =  [x for x in vars.values() if (type(x) is str)]
-    files_to_send = [x  for x in strings if re.search('\.([^.]+$)',x) is not None]
+    files_to_send = [x  for x in strings if re.search('\.([^.]+$)',x) is not None] + [py_filename]
     
     await send_results(ctx,output,files_to_send)
+    db_conn = await create_connection()
+    await store_prompt(db_conn, ctx.author.name, prompt_prep, openai_model, extracted_code, ctx.channel.id,ctx.channel.name,'')
+    await db_conn.close()

@@ -139,19 +139,23 @@ async def send_chunks_interaction(interaction, text, embed =[]):
                 await interaction.followup.send(chunk,embed=embed)
 
 async def send_results(ctx, output, files_to_send=[]):
-    if len(files_to_send) > 0:
-        await ctx.send(f'''
+    chunk_size = 2000  # Maximum length of each chunk
+    
+    response = f'''
 ####################
 Output
 ####################
 ```
 {output}
-```''', files=[discord.File(x) for x in files_to_send])  # Send output with files
+```'''
+    
+    chunks = [response[i:i+chunk_size] for i in range(0, len(response), chunk_size)]
+    
+    if len(chunks) == 1:
+        await ctx.send(chunks[0],files = [discord.File(x) for x in files_to_send])
     else:
-        await ctx.send(f'''
-####################
-Output
-####################
-```
-{output}
-```''')  # Send output without files
+        for chunk in chunks:
+            if chunk != chunks[len(chunks)-1]:
+                await ctx.send(chunk)
+            else:
+                await ctx.send(chunk,files = [discord.File(x) for x in files_to_send])

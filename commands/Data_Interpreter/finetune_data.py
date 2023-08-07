@@ -3,7 +3,7 @@ finetune = [
 {'role':'user','content':"""
 filename:
 ```
-planets.csv
+app/downloads/planets.csv
 ```
 
 columns:
@@ -42,7 +42,7 @@ plt.savefig(filename, dpi=300, bbox_inches='tight')
 {'role':'user','content':"""
 filename:
 ```
-iris.csv
+app/downloads/iris.csv
 ```
 
 columns:
@@ -78,7 +78,7 @@ plt.savefig(filename, dpi=300, bbox_inches='tight')
 {'role':'user','content':"""
 filename:
 ```
-titanic.csv
+app/downloads/titanic.csv
 ```
 
 columns:
@@ -121,7 +121,7 @@ plt.savefig(filename, dpi=300, bbox_inches='tight')
 {'role':'user','content':'''
 filename
 ```
-modis.csv
+app/downloads/modis.csv
 ```
 
 columns:
@@ -165,7 +165,7 @@ plt.savefig(filename, dpi=300, bbox_inches='tight')
 
 filename:
 ```
-chicago_crime_data_2.csv
+app/downloads/chicago_crime_data_2.csv
 ```
 
 columns:
@@ -204,5 +204,146 @@ filename = "app/downloads/chicago_crime_map.html"
 # Save the map as an HTML file
 m.save(filename)
 
+"""},
+
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/COVID-data-cdc.csv
+```
+
+columns:
+```
+county                                 object
+county_fips                             int64
+state                                  object
+county_population                       int64
+health_service_area_number              int64
+health_service_area                    object
+health_service_area_population        float64
+covid_inpatient_bed_utilization       float64
+covid_hospital_admissions_per_100k    float64
+covid_cases_per_100k                  float64
+covid_19_community_level               object
+date_updated                           object
+dtype: object
+```
+
+request:
+```
+Group the data by state and count the number of cases. Create a map and color each state by the number of cases.
+```
+"""},
+{'role':'assistant','content':"""
+import folium
+import pandas as pd
+import geopandas as gpd
+import matplotlib.pyplot as plt
+
+plt.style.use('dark_background')
+
+# Assuming your data is in a DataFrame called `data`
+# Load the us-states.json file into a GeoDataFrame
+gdf = gpd.read_file('app/us-states.json')
+
+# Group by state and count the number of cases
+state_cases = data.groupby('state')['covid_cases_per_100k'].count().reset_index(name='cases_count')
+
+# Merge data with gdf on state column
+merged_data = gdf.merge(state_cases, left_on='name', right_on='state')
+
+# Create a choropleth map to show the cases in each state
+m = folium.Map(location=[37, -102], zoom_start=4)
+
+folium.Choropleth(
+    geo_data=merged_data,
+    name='choropleth',
+    data=merged_data,
+    columns=['state', 'cases_count'],
+    key_on='feature.properties.name',
+    fill_color='YlOrRd',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='COVID Cases per 100k'
+).add_to(m)
+
+folium.LayerControl().add_to(m)
+
+# Set variable filename (required)
+filename = "app/downloads/covid_choropleth.html"
+# Save the map as an HTML file
+m.save(filename)
+
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/COVID-data-cdc.csv
+```
+
+columns:
+```
+county                                 object
+county_fips                             int64
+state                                  object
+county_population                       int64
+health_service_area_number              int64
+health_service_area                    object
+health_service_area_population        float64
+covid_inpatient_bed_utilization       float64
+covid_hospital_admissions_per_100k    float64
+covid_cases_per_100k                  float64
+covid_19_community_level               object
+date_updated                           object
+dtype: object
+```
+
+request:
+```
+Can you group by state and count the number of cases in each state? Then create a map with states colored in with a purple or blue spectrum. Use a dark tile layer: `TileLayer('cartodbdark_matter')`.
+```
+
+"""},
+{'role':'assistant','content':"""
+import folium
+import pandas as pd
+import geopandas as gpd
+import matplotlib.pyplot as plt
+
+plt.style.use('dark_background')
+
+# Assuming your data is in a DataFrame called `data`
+# Load the us-states.json file into a GeoDataFrame
+gdf = gpd.read_file('app/us-states.json')
+
+# Group by state and count the number of cases
+state_cases = data.groupby('state')['covid_cases_per_100k'].count().reset_index(name='cases_count')
+
+# Merge data with gdf on state column
+merged_data = gdf.merge(state_cases, left_on='name', right_on='state')
+
+# Create a choropleth map to show the cases in each state
+m = folium.Map(location=[37, -102], zoom_start=4, tiles='cartodbdark_matter')
+
+folium.Choropleth(
+    geo_data=merged_data,
+    name='choropleth',
+    data=merged_data,
+    columns=['state', 'cases_count'],
+    key_on='feature.properties.name',
+    fill_color='PuRd',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='COVID Cases'
+).add_to(m)
+
+folium.LayerControl().add_to(m)
+
+# Set variable filename (required)
+filename = "app/downloads/covid_choropleth.html"
+# Save the map as an HTML file
+m.save(filename)
 """}
 ]

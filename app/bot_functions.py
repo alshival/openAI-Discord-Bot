@@ -37,7 +37,19 @@ async def store_prompt(db_conn, username, prompt, model, response, channel_id,ch
 # This function is used to fetch past conversations from the 'prompts' table.
 async def fetch_prompts(db_conn, channel_id, limit):
     async with db_conn.cursor() as cursor:
-        await cursor.execute('SELECT prompt, response FROM prompts WHERE channel_name = ?  and keras_classified_as != "stock-chart" ORDER BY timestamp DESC LIMIT ?', (channel_id, limit,))
+        query = """
+        SELECT prompt, response 
+        FROM (
+            SELECT prompt, response, timestamp 
+            FROM prompts 
+            WHERE channel_name = ? 
+            ORDER BY timestamp DESC 
+            LIMIT ?
+        ) AS subquery 
+        ORDER BY timestamp ASC;
+        """
+        
+        await cursor.execute(query, (channel_id, limit,))
         return await cursor.fetchall()
         
 #############################################
@@ -194,17 +206,21 @@ async def list_channels(bot):
 # It deletes the oldest entries if the count exceeds prompt_table_cache_size.
 # This function is also called upon bot startup.
 # You can customize the maximum number of entries by changing the 'max_rows' variable.
+
 async def delete_music_downloads(bot):
-    # Delete music downloads.
-    directory = 'app/downloads'
-    if os.path.exists(directory) and os.path.isdir(directory):
+    # Delete everything in a directory recursively.
+    def delete_everything(directory):
         for file_name in os.listdir(directory):
             file_path = os.path.join(directory, file_name)
             if os.path.isfile(file_path):
                 os.remove(file_path)
             elif os.path.isdir(file_path):
-                empty_directory(file_path)
+                delete_everything(file_path)
                 os.rmdir(file_path)
+    
+    directory = 'app/downloads'
+    if os.path.exists(directory) and os.path.isdir(directory):
+        delete_everything(directory)
 
 async def update_reminders_table(bot):
     # Connect to the SQLite3 database named 'data.db'

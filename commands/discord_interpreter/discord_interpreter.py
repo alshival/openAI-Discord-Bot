@@ -2,6 +2,7 @@ from commands.discord_interpreter import finetune_data
 import yfinance as yf
 import matplotlib.pyplot as plt
 from app.config import *
+from app.bot_functions import store_prompt
 
 async def discord_interpreter(interaction, message):
 
@@ -77,6 +78,11 @@ async def discord_interpreter(interaction, message):
         # delete locally saved .png file
         for file in files_to_send:
             os.remove(file)
+            
+        db_conn = await create_connection()
+        await store_prompt(db_conn, interaction.user.name, message, openai_model, extracted_code, interaction.channel_id,interaction.channel.name,'')
+        await db_conn.close()
+        
     except Exception as e:
         print(message)
         print(e)

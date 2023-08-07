@@ -13,7 +13,7 @@ async def fefe_openai(ctx,message,model,db_conn):
     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,
-        max_tokens=1024,
+        max_tokens=1500,
         n=1,
         temperature=0.5,
         top_p=1,
