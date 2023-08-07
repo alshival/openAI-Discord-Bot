@@ -1,21 +1,20 @@
-# 🤖 OpenAI Discord Bot with Python Support 🐍
+# 🤖🔥 OpenAI Discord Bot with Python Support 🐍🚀💻
 
 Demo: [Vimeo](https://vimeo.com/845117509)
 
-Are you a parseltongue? Do you speak python? 🐍🔥
+Are you a parseltongue? Do you speak python? 🐍🔥📚📊⏰🎵🌟💻
 
-This Discord bot harnesses the power of OpenAI's `gpt-3.5-turbo` model and provides additional functionalities like writing and executing code, generating data visualizations from `.CSV` files 📊, setting reminders ⏰, playing music 🎵, and more. It now also includes Discord Interpreter, which allows you to create financial charts using yfinance and mix charts with regression lines, as well as Data Interpreter, which generates charts using your data. The code used to generate the image is returned as well, so that the data on the charts can be vetted.
+This Discord bot harnesses the power of OpenAI's `gpt-3.5-turbo` model and provides additional functionalities like writing and executing code, generating data visualizations from `.CSV` files 📊📈, setting reminders ⏰🔔, playing music 🎵🎶, and more. It now also includes Discord Interpreter, which allows you to create financial charts using yfinance and mix charts with regression lines, as well as Data Interpreter, which generates charts using your data. The code used to generate the image is returned as well, so that the data on the charts can be vetted. 📈📉📊🔍
 
-Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered. 🚀💻
+Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered. 🌟🚀💻🎉
 
-Please note that the Discord Interpreter creates a server vulnerability, since it depends on the `exec` function. You can spit the output of `.bashrc`, revealing security keys, using natural language. Essentially, the Ai can access all files in a sandbox. This is why Discord Interpreter is aimed for small study groups and small teams. It works very well in a virtual environment or on a dedicated raspberry pi. ⚠️🔒
+Please note that the Discord Interpreter creates a server vulnerability, since it depends on the `exec` function. You can spit the output of `.bashrc`, revealing security keys by creating a prompt. Essentially, the Ai can access all files in a sandbox. This is why Discord Interpreter is aimed for small study groups and small teams. It works very well in a virtual environment or on a dedicated raspberry pi. ⚠️🔒🔐
 
 <img src="https://github.com/alshival/openAI-Discord-Bot/blob/main/app/Screenshot%202023-08-04%204.48.30%20PM.png?raw=True">
 
+Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can set reminders, play music, and create financial charts using natural language. Since AI can make mistakes, the python code used to generate the charts is returned within a python dictionary suitable for fine-tuning an OpenAI model for better performance. 📚🤖📈📉📊📝
 
-Study groups can benefit from a Discord bot that utilizes OpenAI's GPT models. It can set reminders, play music, and create financial charts using natural language. Since AI can make mistakes, the python code used to generate the charts is returned within a python dictionary suitable for fine-tuning an OpenAI model for better performance. 📚🤖
-
-This version of the bot utilizes GPT3.5. Feel free to use this code as inspiration for utilizing newer models, such as GPT4, or reach out to us at [support@alshival.com](mailto:support@alshival.com) 🌟📩
+This version of the bot utilizes GPT3.5. Feel free to use this code as inspiration for utilizing newer models, such as GPT4, or reach out to us at [support@alshival.com](mailto:support@alshival.com) 🌟📩🚀💻
 
 <html>
 <body>
