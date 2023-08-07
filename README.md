@@ -43,10 +43,10 @@ This version of the bot utilizes GPT3.5. Feel free to use this code as inspirati
 - Use the command prefix `!` to interact with the bot:
 
   - `!fefe <message>`: Ask Fefe questions, set reminders, play music over a voice channel, or to write code and search for answers.
-  - `!data_interpreter`: Attach a .CSV file and ask Fefe to generate charts or maps.
+  - `!data_interpreter`: Attach a .CSV file and ask Fefe to generate charts or maps. Then ask `!fefe` to go over the code with you.
   - `!exeggutor`: (Admin) Exeggute raw python code.
 - The bot also includes the following slash commands:
-  - `/gpt <plugin> <message>`: Ask Fefe to generate financial charts.
+  - `/gpt <plugin> <message>`: Ask Fefe to search YouTube or use the Discord Interpreter to move files around on your PC or raspberry pi, or to generate financial charts. Then ask `!fefe` to go over the code with you.
   - `/help`: Provides a quick rundown of how to use the app.
   - `/label_last <label>`: Label the last prompt you sent to retrain the bot, in the event that she misunderstands your request.
   - `/retrain_keras`: (Admin) Retrain the Keras layer after labeling prompts using `/label_last`. (Only accessible to server administrators)
