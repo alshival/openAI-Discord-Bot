@@ -1,6 +1,8 @@
 # openAi Discord Bot with Python Support
 Demo: [Vimeo](https://vimeo.com/845117509)
 
+Are you a parseltongue? Do you speak python?
+
 This Discord bot utilizes OpenAi's `gpt-3.5-turbo` model and provides additional functionalities like setting reminders, playing music with the help of a sqlite database, a keras layer, and Google's Youtube. It now also includes Discord Interpreter, which allows you to create financial charts using yfinance and mix charts with regression lines, as well as Data Interpreter, which generates charts using your data. Code used to generate the image is returned as well, so that the data on the charts can be vetted.
 
 Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered.
