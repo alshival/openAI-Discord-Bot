@@ -1,53 +1,39 @@
 
-################################################################
-Request: Write a script that spits out an output but will error out.
-################################################################
-
 I ran into an Error: 
 ```
-NameError - name 'pd' is not defined
+FileNotFoundError - [Errno 2] No such file or directory: 'state_data.csv'
 ```
 
 Here's the code:
 
 ```
-filename = "app/downloads/sample_data.csv"
+import pandas as pd
+import folium
 
-columns = {
-    'Person': 'int64',
-    'Age': 'int64',
-    'Height (cm)': 'int64',
-    'Weight (kg)': 'int64',
-    'Income ($)': 'int64',
-    'Education (years)': 'int64'
-}
+# Read the data containing state-wise information
+data = pd.read_csv("state_data.csv")
 
-data = pd.read_csv(filename)
+# Create a folium map centered on the United States
+map = folium.Map(location=[37, -100], zoom_start=4)
 
-data.columns = columns.keys()
-data.dtypes
+# Create a choropleth layer using the data and add it to the map
+folium.Choropleth(
+    geo_data="us-states.json",  # GeoJSON file with state boundaries
+    name="Choropleth",
+    data=data,
+    columns=["State", "Data"],  # Column containing state names and the data to be mapped
+    key_on="feature.properties.name",  # Key in GeoJSON file matching state names
+    fill_color="YlOrRd",  # Color scale for the choropleth
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name="Data Legend"  # Title for the legend
+).add_to(map)
 
-X = data.drop('Income ($)', axis=1)
-y = data['Income ($)']
+# Add a layer control to the map
+folium.LayerControl().add_to(map)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Save the map as an HTML file
+filename = "app/downloads/choropleth_map.html"
+map.save(filename)
 
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-
-model = Sequential()
-model.add(Dense(10, activation='relu', input_dim=X_train_scaled.shape[1]))
-model.add(Dense(1))
-
-model.compile(loss='mean_squared_error', optimizer='adam')
-
-model.fit(X_train_scaled, y_train, epochs=100, batch_size=32, verbose=0)
-
-loss = model.evaluate(X_test_scaled, y_test)
-
-print("Test Loss:", loss)
-
-# Intentional error to demonstrate exception handling
-unknown_variable = some_function()
 ```

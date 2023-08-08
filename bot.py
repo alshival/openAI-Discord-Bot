@@ -147,6 +147,34 @@ async def stop_music(interaction: discord.Interaction):
         await interaction.response.send_message("Music playback stopped.")
     else:
         await interaction.response.send_message("The bot is not currently playing any music.")
+
+@bot.tree.command(name="upgrade_fefe")
+@app_commands.checks.has_permissions(administrator=True)
+async def upgrade_fefe(interaction: discord.Interaction):
+    embed1 = discord.Embed(
+            color = discord.Color.gold()
+        )
+    embed1.set_author(name=f"{interaction.user.name} upgraded Fefe",icon_url=interaction.user.avatar)
+    
+    await interaction.response.defer(thinking = True)
+    
+    import subprocess
+
+    # Save the original stdout so we can reset it later
+    original_stdout = sys.stdout
+    # Create a StringIO object to capture output
+    captured_output = io.StringIO()
+    # Redirect stdout to the StringIO object
+    sys.stdout = captured_output
+
+    command = ['git','pull','origin','main']
+    result = subprocess.run(command, capture_output=True, text = True)
+    jsonl = f"""
+```
+{result.stdout}
+```
+"""
+    await interaction.followup.send(jsonl,embed=embed1)
 ########################################################################
 # Bot tasks
 ########################################################################

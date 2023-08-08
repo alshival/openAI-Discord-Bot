@@ -10,7 +10,7 @@ from app.bot_functions import *
 async def data_int(ctx,message,model):
     embed1 = discord.Embed(
             description = message,
-            color = discord.Color.teal()
+            color = discord.Color.magenta()
         )
     embed1.set_author(name=f"{ctx.author.name} used the Data Interpreter",icon_url=ctx.message.author.avatar)
 
@@ -32,7 +32,7 @@ async def data_int(ctx,message,model):
             file.write(res.content)
         print("Attachment downloaded successfully!")
     else: 
-        ctx.send("Attach a file to continue",embed=embed1)
+        await ctx.send("Attach a file to continue",embed=embed1)
         return
     
     # For random prompts.
@@ -72,7 +72,7 @@ request:
                 presence_penalty=0.4,
             )
     except Exception as e:
-        ctx.send(f"Sorry! Had an issue with the openAi API: \n {type(e).__name__} - {str(e)}",embed=embed1)
+        await ctx.send(f"Sorry! Had an issue with the openAi API: \n {type(e).__name__} - {str(e)}",embed=embed1)
         return
     # Extract the response text
     response_text = response['choices'][0]['message']['content']
