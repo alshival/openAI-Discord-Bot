@@ -79,20 +79,28 @@ async def discord_interpreter(interaction, message):
         print(message)
         print(e)
         print(extracted_code)
-        with open(py_filename, "w") as file:
-            file.write(f'''
-################################################################
-Error:
+        jsonl = f'''
+I ran into an Error: 
+```
 {type(e).__name__} - {str(e)}
-################################################################
-{{'role':'user','content':'{message}'}},
-{{'role':'assistant','content':
-"""
+```
+
+Here's the code:
+
+```
 {extracted_code}
-"""}}''')
-        await ctx.send("I ran into an error.",files = [discord.File(py_filename)])
+```
+'''
+
+        with open(py_filename, "w") as file:
+            file.write(jsonl)
+        await interaction.followup.send("I ran into an error.",files = [discord.File(py_filename)],embed=embed1)
         sys.stdout = original_stdout
+        db_conn = await create_connection()
+        await store_prompt(db_conn, interaction.user.name, message, openai_model, jsonl, interaction.channel_id,interaction.channel.name,'')
+        await db_conn.close()
         return
+        
     sys.stdout = original_stdout
     output = captured_output.getvalue()
     jsonl = f'''

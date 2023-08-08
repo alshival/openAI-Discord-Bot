@@ -8,6 +8,11 @@ from commands.Data_Interpreter import finetune_data
 from app.bot_functions import *
 
 async def data_int(ctx,message,model):
+    embed1 = discord.Embed(
+            description = message,
+            color = discord.Color.teal()
+        )
+    embed1.set_author(name=f"{ctx.author.name} used the Data Interpreter",icon_url=ctx.message.author.avatar)
 
     py_filename = f"app/downloads/{ctx.author.name}.py"
     #filename = f'app/downloads/{ctx.author.name}.png'
@@ -27,7 +32,7 @@ async def data_int(ctx,message,model):
             file.write(res.content)
         print("Attachment downloaded successfully!")
     else: 
-        ctx.send("Attach a file to continue")
+        ctx.send("Attach a file to continue",embed=embed1)
         return
     
     # For random prompts.
@@ -67,7 +72,7 @@ request:
                 presence_penalty=0.4,
             )
     except Exception as e:
-        ctx.send(f"Sorry! Had an issue with the openAi API: \n {type(e).__name__} - {str(e)}")
+        ctx.send(f"Sorry! Had an issue with the openAi API: \n {type(e).__name__} - {str(e)}",embed=embed1)
         return
     # Extract the response text
     response_text = response['choices'][0]['message']['content']
@@ -91,20 +96,26 @@ request:
         print(message)
         print(e)
         print(extracted_code)
-        with open(py_filename, "w") as file:
-            file.write(f'''
-################################################################
-Error:
+        jsonl = f'''
+I ran into an Error: 
+```
 {type(e).__name__} - {str(e)}
-################################################################
-{{'role':'user','content':'{message}'}},
-{{'role':'assistant','content':
-"""
+```
+
+Here's the code:
+
+```
 {extracted_code}
-"""}}'''
-                      )
-        await ctx.send("I ran into an error.",files = [discord.File(py_filename)])
+```
+'''
+
+        with open(py_filename, "w") as file:
+            file.write(jsonl)
+        await ctx.send("I ran into an error.",files = [discord.File(py_filename)],embed=embed1)
         sys.stdout = original_stdout
+        db_conn = await create_connection()
+        await store_prompt(db_conn, ctx.author.name, prompt_prep, openai_model, jsonl, ctx.channel.id,ctx.channel.name,'')
+        await db_conn.close()
         return
     
     sys.stdout = original_stdout
@@ -125,12 +136,6 @@ Fine-tuning:
     # check if there are any files
     strings =  [x for x in vars.values() if (type(x) is str)]
     files_to_send = [x  for x in strings if re.search('\.([^.]+$)',x) is not None] + [py_filename]
-
-    embed1 = discord.Embed(
-            description = message,
-            color = discord.Color.teal()
-        )
-    embed1.set_author(name=f"{ctx.author.name} used the Data Interpreter",icon_url=ctx.message.author.avatar)
     
     await ctx.send(files=[discord.File(k) for k in files_to_send],embed=embed1)
 

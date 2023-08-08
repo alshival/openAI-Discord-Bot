@@ -84,6 +84,8 @@ help_text = """
 
  1️⃣ Talk to Fefe
  - `!fefe <message>`: Chat with Fefe. Ask her to set reminders, play music over the voice channel, generate financial charts, or ask her questions about certain topics.
+ - `!data_interpreter <message>`: Attach a `.csv` file and request charts be generated. 
+ - `!exeggutor <python>`: Run raw python code.
 
 Example:
 ```
