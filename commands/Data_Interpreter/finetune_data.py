@@ -1,48 +1,86 @@
 finetune = [
-# Example 1
 {'role':'user','content':"""
+
 filename:
 ```
-app/downloads/planets.csv
+app/downloads/sample_database_2.csv
 ```
 
 columns:
 ```
-method             object
-number              int64
-orbital_period    float64
-mass              float64
-distance          float64
-year                int64
+Age              int64
+Home State      object
+Education       object
+Eye Color       object
+Attribute 1      int64
+Attribute 2      int64
+Attribute 3      int64
+Attribute 4      int64
+Attribute 5      int64
+Attribute 6      int64
+Attribute 7      int64
+Attribute 8      int64
+Attribute 9      int64
+Attribute 10     int64
 dtype: object
+```
+
+First 3 rows:
+```
+   Age   Home State    Education Eye Color  Attribute 1  Attribute 2  Attribute 3  Attribute 4  Attribute 5  Attribute 6  Attribute 7  Attribute 8  Attribute 9  Attribute 10
+0   56     Delaware  High School      Blue            0            0            1            1            1            1            0            0            0             0
+1   46  Mississippi          PhD     Hazel            1            1            0            0            0            1            0            0            1             0
+2   32       Hawaii  High School     Hazel            0            0            1            0            1            1            1            0            0             1
 ```
 
 request:
 ```
-Plot orbital_period by mass.
+create a state choropleth leaflet containing the number of people who reside in each state.
 ```
+
 """},
 {'role':'assistant','content':"""
-```python
-import matplotlib.pyplot as plt
-plt.clf()
+import pandas as pd
+import geopandas as gpd
+import folium
+
 # Assuming your data is in a DataFrame called `data`
-plt.scatter(data['mass'], data['orbital_period'])
-plt.xlabel('Mass')
-plt.ylabel('Orbital Period')
-plt.title('Orbital Period by Mass')
+# Load the us-states.json file into a GeoDataFrame
+gdf = gpd.read_file('app/us-states.json')
+
+# Group by state and count the number of people
+state_data = data.groupby('Home State').size().reset_index(name='Count')
+
+# Merge data with gdf on state column
+merged_data = gdf.merge(state_data, left_on='name', right_on='Home State')
+
+# Create a choropleth map to show the count in each state
+m = folium.Map(location=[37, -102], zoom_start=4)
+
+folium.Choropleth(
+    geo_data=merged_data,
+    name='choropleth',
+    data=merged_data,
+    columns=['Home State', 'Count'],
+    key_on='feature.properties.name',
+    fill_color='YlGnBu',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='Number of People'
+).add_to(m)
+
+folium.LayerControl().add_to(m)
 
 # Set variable filename (required)
-filename = "app/downloads/planets.png"
-# save plot
-plt.savefig(filename, dpi=300, bbox_inches='tight')
-```
+filename = "app/downloads/state_choropleth.html"
+# Save the map as an HTML file
+m.save(filename)
 """},
-# Example 2
 {'role':'user','content':"""
+
 filename:
 ```
-app/downloads/iris.csv
+app/downloads/iris_dataset.csv
 ```
 
 columns:
@@ -55,295 +93,334 @@ species          object
 dtype: object
 ```
 
-request:
+First 3 rows:
 ```
-Create a pair plot.
-```
-"""},
-{'role':'assistant','content':"""
-```python
-import seaborn as sns
-import matplotlib.pyplot as plt
-plt.clf()
-
-# Assuming your data is in a DataFrame called `data`
-sns.pairplot(data, hue='species')
-
-# Set variable filename (required)
-filename = "app/downloads/iris.png"
-# save plot
-plt.savefig(filename, dpi=300, bbox_inches='tight')
-"""},
-# Example 3
-{'role':'user','content':"""
-filename:
-```
-app/downloads/titanic.csv
-```
-
-columns:
-```
-survived          int64
-pclass            int64
-sex              object
-age             float64
-sibsp             int64
-parch             int64
-fare            float64
-embarked         object
-class          category
-who              object
-adult_male         bool
-deck           category
-embark_town      object
-alive            object
-alone              bool
-dtype: object
+   sepal_length  sepal_width  petal_length  petal_width species
+0           5.1          3.5           1.4          0.2  setosa
+1           4.9          3.0           1.4          0.2  setosa
+2           4.7          3.2           1.3          0.2  setosa
 ```
 
 request:
 ```
-Create a pair plot.
-```
-"""},
-{'role':'assistant','content':"""
-import seaborn as sns
-plt.clf()
-
-# Assuming your data is in a DataFrame called `data`
-sns.pairplot(data)
-
-# Set variable filename (required)
-filename = "titanic.png"
-# save plot
-plt.savefig(filename, dpi=300, bbox_inches='tight')
-"""},
-{'role':'user','content':'''
-filename
-```
-app/downloads/modis.csv
-```
-
-columns:
-```
-latitude      float64
-longitude     float64
-brightness    float64
-scan          float64
-track         float64
-acq_date       object
-acq_time        int64
-satellite      object
-confidence      int64
-version        object
-bright_t31    float64
-frp           float64
-daynight       object
-dtype: object
-```
-
-request:
-```
-plot brightness by confidence, and set hue to the satellite type.
-```
-'''},
-{'role':'assistant','content':"""
-import seaborn as sns
-import matplotlib.pyplot as plt
-plt.clf()
-
-# Assuming your data is in a DataFrame called `data`
-sns.set(style="darkgrid")
-sns.scatterplot(data=data, x='confidence', y='brightness', hue='satellite')
-
-# Set variable filename (required)
-filename = "app/downloads/modis.png"
-# save plot
-plt.savefig(filename, dpi=300, bbox_inches='tight')
-"""},
-{'role':'user','content':"""
-
-filename:
-```
-app/downloads/chicago_crime_data_2.csv
-```
-
-columns:
-```
-date             object
-primary_type     object
-latitude        float64
-longitude       float64
-dtype: object
-```
-
-request:
-```
-Plot latitude and longitude on a folium map where primary_type = HOMICIDE. Center the map around the city of Chicago. Use red circle markers for the points.
+Create a pair plot using this data.
 ```
 
 """},
 {'role':'assistant','content':"""
-import folium
-
-# Assuming your data is in a DataFrame called `data`
-chicago_coordinates = (41.8781, -87.6298)  # Coordinates of Chicago
-
-# Filter data for primary_type = HOMICIDE
-homicide_data = data[data['primary_type'] == 'HOMICIDE']
-
-# Create a folium map centered around Chicago
-m = folium.Map(location=chicago_coordinates, zoom_start=10)
-
-# Add circle markers for each homicide incident
-for index, row in homicide_data.iterrows():
-    folium.CircleMarker(location=(row['latitude'], row['longitude']), radius=5, color='red', fill=True, fill_color='red').add_to(m)
-
-# Set variable filename (required)
-filename = "app/downloads/chicago_crime_map.html"
-# Save the map as an HTML file
-m.save(filename)
-
-"""},
-
-{'role':'user','content':"""
-
-filename:
-```
-app/downloads/COVID-data-cdc.csv
-```
-
-columns:
-```
-county                                 object
-county_fips                             int64
-state                                  object
-county_population                       int64
-health_service_area_number              int64
-health_service_area                    object
-health_service_area_population        float64
-covid_inpatient_bed_utilization       float64
-covid_hospital_admissions_per_100k    float64
-covid_cases_per_100k                  float64
-covid_19_community_level               object
-date_updated                           object
-dtype: object
-```
-
-request:
-```
-Group the data by state and count the number of cases. Create a map and color each state by the number of cases.
-```
-"""},
-{'role':'assistant','content':"""
-import folium
 import pandas as pd
-import geopandas as gpd
+import seaborn as sns
 import matplotlib.pyplot as plt
 
 plt.style.use('dark_background')
+
+# Assuming your data is in a DataFrame called `data`
+# Load the iris dataset
+data = pd.read_csv('app/downloads/iris_dataset.csv')
+
+# Create a pair plot
+sns.pairplot(data, hue='species')
+
+# Set variable filename (required)
+filename = "app/downloads/pair_plot.png"
+# Save the pair plot as an image file
+plt.savefig(filename)
+
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/titanic_dataset.csv
+```
+
+columns:
+```
+survived         int64
+pclass           int64
+sex             object
+age            float64
+sibsp            int64
+parch            int64
+fare           float64
+embarked        object
+class           object
+who             object
+adult_male        bool
+deck            object
+embark_town     object
+alive           object
+alone             bool
+dtype: object
+```
+
+First 3 rows:
+```
+   survived  pclass     sex   age  sibsp  parch     fare embarked  class    who  adult_male deck  embark_town alive  alone
+0         0       3    male  22.0      1      0   7.2500        S  Third    man        True  NaN  Southampton    no  False
+1         1       1  female  38.0      1      0  71.2833        C  First  woman       False    C    Cherbourg   yes  False
+2         1       3  female  26.0      0      0   7.9250        S  Third  woman       False  NaN  Southampton   yes   True
+```
+
+request:
+```
+Who are the youngest passengers who died?
+```
+
+"""},
+{'role':'assistant','content':"""
+import pandas as pd
+
+# Assuming your data is in a DataFrame called `data`
+# Load the Titanic dataset
+data = pd.read_csv('app/downloads/titanic_dataset.csv')
+
+# Filter the dataset to get the youngest passengers who died
+youngest_passengers_died = data[data['survived'] == 0].sort_values('age').head()
+
+# Print the results
+print(youngest_passengers_died.to_string())
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/titanic_dataset.csv
+```
+
+columns:
+```
+survived         int64
+pclass           int64
+sex             object
+age            float64
+sibsp            int64
+parch            int64
+fare           float64
+embarked        object
+class           object
+who             object
+adult_male        bool
+deck            object
+embark_town     object
+alive           object
+alone             bool
+dtype: object
+```
+
+First 3 rows:
+```
+   survived  pclass     sex   age  sibsp  parch     fare embarked  class    who  adult_male deck  embark_town alive  alone
+0         0       3    male  22.0      1      0   7.2500        S  Third    man        True  NaN  Southampton    no  False
+1         1       1  female  38.0      1      0  71.2833        C  First  woman       False    C    Cherbourg   yes  False
+2         1       3  female  26.0      0      0   7.9250        S  Third  woman       False  NaN  Southampton   yes   True
+```
+
+request:
+```
+Who are the oldest passengers who died?
+```
+
+"""},
+{'role':'assistant','content':"""
+import pandas as pd
+
+# Assuming your data is in a DataFrame called `data`
+# Load the Titanic dataset
+data = pd.read_csv('app/downloads/titanic_dataset.csv')
+
+# Filter the dataset to get the youngest passengers who died
+youngest_passengers_died = data[data['survived'] == 0].sort_values('age', ascending=False).head()
+
+# Print the results
+print(youngest_passengers_died.to_string())
+
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/sample_database_2.csv
+```
+
+columns:
+```
+Age              int64
+Home State      object
+Education       object
+Eye Color       object
+Attribute 1      int64
+Attribute 2      int64
+Attribute 3      int64
+Attribute 4      int64
+Attribute 5      int64
+Attribute 6      int64
+Attribute 7      int64
+Attribute 8      int64
+Attribute 9      int64
+Attribute 10     int64
+dtype: object
+```
+
+First 3 rows:
+```
+   Age   Home State    Education Eye Color  Attribute 1  Attribute 2  Attribute 3  Attribute 4  Attribute 5  Attribute 6  Attribute 7  Attribute 8  Attribute 9  Attribute 10
+0   56     Delaware  High School      Blue            0            0            1            1            1            1            0            0            0             0
+1   46  Mississippi          PhD     Hazel            1            1            0            0            0            1            0            0            1             0
+2   32       Hawaii  High School     Hazel            0            0            1            0            1            1            1            0            0             1
+```
+
+request:
+```
+Who has blue eyes?
+```
+
+"""},
+{'role':'assistant','content':"""
+
+import pandas as pd
+
+# Assuming your data is in a DataFrame called `data`
+# Load the sample database
+data = pd.read_csv('app/downloads/sample_database_2.csv')
+
+# Filter the dataset to get the people with blue eyes
+people_with_blue_eyes = data[data['Eye Color'] == 'Blue']
+
+# Print the results
+print(people_with_blue_eyes.to_string())
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/titanic_dataset.csv
+```
+
+columns:
+```
+survived         int64
+pclass           int64
+sex             object
+age            float64
+sibsp            int64
+parch            int64
+fare           float64
+embarked        object
+class           object
+who             object
+adult_male        bool
+deck            object
+embark_town     object
+alive           object
+alone             bool
+dtype: object
+```
+
+First 3 rows:
+```
+   survived  pclass     sex   age  sibsp  parch     fare embarked  class    who  adult_male deck  embark_town alive  alone
+0         0       3    male  22.0      1      0   7.2500        S  Third    man        True  NaN  Southampton    no  False
+1         1       1  female  38.0      1      0  71.2833        C  First  woman       False    C    Cherbourg   yes  False
+2         1       3  female  26.0      0      0   7.9250        S  Third  woman       False  NaN  Southampton   yes   True
+```
+
+request:
+```
+create a plotly histogram for age of survivors and dead.
+```
+
+"""},
+{'role':'assistant','content':"""
+import pandas as pd
+import plotly.express as px
+
+# Assuming your data is in a DataFrame called `data`
+# Load the Titanic dataset
+data = pd.read_csv('app/downloads/titanic_dataset.csv')
+
+# Set the dark theme using plotly
+px.defaults.template = "plotly_dark"
+
+# Create a histogram for age of survivors and dead
+fig = px.histogram(data, x="age", color="survived", nbins=30)
+
+# Save the figure
+# Set save filename
+save_filename = "app/downloads/titanic_plotly.html"
+fig.write_html(save_filename)
+
+# Show the plot
+fig.show()
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/sample_database_2.csv
+```
+
+columns:
+```
+Age              int64
+Home State      object
+Education       object
+Eye Color       object
+Attribute 1      int64
+Attribute 2      int64
+Attribute 3      int64
+Attribute 4      int64
+Attribute 5      int64
+Attribute 6      int64
+Attribute 7      int64
+Attribute 8      int64
+Attribute 9      int64
+Attribute 10     int64
+dtype: object
+```
+
+request:
+```
+Create a state choropleth leaflet.
+```
+
+"""},
+{'role':'assistant','content':"""
+import pandas as pd
+import geopandas as gpd
+import folium
 
 # Assuming your data is in a DataFrame called `data`
 # Load the us-states.json file into a GeoDataFrame
 gdf = gpd.read_file('app/us-states.json')
 
 # Group by state and count the number of cases
-state_cases = data.groupby('state')['covid_cases_per_100k'].count().reset_index(name='cases_count')
+state_data = data.groupby('Home State').size().reset_index(name='Count')
 
 # Merge data with gdf on state column
-merged_data = gdf.merge(state_cases, left_on='name', right_on='state')
+merged_data = gdf.merge(state_data, left_on='name', right_on='Home State')
 
-# Create a choropleth map to show the cases in each state
+# Create a choropleth map to show the count in each state
 m = folium.Map(location=[37, -102], zoom_start=4)
 
 folium.Choropleth(
     geo_data=merged_data,
     name='choropleth',
     data=merged_data,
-    columns=['state', 'cases_count'],
+    columns=['Home State', 'Count'],
     key_on='feature.properties.name',
-    fill_color='YlOrRd',
+    fill_color='YlGnBu',
     fill_opacity=0.7,
     line_opacity=0.2,
-    legend_name='COVID Cases per 100k'
+    legend_name='Count'
 ).add_to(m)
 
 folium.LayerControl().add_to(m)
 
 # Set variable filename (required)
-filename = "app/downloads/covid_choropleth.html"
+filename = "app/downloads/state_choropleth.html"
 # Save the map as an HTML file
 m.save(filename)
 
-"""},
-{'role':'user','content':"""
-
-filename:
-```
-app/downloads/COVID-data-cdc.csv
-```
-
-columns:
-```
-county                                 object
-county_fips                             int64
-state                                  object
-county_population                       int64
-health_service_area_number              int64
-health_service_area                    object
-health_service_area_population        float64
-covid_inpatient_bed_utilization       float64
-covid_hospital_admissions_per_100k    float64
-covid_cases_per_100k                  float64
-covid_19_community_level               object
-date_updated                           object
-dtype: object
-```
-
-request:
-```
-Can you group by state and count the number of cases in each state? Then create a map with states colored in with a purple or blue spectrum. Use a dark tile layer: `TileLayer('cartodbdark_matter')`.
-```
-
-"""},
-{'role':'assistant','content':"""
-import folium
-import pandas as pd
-import geopandas as gpd
-import matplotlib.pyplot as plt
-
-plt.style.use('dark_background')
-
-# Assuming your data is in a DataFrame called `data`
-# Load the us-states.json file into a GeoDataFrame
-gdf = gpd.read_file('app/us-states.json')
-
-# Group by state and count the number of cases
-state_cases = data.groupby('state')['covid_cases_per_100k'].count().reset_index(name='cases_count')
-
-# Merge data with gdf on state column
-merged_data = gdf.merge(state_cases, left_on='name', right_on='state')
-
-# Create a choropleth map to show the cases in each state
-m = folium.Map(location=[37, -102], zoom_start=4, tiles='cartodbdark_matter')
-
-folium.Choropleth(
-    geo_data=merged_data,
-    name='choropleth',
-    data=merged_data,
-    columns=['state', 'cases_count'],
-    key_on='feature.properties.name',
-    fill_color='PuRd',
-    fill_opacity=0.7,
-    line_opacity=0.2,
-    legend_name='COVID Cases'
-).add_to(m)
-
-folium.LayerControl().add_to(m)
-
-# Set variable filename (required)
-filename = "app/downloads/covid_choropleth.html"
-# Save the map as an HTML file
-m.save(filename)
 """}
 ]

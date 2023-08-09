@@ -2,7 +2,7 @@ from app.config import *
 from app.bot_functions import *
 
 async def fefe_openai(ctx,message,model,db_conn):
-    past_prompts = await fetch_prompts(db_conn, ctx.channel.name, 5)  # Fetch the last 5 prompts and responses
+    past_prompts = await fetch_prompts(db_conn, ctx.channel.name, 3)  # Fetch the last 5 prompts and responses
     messages = []
     # Construct the messages parameter with the past prompts and responses and the current message
     for prompt, response in past_prompts:
@@ -13,7 +13,7 @@ async def fefe_openai(ctx,message,model,db_conn):
     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,
-        max_tokens=1500,
+        max_tokens=1200,
         n=1,
         temperature=0.5,
         top_p=1,

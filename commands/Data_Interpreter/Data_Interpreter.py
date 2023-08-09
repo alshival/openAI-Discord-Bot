@@ -12,7 +12,7 @@ async def data_int(ctx,message,model):
             description = message,
             color = discord.Color.magenta()
         )
-    embed1.set_author(name=f"{ctx.author.name} used the Data Interpreter",icon_url=ctx.message.author.avatar)
+    embed1.set_author(name=f"{ctx.author.name} used Datall-E",icon_url=ctx.message.author.avatar)
 
     py_filename = f"app/downloads/{ctx.author.name}.py"
     #filename = f'app/downloads/{ctx.author.name}.png'
@@ -37,6 +37,12 @@ async def data_int(ctx,message,model):
     
     # For random prompts.
     messages = finetune_data.finetune
+
+    messages = [[finetune_data.finetune[i],finetune_data.finetune[i+1]] for i in [j for j in range(len(finetune_data.finetune)) if j%2==0]] 
+
+    # Random sample messages.
+    messages = random.sample(messages,4)
+    messages = [item for sublist in messages for item in sublist]
     # Prepare the prompt for OpenAI by displaying the user message and the data column types
     if filetype == '.csv':
         data = pd.read_csv(filepath)
@@ -49,6 +55,11 @@ app/downloads/{filename}
 columns:
 ```
 {data.dtypes}
+```
+
+First 3 rows:
+```
+{data.head(3).to_string()}
 ```
 
 request:

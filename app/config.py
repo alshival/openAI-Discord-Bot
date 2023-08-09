@@ -9,6 +9,7 @@ from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
 import io
 import sys
+import subprocess
 
 # Set up Discord Bot token here:
 discord_bot_token = os.environ.get("DISCORD_BOT_TOKEN")

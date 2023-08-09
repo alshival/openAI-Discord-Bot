@@ -22,7 +22,7 @@ async def discord_interpreter(interaction, message):
 
     messages = [item for sublist in messages for item in sublist]
 
-    messages.append({'role': 'user', 'content': f'Use the same standardized code format as before. Save the file using the variable `filename`:' + message})
+    messages.append({'role': 'user', 'content': f'If there are any files you wish to return to the user, assign the filename a variable first before saving. Save any files to the directory `app/downloads/:' + message})
 
     try:
         response = openai.ChatCompletion.create(

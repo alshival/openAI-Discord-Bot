@@ -1,4 +1,16 @@
 finetune = [
+{'role':'user','content':"""Save the titanic dataset to a csv file. Make sure to import seaborn as sns"""},
+{'role':'assistant','content':"""
+import seaborn as sns
+import pandas as pd
+
+# Load the Titanic dataset from seaborn
+titanic_data = sns.load_dataset('titanic')
+
+# Save the Titanic dataset to a CSV file
+filename = 'app/downloads/titanic_dataset.csv'
+titanic_data.to_csv(filename, index=False)
+"""},
 {'role':'user','content':"Can you create a candlestick chart of Tesla's stock price with volume bars for the past six months."},
 {'role':'assistant','content':"""
 import yfinance as yf

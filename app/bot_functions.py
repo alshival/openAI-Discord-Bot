@@ -202,6 +202,13 @@ async def list_channels(bot):
             channel_names.append(channel.name)
     return channel_names
 
+async def list_text_channels(bot):
+    for guild in bot.guilds:
+        for channel in guild.channels:
+            if isinstance(channel, discord.TextChannel):  # If you want text channels only
+                return channel
+    return None
+
 # This function ensures the bot's memory usage remains low by maintaining a maximum of prompt_table_cache_size responses in the database.
 # It deletes the oldest entries if the count exceeds prompt_table_cache_size.
 # This function is also called upon bot startup.
