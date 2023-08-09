@@ -4,7 +4,7 @@ Demo: [Vimeo](https://vimeo.com/845117509)
 
 Are you a parseltongue? Do you speak python? 🐍🔥📚📊⏰🎵🌟💻
 
-This Discord bot harnesses the power of OpenAI's `gpt-3.5-turbo` model and provides additional functionalities like writing and executing code, generating data visualizations from `.CSV` files 📊📈, setting reminders ⏰🔔, playing music 🎵🎶, and more. It now also includes Discord Interpreter, which allows you to create financial charts using yfinance and mix charts with regression lines, as well as Data Interpreter, which generates charts using your data. The code used to generate the image is returned as well, so that the data on the charts can be vetted. 📈📉📊🔍
+This Discord bot harnesses the power of OpenAI's `gpt-3.5-turbo` model and provides additional functionalities like writing and executing code, generating data visualizations from `.CSV` files 📊📈, setting reminders ⏰🔔, playing music 🎵🎶, and more. It now also includes **Discord Interpreter**, which allows you to manage files on your computer, create financial charts using yfinance and more using natural language. This bot also includes a tool called, **Datall-Ee**, which generates charts using data in your `.CSV` files. The code used to generate the image is returned as well, so that the data on the charts can be vetted. 📈📉📊🔍
 
 Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered. 🌟🚀💻🎉
 
@@ -42,7 +42,7 @@ This version of the bot utilizes GPT3.5. Feel free to use this code as inspirati
 - Use the command prefix `!` to interact with the bot:
 
   - `!fefe <message>`: Ask Fefe questions, set reminders, play music over a voice channel, or to write code and search for answers.
-  - `!data_interpreter`: Attach a .CSV file and ask Fefe to generate charts or maps. Then ask `!fefe` to go over the code with you.
+  - `!datalle`: Attach a .CSV file and ask Fefe to generate charts or maps. Then ask `!fefe` to go over the code with you.
   - `!exeggutor`: (Admin) Exeggute raw python code.
 - The bot also includes the following slash commands:
   - `/gpt <plugin> <message>`: Ask Fefe to search YouTube or use the Discord Interpreter to move files around on your PC or raspberry pi, or to generate financial charts. Then ask `!fefe` to go over the code with you.
