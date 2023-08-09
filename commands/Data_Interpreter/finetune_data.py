@@ -681,5 +681,129 @@ m.save(filename)
 # Open the HTML file in a web browser to view the map
 import webbrowser
 webbrowser.open(filename)
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/state_population_counts.csv
+```
+
+columns:
+```
+State         object
+Population     int64
+dtype: object
+```
+
+First 3 rows:
+```
+     State  Population
+0  Alabama     7423388
+1   Alaska     7550634
+2  Arizona     5304572
+```
+
+request:
+```
+Can you sector off the United States into `North, North East, East, South Easth`, etc, and calculate the total population?
+```
+
+"""},
+{'role':'assistant','content':"""
+import pandas as pd
+
+# Assuming your data is in a DataFrame called `data`
+# Load the state population counts
+data = pd.read_csv('app/downloads/state_population_counts.csv')
+
+# Create a dictionary to map states to regions
+region_mapping = {
+    'North': ['Connecticut', 'Maine', 'Massachusetts', 'New Hampshire', 'Rhode Island', 'Vermont'],
+    'North East': ['Delaware', 'Maryland', 'New Jersey', 'New York', 'Pennsylvania'],
+    'East': ['District of Columbia', 'Florida', 'Georgia', 'North Carolina', 'South Carolina', 'Virginia', 'West Virginia'],
+    'South East': ['Alabama', 'Arkansas', 'Kentucky', 'Louisiana', 'Mississippi', 'Tennessee'],
+    'South': ['Oklahoma', 'Texas'],
+    'Mid West': ['Illinois', 'Indiana', 'Iowa', 'Kansas', 'Michigan', 'Minnesota', 'Missouri', 'Nebraska', 'North Dakota', 'Ohio', 'South Dakota', 'Wisconsin'],
+    'West': ['Arizona', 'Colorado', 'Idaho', 'Montana', 'Nevada', 'New Mexico', 'Utah', 'Wyoming'],
+    'Pacific': ['Alaska', 'California', 'Hawaii', 'Oregon', 'Washington']
+}
+
+# Create a new column for regions
+data['Region'] = data['State'].map({state: region for region, states in region_mapping.items() for state in states})
+
+# Calculate the total population by region
+total_population_by_region = data.groupby('Region')['Population'].sum().reset_index()
+
+# Save the total population by region as a CSV file
+filename = "app/downloads/total_population_by_region.csv"
+total_population_by_region.to_csv(filename, index=False)
+
+# Show the total population by region
+total_population_by_region
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/business_listings.csv
+```
+
+columns:
+```
+Business Name        object
+Type of Business     object
+Latitude            float64
+Longitude           float64
+Open                   bool
+dtype: object
+```
+
+First 3 rows:
+```
+  Business Name Type of Business   Latitude  Longitude   Open
+0    Business 0            Salon  40.712091 -73.785713   True
+1    Business 1            Salon  40.439328 -73.573209  False
+2    Business 2            Salon  40.423729 -73.551146   True
+```
+
+request:
+```
+Mark the location of each business on a leaflet using circle markers colored by whether they are currently open or not.
+```
+
+"""},
+{'role':'assistant','content':"""
+import pandas as pd
+import folium
+
+# Assuming your data is in a DataFrame called `data`
+# Load the business listings dataset
+data = pd.read_csv('app/downloads/business_listings.csv')
+
+# Create a folium map centered at the mean latitude and longitude
+m = folium.Map(location=[data['Latitude'].mean(), data['Longitude'].mean()], zoom_start=10)
+
+# Add circle markers to the map
+for index, row in data.iterrows():
+    color = 'green' if row['Open'] else 'red'
+    folium.CircleMarker(
+        location=[row['Latitude'], row['Longitude']],
+        radius=6,
+        color=color,
+        fill=True,
+        fill_color=color,
+        fill_opacity=0.6,
+        tooltip=row['Business Name']
+    ).add_to(m)
+
+# Set variable filename (required)
+filename = "app/downloads/business_map.html"
+# Save the map as an HTML file
+m.save(filename)
+
+# Open the HTML file in a web browser to view the map
+import webbrowser
+webbrowser.open(filename)
 """}
 ]

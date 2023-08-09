@@ -6,30 +6,38 @@ Output:
 ################################################################
 Fine-tuning:
 ################################################################
-{'role':'user','content':"""Generate a sample dataset of state population counts for each of the 50 US states."""},
+{'role':'user','content':"""Create a business listing dataset. 100 business with info about type of business, latitude and longitude, and also whether they are open at the current moment or not."""},
 {'role':'assistant','content':"""
 import pandas as pd
-import numpy as np
+import random
 
-# Define the list of US states
-states = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida',
-    'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-    'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska',
-    'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio',
-    'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas',
-    'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-]
+# Generate random latitude and longitude values within a specific range
+def generate_coordinates():
+    latitude = round(random.uniform(40.0, 41.0), 6)
+    longitude = round(random.uniform(-74.0, -73.0), 6)
+    return latitude, longitude
 
-# Generate random population counts for each state
-np.random.seed(42)
-population_counts = np.random.randint(1000000, 10000000, size=len(states))
+# Generate a random boolean value to indicate whether a business is open or not
+def generate_open_status():
+    return random.choice([True, False])
 
-# Create a DataFrame to store the state population data
-data = pd.DataFrame({'State': states, 'Population': population_counts})
+# Generate a business listing dataset
+businesses = []
+for _ in range(100):
+    business = {
+        'Business Name': f'Business {_}',
+        'Type of Business': random.choice(['Restaurant', 'Retail', 'Salon', 'Gym', 'Cafe']),
+        'Latitude': generate_coordinates()[0],
+        'Longitude': generate_coordinates()[1],
+        'Open': generate_open_status()
+    }
+    businesses.append(business)
 
-# Save the dataset as a CSV file
-filename = 'app/downloads/state_population_counts.csv'
-data.to_csv(filename, index=False)
+# Convert the list of dictionaries into a pandas DataFrame
+df = pd.DataFrame(businesses)
+
+# Save the DataFrame as a CSV file
+filename = "app/downloads/business_listings.csv"
+df.to_csv(filename, index=False)
 
 """}
