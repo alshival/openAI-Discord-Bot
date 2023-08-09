@@ -75,6 +75,10 @@ folium.LayerControl().add_to(m)
 filename = "app/downloads/state_choropleth.html"
 # Save the map as an HTML file
 m.save(filename)
+
+# Open the HTML file in a web browser to view the map
+import webbrowser
+webbrowser.open(filename)
 """},
 {'role':'user','content':"""
 
@@ -125,7 +129,6 @@ sns.pairplot(data, hue='species')
 filename = "app/downloads/pair_plot.png"
 # Save the pair plot as an image file
 plt.savefig(filename)
-
 """},
 {'role':'user','content':"""
 
@@ -422,5 +425,261 @@ filename = "app/downloads/state_choropleth.html"
 # Save the map as an HTML file
 m.save(filename)
 
+# Open the HTML file in a web browser to view the map
+import webbrowser
+webbrowser.open(filename)
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/titanic_dataset.csv
+```
+
+columns:
+```
+survived         int64
+pclass           int64
+sex             object
+age            float64
+sibsp            int64
+parch            int64
+fare           float64
+embarked        object
+class           object
+who             object
+adult_male        bool
+deck            object
+embark_town     object
+alive           object
+alone             bool
+dtype: object
+```
+
+First 3 rows:
+```
+   survived  pclass     sex   age  sibsp  parch     fare embarked  class    who  adult_male deck  embark_town alive  alone
+0         0       3    male  22.0      1      0   7.2500        S  Third    man        True  NaN  Southampton    no  False
+1         1       1  female  38.0      1      0  71.2833        C  First  woman       False    C    Cherbourg   yes  False
+2         1       3  female  26.0      0      0   7.9250        S  Third  woman       False  NaN  Southampton   yes   True
+```
+
+request:
+```
+Create an interactive histogram showing survivors and dead for males and females. Save the `.html` file and then `.show()` the figure.
+```
+
+"""},
+{'role':'assistant','content':"""
+
+import pandas as pd
+import plotly.express as px
+
+# Assuming your data is in a DataFrame called `data`
+# Load the Titanic dataset
+data = pd.read_csv('app/downloads/titanic_dataset.csv')
+
+# Set the dark theme using matplotlib
+import matplotlib.pyplot as plt
+plt.style.use('dark_background')
+
+# Create an interactive histogram showing survivors and dead for males and females
+fig = px.histogram(data, x="sex", color="survived", barmode="group")
+
+# Save the figure as an HTML file
+filename = "app/downloads/titanic_histogram.html"
+fig.write_html(filename)
+
+# Show the figure
+fig.show()
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/sample_dataset.csv
+```
+
+columns:
+```
+Latitude         float64
+Longitude        float64
+Business Type     object
+dtype: object
+```
+
+First 3 rows:
+```
+    Latitude   Longitude Business Type
+0  26.178626  -86.813786    Restaurant
+1  32.382985  -97.108596  Retail Store
+2  33.379966 -107.710758           Gym
+```
+
+request:
+```
+create a folium map using latitude and longitude. Use red circle markers of radius 6.
+```
+
+"""},
+{'role':'assistant','content':"""
+import pandas as pd
+import folium
+
+# Assuming your data is in a DataFrame called `data`
+# Load the sample dataset
+data = pd.read_csv('app/downloads/sample_dataset.csv')
+
+# Create a folium map centered on the first latitude and longitude
+m = folium.Map(location=[data['Latitude'].iloc[0], data['Longitude'].iloc[0]], zoom_start=10)
+
+# Add red circle markers for each latitude and longitude
+for index, row in data.iterrows():
+    folium.CircleMarker(
+        location=[row['Latitude'], row['Longitude']],
+        radius=6,
+        color='red',
+        fill=True,
+        fill_color='red'
+    ).add_to(m)
+
+# Set variable filename (required)
+filename = "app/downloads/folium_map.html"
+# Save the map as an HTML file
+m.save(filename)
+
+# Open the HTML file in a web browser to view the map
+import webbrowser
+webbrowser.open(filename)
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/sample_dataset.csv
+```
+
+columns:
+```
+Latitude         float64
+Longitude        float64
+Business Type     object
+dtype: object
+```
+
+First 3 rows:
+```
+    Latitude   Longitude Business Type
+0  26.178626  -86.813786    Restaurant
+1  32.382985  -97.108596  Retail Store
+2  33.379966 -107.710758           Gym
+```
+
+request:
+```
+create a folium map using latitude and longitude. Use red circle markers of radius 6. Add the type of business to the tooltip.
+```
+
+"""},
+{'role':'assistant','content':"""
+import pandas as pd
+import folium
+
+# Assuming your data is in a DataFrame called `data`
+# Load the sample dataset
+data = pd.read_csv('app/downloads/sample_dataset.csv')
+
+# Create a folium map centered at the mean latitude and longitude
+m = folium.Map(location=[data['Latitude'].mean(), data['Longitude'].mean()], zoom_start=4)
+
+# Add red circle markers to the map
+for index, row in data.iterrows():
+    folium.CircleMarker(
+        location=[row['Latitude'], row['Longitude']],
+        radius=6,
+        color='red',
+        fill=True,
+        fill_color='red',
+        fill_opacity=0.6,
+        tooltip=row['Business Type']
+    ).add_to(m)
+
+# Set variable filename (required)
+filename = "app/downloads/folium_map.html"
+# Save the map as an HTML file
+m.save(filename)
+
+# Open the HTML file in a web browser to view the map
+import webbrowser
+webbrowser.open(filename)
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/state_population_counts.csv
+```
+
+columns:
+```
+State         object
+Population     int64
+dtype: object
+```
+
+First 3 rows:
+```
+     State  Population
+0  Alabama     7423388
+1   Alaska     7550634
+2  Arizona     5304572
+```
+
+request:
+```
+Create a state choropleth, colored by the population count.
+```
+
+"""},
+{'role':'assistant','content':"""
+import pandas as pd
+import geopandas as gpd
+import folium
+
+# Assuming your data is in a DataFrame called `data`
+# Load the us-states.json file into a GeoDataFrame
+gdf = gpd.read_file('app/us-states.json')
+
+# Load the state population counts
+state_population = pd.read_csv('app/downloads/state_population_counts.csv')
+
+# Merge data with gdf on state column
+merged_data = gdf.merge(state_population, left_on='name', right_on='State')
+
+# Create a choropleth map to show the population count in each state
+m = folium.Map(location=[37, -102], zoom_start=4)
+
+folium.Choropleth(
+    geo_data=merged_data,
+    name='choropleth',
+    data=merged_data,
+    columns=['State', 'Population'],
+    key_on='feature.properties.name',
+    fill_color='YlGnBu',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='Population Count'
+).add_to(m)
+
+folium.LayerControl().add_to(m)
+
+# Set variable filename (required)
+filename = "app/downloads/state_population_choropleth.html"
+# Save the map as an HTML file
+m.save(filename)
+
+# Open the HTML file in a web browser to view the map
+import webbrowser
+webbrowser.open(filename)
 """}
 ]

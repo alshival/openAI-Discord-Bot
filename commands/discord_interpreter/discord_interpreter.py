@@ -22,7 +22,7 @@ async def discord_interpreter(interaction, message):
 
     messages = [item for sublist in messages for item in sublist]
 
-    messages.append({'role': 'user', 'content': f'If there are any files you wish to return to the user, assign the filename a variable first before saving. Save any files to the directory `app/downloads/:' + message})
+    messages.append({'role': 'user', 'content': f'If there are any files you wish to return to the user, assign the filename a variable first before saving. Save any files to the directory `app/downloads/`:' + message})
 
     try:
         response = openai.ChatCompletion.create(
@@ -121,9 +121,6 @@ Fine-tuning:
         file.write(jsonl)
     # Send the .png file back
     await interaction.followup.send(files=[discord.File(x) for x in files_to_send] + [discord.File(py_filename)],embed=embed1)
-    # delete locally saved .png file
-    for file in files_to_send:
-        os.remove(file)
         
     db_conn = await create_connection()
     await store_prompt(db_conn, interaction.user.name, message, openai_model, extracted_code, interaction.channel_id,interaction.channel.name,'')

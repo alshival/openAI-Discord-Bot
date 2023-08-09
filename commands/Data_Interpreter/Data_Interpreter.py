@@ -68,7 +68,7 @@ request:
 ```
 """
     
-    messages.append({'role': 'user', 'content': f'If you decide to use a dark theme using matplotlib, set it using `plot.style.use(\'dark_background\')`: \n' + prompt_prep})
+    messages.append({'role': 'user', 'content': f'If there are any files you wish to return to the user, assign the filename a variable first before saving. Save any files to the directory `app/downloads/`: \n' + prompt_prep})
     
     try: 
         # Generate a response using the 'gpt-3.5-turbo' model
