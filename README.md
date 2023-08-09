@@ -4,7 +4,7 @@ Demo: [Vimeo](https://vimeo.com/845117509)
 
 Are you a parseltongue? Do you speak python? 🐍🔥📚📊⏰🎵🌟💻
 
-This Discord bot harnesses the power of OpenAI's `gpt-3.5-turbo` model and provides additional functionalities like writing and executing code, generating data visualizations from `.CSV` files 📊📈, setting reminders ⏰🔔, playing music 🎵🎶, and more. It now also includes **Discord Interpreter**, which allows you to manage files on your computer, create financial charts using yfinance and more using natural language. This bot also includes a tool called, **Datall-Ee**, which generates charts using data in your `.CSV` files. The code used to generate the image is returned as well, so that the data on the charts can be vetted. 📈📉📊🔍
+This Discord bot harnesses the power of OpenAI's `gpt-3.5-turbo` model and provides additional functionalities like writing and executing code, generating data visualizations from `.CSV` files 📊📈, setting reminders ⏰🔔, playing music 🎵🎶, and more. It now also includes **Discord Interpreter**, which allows you to manage files on your computer, create financial charts using yfinance and more using natural language. This bot also includes a tool called, **Datall-E**, which generates charts using data in your `.CSV` files. The code used to generate the image is returned as well, so that the data on the charts can be vetted. 📈📉📊🔍
 
 Created by [Alshival's Data Service](https://alshival.com) to enhance your Discord server experience. Whether it's for personal use, a group of friends, a study group, or project management, this bot has got you covered. 🌟🚀💻🎉
 
