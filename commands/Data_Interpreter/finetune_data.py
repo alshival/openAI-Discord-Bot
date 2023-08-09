@@ -805,5 +805,85 @@ m.save(filename)
 # Open the HTML file in a web browser to view the map
 import webbrowser
 webbrowser.open(filename)
+"""},
+{'role':'user','content':"""
+
+filename:
+```
+app/downloads/chicago_homicide_data_1.csv
+```
+
+columns:
+```
+id                        int64
+case_number              object
+date                     object
+block                    object
+iucr                      int64
+primary_type             object
+description              object
+location_description     object
+arrest                     bool
+domestic                   bool
+beat                      int64
+district                  int64
+ward                      int64
+community_area            int64
+fbi_code                 object
+x_coordinate            float64
+y_coordinate            float64
+year                      int64
+updated_on               object
+latitude                float64
+longitude               float64
+location                 object
+dtype: object
+```
+
+First 3 rows:
+```
+      id case_number                     date                 block  iucr primary_type          description location_description  arrest  domestic  beat  district  ward  community_area fbi_code  x_coordinate  y_coordinate  year               updated_on   latitude  longitude                                                                                                                            location
+0  27595    JG320179  2023-06-28T23:04:00.000    036XX N KEDZIE AVE   110     HOMICIDE  FIRST DEGREE MURDER                ALLEY    True     False  1733        17    33              16      01A     1154405.0     1924119.0  2023  2023-07-06T16:46:09.000  41.947608 -87.707847  {'latitude': '41.947607802', 'longitude': '-87.707846683', 'human_address': '{"address": "", "city": "", "state": "", "zip": ""}'}
+1  27600    JG321314  2023-06-29T19:40:00.000   066XX S STEWART AVE   110     HOMICIDE  FIRST DEGREE MURDER               STREET   False     False   722         7     6              68      01A     1174775.0     1860707.0  2023  2023-07-06T16:48:39.000  41.773168 -87.634868  {'latitude': '41.773168477', 'longitude': '-87.634868256', 'human_address': '{"address": "", "city": "", "state": "", "zip": ""}'}
+2  27597    JG313398  2023-06-29T07:00:00.000  049XX S KILBOURN AVE   110     HOMICIDE  FIRST DEGREE MURDER               STREET   False     False   815         8    14              57      01A     1147193.0     1871572.0  2023  2023-07-06T16:48:39.000  41.803554 -87.735701  {'latitude': '41.803553993', 'longitude': '-87.735701327', 'human_address': '{"address": "", "city": "", "state": "", "zip": ""}'}
+```
+
+request:
+```
+plot the cities homicides on a map using red circle markers. Can you add the description to the text I see when I hover over a marker?
+```
+
+"""},
+{'role':'assistant','content':"""
+import pandas as pd
+import folium
+
+# Assuming your data is in a DataFrame called `data`
+# Load the Chicago homicide dataset
+data = pd.read_csv('app/downloads/chicago_homicide_data_1.csv')
+
+# Create a folium map centered at the mean latitude and longitude
+m = folium.Map(location=[data['latitude'].mean(), data['longitude'].mean()], zoom_start=10)
+
+# Add red circle markers to the map
+for index, row in data.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=6,
+        color='red',
+        fill=True,
+        fill_color='red',
+        fill_opacity=0.6,
+        tooltip=row['description']
+    ).add_to(m)
+
+# Set variable filename (required)
+filename = "app/downloads/homicide_map.html"
+# Save the map as an HTML file
+m.save(filename)
+
+# Open the HTML file in a web browser to view the map
+import webbrowser
+webbrowser.open(filename)
 """}
 ]

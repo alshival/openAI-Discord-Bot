@@ -41,7 +41,7 @@ async def data_int(ctx,message,model):
     messages = [[finetune_data.finetune[i],finetune_data.finetune[i+1]] for i in [j for j in range(len(finetune_data.finetune)) if j%2==0]] 
 
     # Random sample messages.
-    messages = random.sample(messages,4)
+    messages = random.sample(messages,3)
     messages = [item for sublist in messages for item in sublist]
     # Prepare the prompt for OpenAI by displaying the user message and the data column types
     if filetype == '.csv':
