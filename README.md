@@ -1,4 +1,4 @@
-Note: [GPT-4 Version (without music playback & reminders) now available](https://github.com/alshival/gpt4-Discord-Bot)!
+Note: [GPT-4 Version (without music playback) now available](https://github.com/alshival/gpt4-Discord-Bot)!
 # 🤖🔥 OpenAI Discord Bot with Python Support 🐍🚀💻
 
 Demo: [Vimeo](https://vimeo.com/845117509)
